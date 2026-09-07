@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme="light"] {
+  --bg: #f7f8fa;
+  --ink: #0f1115;
+  --muted: #676c76;
+  --accent: #3b6fe0;
+  --accent-2: #8b5cf6;
+  --line: #dfe2e7;
+
+  /* shadcn/ui semantic tokens */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--bg);
+  --card-foreground: var(--ink);
+  --popover: var(--bg);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--bg);
+  --secondary: color-mix(in srgb, var(--ink) 5%, transparent);
+  --secondary-foreground: var(--ink);
+  --muted-foreground: var(--muted);
+  --accent-foreground: var(--bg);
+  --destructive: #dc2626;
+  --destructive-foreground: var(--bg);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--accent);
+  --radius: 0.125rem;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0e17;
+  --ink: #eef1f6;
+  --muted: #8a90a0;
+  --accent: #5b8dff;
+  --accent-2: #a78bfa;
+  --line: #1e2430;
+
+  /* shadcn/ui semantic tokens */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--bg);
+  --card-foreground: var(--ink);
+  --popover: var(--bg);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--bg);
+  --secondary: color-mix(in srgb, var(--ink) 12%, transparent);
+  --secondary-foreground: var(--ink);
+  --muted-foreground: var(--muted);
+  --accent-foreground: var(--bg);
+  --destructive: #f87171;
+  --destructive-foreground: var(--bg);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--accent);
+  --radius: 0.125rem;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* View Transition: circular clip-path ripple for theme switch */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+  clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%));
+  animation: theme-ripple 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes theme-ripple {
+  from {
+    clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%));
+  }
+  to {
+    clip-path: circle(150% at var(--tx, 50%) var(--ty, 50%));
+  }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes caret-blink {
+  50% { border-color: transparent; }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  border-right: 2px solid var(--accent);
+  width: 0;
+  animation:
+    typing 1.6s steps(30, end) 0.4s forwards,
+    caret-blink 0.85s step-end infinite 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter {
+    width: 100%;
+    animation: none;
+    border-right-color: transparent;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
