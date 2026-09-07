@@ -91,7 +91,8 @@ export default function Sidebar() {
 
   return (
     <TooltipProvider delayDuration={200}>
-      <> — hidden on mobile, visible md+ */}
+      <>
+      {/* Sidebar rail — hidden on mobile, visible md+ */}
       <aside
         className={clsx(
           "hidden md:flex fixed top-0 left-0 h-full flex-col z-50",

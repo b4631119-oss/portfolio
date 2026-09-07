@@ -28,9 +28,20 @@ function resolve(mode: ThemeMode): "light" | "dark" {
     : "light";
 }
 
+function readStoredMode(): ThemeMode {
+  try {
+    const raw = localStorage.getItem("theme");
+    if (raw === "light" || raw === "dark" || raw === "system") return raw;
+  } catch {
+    /* ignore */
+  }
+  return "system";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setModeState] = useState<ThemeMode>("system");
-  const [resolved, setResolved] = useState<"light" | "dark">("light");
+  // Lazy initializer reads localStorage on mount — no effect needed.
+  const [mode, setModeState] = useState<ThemeMode>(() => readStoredMode());
+  const [resolved, setResolved] = useState<"light" | "dark">(() => resolve(readStoredMode()));
 
   // Apply to DOM + persist
   const apply = useCallback((next: ThemeMode) => {
@@ -42,23 +53,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       /* private mode — best effort */
     }
     setModeState(next);
-    setResolved(applied);
-  }, []);
-
-  // On mount: read stored preference, apply
-  useEffect(() => {
-    let stored: ThemeMode = "system";
-    try {
-      const raw = localStorage.getItem("theme");
-      if (raw === "light" || raw === "dark" || raw === "system") {
-        stored = raw;
-      }
-    } catch {
-      /* ignore */
-    }
-    const applied = resolve(stored);
-    document.documentElement.setAttribute("data-theme", applied);
-    setModeState(stored);
     setResolved(applied);
   }, []);
 
