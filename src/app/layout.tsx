@@ -66,6 +66,33 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Bilol",
+    jobTitle: "Full-Stack Developer",
+    url: siteUrl,
+    sameAs: [
+      "https://github.com/b4631119-oss",
+      "https://t.me/Teg123489",
+    ],
+  };
+
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Bilol — Full-Stack Developer",
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
@@ -88,23 +115,18 @@ export default function RootLayout({
 })();`,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([personSchema, webSiteSchema]) }}
+        />
       </head>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-bg text-ink`}
-      >
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-bg text-ink`}>
         <ThemeProvider>
-          <div className="flex min-h-screen">
-            {/* Sidebar: visible md+, provides its own left padding spacer */}
-            <Sidebar />
-
-            {/* Main content area */}
-            <main className="flex-1 min-w-0 pb-20 md:pb-0">
-              {children}
-            </main>
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1 pt-16">{children}</main>
+            <Footer />
           </div>
-
-          {/* Mobile bottom nav: visible below md */}
-          <MobileNav />
         </ThemeProvider>
       </body>
     </html>
