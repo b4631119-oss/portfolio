@@ -50,15 +50,15 @@ export default function ThemeToggle({ className }: { className?: string }) {
     }
   }
 
-  return (
+return (
     <button
       type="button"
       onClick={handleClick}
-      aria-label={labels[mode] ?? "Переключить тему"}
+      aria-label={labels[mode] ?? "Переключить тема"}
       title={labels[mode]}
       className={
         className ??
-        "inline-flex h-8 w-8 items-center justify-center text-muted hover:text-accent transition-colors"
+        "inline-flex h-8 w-8 items-center justify-center text-muted hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
       }
     >
       {icons[mode]}
