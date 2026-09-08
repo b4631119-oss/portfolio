@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
-import Sidebar from "@/components/layout/Sidebar";
-import MobileNav from "@/components/layout/MobileNav";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,9 +17,48 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bilol.dev";
+
 export const metadata: Metadata = {
-  title: "Bilol — Frontend Developer",
-  description: "Портфолио начинающего frontend-разработчика",
+  title: {
+    default: "Bilol — Full-Stack Developer",
+    template: "%s — Bilol",
+  },
+  description:
+    "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, Python, Django, PostgreSQL.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    type: "website",
+    title: "Bilol — Full-Stack Developer",
+    description:
+      "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, Python, Django, PostgreSQL.",
+    url: siteUrl,
+    siteName: "Bilol",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Bilol — Full-Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bilol — Full-Stack Developer",
+    description:
+      "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, Python, Django, PostgreSQL.",
+    images: ["/opengraph-image"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
