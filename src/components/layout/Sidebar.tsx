@@ -65,11 +65,10 @@ function readCollapsed(): boolean {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(() => readCollapsed());
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setCollapsed(readCollapsed());
     setMounted(true);
   }, []);
 
