@@ -2,20 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-:root[data-theme="light"] {
-  --bg: #f7f8fa;
-  --ink: #0f1115;
-  --muted: #676c76;
-  --accent: #3b6fe0;
-  --accent-2: #8b5cf6;
-  --line: #dfe2e7;
+:root[data-theme="dark"] {
+  --bg: #0a0a0c;
+  --bg-elevated: #111114;
+  --ink: #f5f5f7;
+  --muted: #8d8d93;
+  --accent: #5b8dff;
+  --accent-2: #a78bfa;
+  --line: #232326;
+  --glow: rgba(91, 141, 255, 0.15);
 
   /* shadcn/ui semantic tokens */
   --background: var(--bg);
   --foreground: var(--ink);
-  --card: var(--bg);
+  --card: var(--bg-elevated);
   --card-foreground: var(--ink);
-  --popover: var(--bg);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--bg);
+  --secondary: color-mix(in srgb, var(--ink) 8%, transparent);
+  --secondary-foreground: var(--ink);
+  --muted-foreground: var(--muted);
+  --accent-foreground: var(--bg);
+  --destructive: #f87171;
+  --destructive-foreground: var(--bg);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--accent);
+  --radius: 0.5rem;
+}
+
+:root[data-theme="light"] {
+  --bg: #fafafa;
+  --bg-elevated: #ffffff;
+  --ink: #0a0a0c;
+  --muted: #6e6e73;
+  --accent: #3b6fe0;
+  --accent-2: #8b5cf6;
+  --line: #e5e5e7;
+  --glow: rgba(59, 111, 224, 0.08);
+
+  /* shadcn/ui semantic tokens */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--bg-elevated);
+  --card-foreground: var(--ink);
+  --popover: var(--bg-elevated);
   --popover-foreground: var(--ink);
   --primary: var(--accent);
   --primary-foreground: var(--bg);
@@ -28,36 +61,7 @@
   --border: var(--line);
   --input: var(--line);
   --ring: var(--accent);
-  --radius: 0.125rem;
-}
-
-:root[data-theme="dark"] {
-  --bg: #0a0e17;
-  --ink: #eef1f6;
-  --muted: #8a90a0;
-  --accent: #5b8dff;
-  --accent-2: #a78bfa;
-  --line: #1e2430;
-
-  /* shadcn/ui semantic tokens */
-  --background: var(--bg);
-  --foreground: var(--ink);
-  --card: var(--bg);
-  --card-foreground: var(--ink);
-  --popover: var(--bg);
-  --popover-foreground: var(--ink);
-  --primary: var(--accent);
-  --primary-foreground: var(--bg);
-  --secondary: color-mix(in srgb, var(--ink) 12%, transparent);
-  --secondary-foreground: var(--ink);
-  --muted-foreground: var(--muted);
-  --accent-foreground: var(--bg);
-  --destructive: #f87171;
-  --destructive-foreground: var(--bg);
-  --border: var(--line);
-  --input: var(--line);
-  --ring: var(--accent);
-  --radius: 0.125rem;
+  --radius: 0.5rem;
 }
 
 body {
@@ -116,6 +120,11 @@ body {
     caret-blink 0.85s step-end infinite 0.4s;
 }
 
+/* Glow surface utility for hero backgrounds */
+.glow-surface {
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--glow), transparent 70%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .typewriter {
     width: 100%;
@@ -125,5 +134,13 @@ body {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

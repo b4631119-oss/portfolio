@@ -32,8 +32,10 @@ const config: Config = {
         input: "var(--input)",
         ring: "var(--ring)",
         bg: "var(--bg)",
+        "bg-elevated": "var(--bg-elevated)",
         ink: "var(--ink)",
         line: "var(--line)",
+        glow: "var(--glow)",
       },
       borderRadius: {
         sm: "calc(var(--radius) - 4px)",
