@@ -4,16 +4,13 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
-  useState,
+  useSyncExternalStore,
 } from "react";
 
 type ThemeMode = "system" | "light" | "dark";
 
 type ThemeContextValue = {
-  /** The user's chosen preference — "system" means follow OS. */
   mode: ThemeMode;
-  /** The resolved theme actually applied to the DOM. */
   resolved: "light" | "dark";
   setMode: (mode: ThemeMode) => void;
 };
@@ -38,46 +35,87 @@ function readStoredMode(): ThemeMode {
   return "system";
 }
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Lazy initializer reads localStorage on mount — no effect needed.
-  const [mode, setModeState] = useState<ThemeMode>(() => readStoredMode());
-  const [resolved, setResolved] = useState<"light" | "dark">(() => resolve(readStoredMode()));
+function getServerSnapshot() {
+  return "light" as const;
+}
 
-  // Apply to DOM + persist
-  const apply = useCallback((next: ThemeMode) => {
+function createThemeStore() {
+  let mode: ThemeMode = "system";
+  let resolved: "light" | "dark" = "light";
+  const listeners = new Set<() => void>();
+
+  if (typeof window !== "undefined") {
+    mode = readStoredMode();
+    resolved = resolve(mode);
+  }
+
+  function subscribe(listener: () => void) {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }
+
+  function notify() {
+    listeners.forEach((listener) => listener());
+  }
+
+  function apply(next: ThemeMode) {
     const applied = resolve(next);
-    document.documentElement.setAttribute("data-theme", applied);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {
-      /* private mode — best effort */
+    mode = next;
+    resolved = applied;
+    if (typeof window !== "undefined") {
+      document.documentElement.setAttribute("data-theme", applied);
+      try {
+        localStorage.setItem("theme", next);
+      } catch {
+        /* ignore */
+      }
     }
-    setModeState(next);
-    setResolved(applied);
-  }, []);
+    notify();
+  }
 
-  // Listen for OS changes when in "system" mode
-  useEffect(() => {
+  if (typeof window !== "undefined") {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     function handler() {
       if (mode === "system") {
         const applied = mq.matches ? "dark" : "light";
-        document.documentElement.setAttribute("data-theme", applied);
-        setResolved(applied);
+        if (applied !== resolved) {
+          resolved = applied;
+          document.documentElement.setAttribute("data-theme", applied);
+          notify();
+        }
       }
     }
     mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, [mode]);
+  }
+
+  return {
+    getMode: (): ThemeMode => mode,
+    getResolved: () => resolved,
+    subscribe,
+    apply,
+  };
+}
+
+const themeStore = createThemeStore();
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const mode = useSyncExternalStore<ThemeMode>(
+    themeStore.subscribe,
+    themeStore.getMode,
+    () => "system"
+  );
+  const resolved = useSyncExternalStore<"light" | "dark">(
+    themeStore.subscribe,
+    themeStore.getResolved,
+    getServerSnapshot
+  );
+
+  const setMode = useCallback((next: ThemeMode) => {
+    themeStore.apply(next);
+  }, []);
 
   return (
-    <ThemeContext.Provider
-      value={{
-        mode,
-        resolved,
-        setMode: apply,
-      }}
-    >
+    <ThemeContext.Provider value={{ mode, resolved, setMode }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -86,7 +124,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 export function useTheme() {
   const ctx = useContext(ThemeContext);
   if (!ctx) {
-    // SSR / outside provider — return safe defaults
     return {
       mode: "system" as ThemeMode,
       resolved: "light" as "light" | "dark",
