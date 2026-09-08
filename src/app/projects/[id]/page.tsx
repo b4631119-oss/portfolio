@@ -16,7 +16,7 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound();
 
   return (
-    <div className="max-w-3xl mx-auto px-6 pt-8 md:pt-12 pb-24 font-sans">
+    <div className="max-w-3xl mx-auto px-6 pb-24 font-sans">
       <Link
         href="/projects"
         className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors"
