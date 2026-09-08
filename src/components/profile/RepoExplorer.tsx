@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { clsx } from "clsx";
 import { Star, GitFork, FileText } from "lucide-react";
-import ReactMarkdown from "react-markdown";
 import type { GithubRepo } from "@/lib/github";
 import { languageColor } from "@/lib/language-colors";
 import {
@@ -23,6 +23,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+const ReactMarkdown = dynamic(() => import("react-markdown"), {
+  ssr: false,
+  loading: () => <div className="space-y-3" aria-hidden><Skeleton className="h-4 w-3/4" /><Skeleton className="h-4 w-full" /><Skeleton className="h-4 w-5/6" /></div>,
+});
 
 type SortKey = "stars" | "updated" | "name";
 
@@ -255,7 +260,7 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
         >
           <SelectTrigger
             aria-label="Сортировка репозиториев"
-            className="w-[220px] font-mono text-sm"
+            className="w-full sm:w-[220px] font-mono text-sm"
           >
             <SelectValue placeholder="Сортировка" />
           </SelectTrigger>
