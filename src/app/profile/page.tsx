@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -7,6 +8,12 @@ import {
   type GithubUser,
 } from "@/lib/github";
 import RepoExplorer from "@/components/profile/RepoExplorer";
+
+export const metadata: Metadata = {
+  title: "GitHub Profile",
+  description:
+    "Live GitHub data — repositories, followers, and project activity. Explore real-time stats and repository details from github.com/b4631119-oss.",
+};
 
 export default async function ProfilePage() {
   let user: GithubUser | null = null;
@@ -22,7 +29,7 @@ export default async function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="max-w-5xl mx-auto px-6 pt-8 md:pt-12 pb-24 font-sans">
+      <div className="max-w-5xl mx-auto px-6 pb-24 font-sans">
         <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl">
           Профиль
         </h1>
@@ -40,7 +47,7 @@ export default async function ProfilePage() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-6 pt-8 md:pt-12 pb-24 font-sans">
+    <div className="max-w-5xl mx-auto px-4 md:px-6 pt-16 pb-24 font-sans">
       <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl">
         Профиль
       </h1>
@@ -70,9 +77,9 @@ export default async function ProfilePage() {
             </p>
           )}
 
-          <div className="mt-6 flex flex-wrap divide-x divide-line">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-x-8">
             {stats.map((stat) => (
-              <div key={stat.label} className="px-6 first:pl-0">
+              <div key={stat.label} className="px-6 first:pl-0 sm:pl-6">
                 <div className="font-mono text-xl text-ink">
                   {stat.value}
                 </div>
