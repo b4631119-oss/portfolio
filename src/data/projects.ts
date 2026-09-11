@@ -5,61 +5,55 @@ export const projects: Project[] = [
     id: "prolab-academy",
     title: "PROlab Academy",
     description:
-      "Образовательная платформа для учителей и учеников в Оше, Кыргызстан. Курсы программирования (JavaScript, HTML, CSS для начинающих) и система онлайн-экзаменов/тестирования с отдельными входами для учителей и учеников.",
+      "Production educational platform for teachers and students in Osh, Kyrgyzstan. Programming courses (JavaScript, HTML, CSS for beginners) and a full online exam/testing system with separate teacher/student login flows. Built with role-based access control via RLS.",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "JWT", "RLS", "E2E Testing"],
-    githubUrl: "https://github.com/b4631119-oss/prolab-academy",
+    githubUrl: "https://github.com/b4631119-oss/academy-exam",
     liveUrl: "https://www.prolab-academy.site/",
+    role: "Solo Developer",
   },
   {
-    id: "telephone-osh",
-    title: "Telephone Osh",
+    id: "localbridge",
+    title: "LocalBridge",
     description:
-      "Интернет-магазин смартфонов и аксессуаров в Оше, Кыргызстан. Каталог товаров, корзина, оформление заказов, админ-панель для управления товарами и заказами.",
-    tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Stripe"],
-    githubUrl: "https://github.com/b4631119-oss/telephone-osh",
-    liveUrl: "https://telephone-osh.vercel.app/",
+      "High-performance, zero-configuration P2P utility for sharing files, text, and links between devices on the same LAN — no cloud, no accounts, no IP hunting. Built as a desktop-only application (Linux/Windows/macOS) using C#, .NET, and Avalonia UI.",
+    tags: ["C#", ".NET", "Avalonia", "P2P", "LAN"],
+    githubUrl: "https://github.com/b4631119-oss/LocalBridge",
   },
   {
-    id: "jerdeshmoskva",
-    title: "JerdeshMoskva",
+    id: "macos-portfolio",
+    title: "macOS Portfolio",
     description:
-      "Доска объявлений (Next.js + Supabase) для киргизскоязычного сообщества в Москве. Поиск, фильтрация, создание объявлений, авторизация, чат между пользователями.",
-    tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Real-time"],
-    githubUrl: "https://github.com/b4631119-oss/jerdeshmoskva",
+      "Interactive web portfolio built as a macOS-style desktop environment with custom window management, Dock, Finder, and app windows. Implements custom window management (drag, resize, minimize, maximize, close, z-index stacking), virtual file system, and smooth Framer Motion animations.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "GitHub API"],
+    githubUrl: "https://github.com/b4631119-oss/macOs-portfolio",
+    liveUrl: "https://mac-os-portfolio-app.vercel.app/",
   },
 ];
 
 export const experiments: Project[] = [
   {
-    id: "greenshop",
-    title: "GreenShop",
+    id: "chat-app",
+    title: "Real-Time Chat App",
     description:
-      "Интернет-магазин растений. Вёрстка на HTML/CSS с интерактивностью на JavaScript. Каталог товаров, навигация, адаптивный дизайн.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/b4631119-oss/greenshop",
+      "Real-time multi-room chat application with Firebase Authentication, Firestore real-time database, user profiles, and room-based messaging. Features online presence indicators and message persistence.",
+    tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "Auth"],
+    githubUrl: "https://github.com/b4631119-oss/chat-app",
   },
   {
-    id: "kidztar",
-    title: "Kidztar",
+    id: "cuaderno",
+    title: "Cuaderno",
     description:
-      "React приложение. Компонентный подход, работа с состоянием и props.",
-    tags: ["React", "JavaScript"],
-    githubUrl: "https://github.com/b4631119-oss/kidztar",
+      "Digital notebook for notes — write, save, always at hand. Features authentication, pages, auto-save, and customizable covers. Built with Next.js, TypeScript, Firebase, and Firestore.",
+    tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "Auth"],
+    githubUrl: "https://github.com/b4631119-oss/cuaderno",
+    liveUrl: "https://cuaderno-nine.vercel.app",
   },
   {
-    id: "my-js-cards",
-    title: "JS Cards",
+    id: "movie-app",
+    title: "Movie App",
     description:
-      "Карточки на JavaScript. Динамический рендер, стилизация на CSS.",
-    tags: ["JavaScript", "CSS", "HTML"],
-    githubUrl: "https://github.com/b4631119-oss/my-js-cards",
-  },
-  {
-    id: "calculator",
-    title: "Калькулятор",
-    description:
-      "Калькулятор с базовыми математическими операциями на чистом JavaScript.",
-    tags: ["JavaScript", "HTML", "CSS"],
-    githubUrl: "https://github.com/b4631119-oss/calculator",
+      "Movie discovery application built with React, Vite, Redux Toolkit, Axios, and TMDB API. Features movie search, trending movies, detailed movie pages with cast/crew, and responsive Tailwind CSS styling.",
+    tags: ["React", "Vite", "Redux Toolkit", "Axios", "TMDB API", "Tailwind CSS"],
+    githubUrl: "https://github.com/b4631119-oss/movie-app",
   },
 ];
