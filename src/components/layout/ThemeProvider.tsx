@@ -7,7 +7,7 @@ import {
   useSyncExternalStore,
 } from "react";
 
-type ThemeMode = "system" | "light" | "dark";
+type ThemeMode = "light" | "dark";
 
 type ThemeContextValue = {
   mode: ThemeMode;
@@ -17,36 +17,28 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function resolve(mode: ThemeMode): "light" | "dark" {
-  if (mode !== "system") return mode;
-  if (typeof window === "undefined") return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
 function readStoredMode(): ThemeMode {
   try {
     const raw = localStorage.getItem("theme");
-    if (raw === "light" || raw === "dark" || raw === "system") return raw;
+    if (raw === "light" || raw === "dark") return raw;
+    // Migration: if stored value is "system" or missing, resolve via prefers-color-scheme once
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
   } catch {
     /* ignore */
   }
-  return "system";
-}
-
-function getServerSnapshot() {
-  return "light" as const;
+  return "light";
 }
 
 function createThemeStore() {
-  let mode: ThemeMode = "system";
+  let mode: ThemeMode = "light";
   let resolved: "light" | "dark" = "light";
   const listeners = new Set<() => void>();
 
   if (typeof window !== "undefined") {
     mode = readStoredMode();
-    resolved = resolve(mode);
+    resolved = mode;
   }
 
   function subscribe(listener: () => void) {
@@ -59,11 +51,10 @@ function createThemeStore() {
   }
 
   function apply(next: ThemeMode) {
-    const applied = resolve(next);
     mode = next;
-    resolved = applied;
+    resolved = next;
     if (typeof window !== "undefined") {
-      document.documentElement.setAttribute("data-theme", applied);
+      document.documentElement.setAttribute("data-theme", next);
       try {
         localStorage.setItem("theme", next);
       } catch {
@@ -71,21 +62,6 @@ function createThemeStore() {
       }
     }
     notify();
-  }
-
-  if (typeof window !== "undefined") {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    function handler() {
-      if (mode === "system") {
-        const applied = mq.matches ? "dark" : "light";
-        if (applied !== resolved) {
-          resolved = applied;
-          document.documentElement.setAttribute("data-theme", applied);
-          notify();
-        }
-      }
-    }
-    mq.addEventListener("change", handler);
   }
 
   return {
@@ -102,12 +78,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const mode = useSyncExternalStore<ThemeMode>(
     themeStore.subscribe,
     themeStore.getMode,
-    () => "system"
+    () => "light"
   );
   const resolved = useSyncExternalStore<"light" | "dark">(
     themeStore.subscribe,
     themeStore.getResolved,
-    getServerSnapshot
+    () => "light"
   );
 
   const setMode = useCallback((next: ThemeMode) => {
@@ -125,7 +101,7 @@ export function useTheme() {
   const ctx = useContext(ThemeContext);
   if (!ctx) {
     return {
-      mode: "system" as ThemeMode,
+      mode: "light" as ThemeMode,
       resolved: "light" as "light" | "dark",
       setMode: () => {},
     };
