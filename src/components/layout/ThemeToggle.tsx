@@ -1,27 +1,18 @@
 "use client";
 
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/layout/ThemeProvider";
 
-const cycleOrder: Array<"system" | "light" | "dark"> = [
-  "system",
-  "light",
-  "dark",
-];
-
-function nextMode(current: "system" | "light" | "dark") {
-  const idx = cycleOrder.indexOf(current);
-  return cycleOrder[(idx + 1) % cycleOrder.length];
+function nextMode(current: "light" | "dark"): "light" | "dark" {
+  return current === "light" ? "dark" : "light";
 }
 
-const labels: Record<string, string> = {
-  system: "Системная тема",
+const labels: Record<"light" | "dark", string> = {
   light: "Светлая тема",
   dark: "Тёмная тема",
 };
 
-const icons: Record<string, React.ReactNode> = {
-  system: <Monitor size={18} aria-hidden />,
+const icons: Record<"light" | "dark", React.ReactNode> = {
   light: <Sun size={18} aria-hidden />,
   dark: <Moon size={18} aria-hidden />,
 };
@@ -40,7 +31,6 @@ export default function ThemeToggle({ className }: { className?: string }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const doc = document as any;
       doc.startViewTransition(() => {
-        // Set CSS custom properties for the ripple origin
         document.documentElement.style.setProperty("--tx", `${x}px`);
         document.documentElement.style.setProperty("--ty", `${y}px`);
         setMode(next);
@@ -50,7 +40,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
     }
   }
 
-return (
+  return (
     <button
       type="button"
       onClick={handleClick}
