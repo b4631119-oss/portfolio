@@ -25,7 +25,7 @@ const contacts = [
   },
   {
     label: "Email",
-    href: "mailto:bilolmen99876@gmail.com",
+    href: "mailto:bilolmen998@gmail.com",
     icon: Mail,
     external: false,
     variant: "default" as const,
