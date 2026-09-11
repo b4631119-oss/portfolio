@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, ArrowLeft, Check } from "lucide-react";
+import { ExternalLink, ArrowLeft, Check, Github, Server, Database, Zap } from "lucide-react";
+import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
 
 export const metadata: Metadata = {
   title: "PROlab Academy — Case Study",
   description:
-    "Educational platform for teachers and students in Osh, Kyrgyzstan. Programming courses (JavaScript, HTML, CSS) and online exam system with role-based access. Built with Next.js, TypeScript, Supabase, PostgreSQL, JWT, RLS, E2E Testing.",
+    "Production educational platform for teachers and students in Osh, Kyrgyzstan. Programming courses (JavaScript, HTML, CSS) and online exam system with role-based access via RLS. Built with Next.js, TypeScript, Supabase, PostgreSQL, JWT, RLS, E2E Testing.",
 };
 
 const techGroups = [
@@ -26,11 +27,11 @@ const techGroups = [
 ] as const;
 
 const archNodes = [
-  { label: "Next.js" },
-  { label: "Server Actions" },
-  { label: "Supabase" },
-  { label: "PostgreSQL" },
-] as const;
+  { label: "Next.js", icon: <Zap className="w-5 h-5" aria-hidden="true" /> },
+  { label: "Server Actions", icon: <Server className="w-5 h-5" aria-hidden="true" /> },
+  { label: "Supabase", icon: <Zap className="w-5 h-5" aria-hidden="true" /> },
+  { label: "PostgreSQL", icon: <Database className="w-5 h-5" aria-hidden="true" /> },
+];
 
 const features = [
   "Authentication",
@@ -85,6 +86,16 @@ export default function ProLabAcademyCaseStudy() {
               Live Project
             </a>
           </Button>
+          <Button asChild size="lg" variant="outline" className="font-bold">
+            <a
+              href="https://github.com/b4631119-oss/academy-exam"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github size={18} className="mr-2" aria-hidden="true" />
+              GitHub
+            </a>
+          </Button>
         </div>
       </header>
 
@@ -130,35 +141,7 @@ export default function ProLabAcademyCaseStudy() {
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6" id="architecture-heading">
           Architecture
         </p>
-        <div className="flex flex-col items-center gap-0" aria-hidden="true">
-          {archNodes.map((node, index) => (
-            <div
-              key={node.label}
-              className={`
-                relative flex items-center gap-3 bg-bg-elevated border border-line rounded-[var(--radius)]
-                px-4 py-3 w-full max-w-xs transition-all duration-500 ease-out
-                ${index < archNodes.length - 1 ? 'pb-8' : 'pb-3'}
-              `}
-            >
-              {/* Connecting line + dot (except last node) - positioned relative to this node */}
-              {index < archNodes.length - 1 && (
-                <>
-                  <div
-                    className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[1px] h-6 bg-line"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="absolute left-1/2 -translate-x-1/2 bottom-[-4px] w-2 h-2 rounded-full bg-accent"
-                    aria-hidden="true"
-                  />
-                </>
-              )}
-              <span className="font-mono text-xs text-muted">
-                {node.label}
-              </span>
-            </div>
-          ))}
-        </div>
+        <ArchitectureDiagram nodes={archNodes} />
         <p className="mt-8 text-sm text-muted text-center">
           Next.js → Server Actions → Supabase → PostgreSQL
         </p>
@@ -236,6 +219,16 @@ export default function ProLabAcademyCaseStudy() {
           >
             <ExternalLink size={18} className="mr-2" aria-hidden="true" />
             Live Project
+          </a>
+        </Button>
+        <Button asChild size="lg" variant="outline" className="font-bold">
+          <a
+            href="https://github.com/b4631119-oss/academy-exam"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github size={18} className="mr-2" aria-hidden="true" />
+            GitHub
           </a>
         </Button>
         <Button
