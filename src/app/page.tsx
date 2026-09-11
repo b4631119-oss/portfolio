@@ -190,7 +190,7 @@ export default async function Home() {
               {/* Headline */}
               <div className="space-y-2">
                 <p className="font-sans text-muted text-2xl md:text-3xl font-medium leading-tight">
-                  Bilol
+                  Bilolidin
                 </p>
                 <h1 className="font-sans font-bold text-ink text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight">
                   Full-Stack Developer

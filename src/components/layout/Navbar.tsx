@@ -52,7 +52,7 @@ export default function Navbar() {
             className="font-mono text-sm tracking-widest text-ink hover:opacity-80 transition-opacity"
             aria-label="Home"
           >
-            BILOL
+            BILOLIDIN
           </Link>
 
           {/* Desktop nav links */}
