@@ -3,9 +3,10 @@ import Link from "next/link";
 import { getGithubUser, getGithubRepos, getLanguageStats, getPinnedRepos, type GithubUser, type GithubRepo, type LanguageStat } from "@/lib/github";
 import { projects, experiments } from "@/data/projects";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Workflow, ShieldCheck, Puzzle, TrendingUp, Code, Server, Database, GitBranch, Star, GitFork, ExternalLink, Github, Send, Mail } from "lucide-react";
+import { ArrowRight, Workflow, ShieldCheck, Puzzle, TrendingUp, Code, Server, Database, GitBranch, Star, GitFork, ExternalLink, Github, Send, Mail, Cpu, Globe, Server as ServerIcon, Database as DatabaseIcon } from "lucide-react";
 import { ProjectCard } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
+import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
 
 const capabilities = [
   "Frontend",
@@ -18,11 +19,11 @@ const capabilities = [
 ] as const;
 
 const systemNodes = [
-  { label: "Frontend", icon: "⚡" },
-  { label: "API", icon: "⇄" },
-  { label: "Backend", icon: "⚙️" },
-  { label: "Database", icon: "🗄" },
-] as const;
+  { label: "Frontend", icon: <Cpu className="w-5 h-5" aria-hidden="true" /> },
+  { label: "API", icon: <Globe className="w-5 h-5" aria-hidden="true" /> },
+  { label: "Backend", icon: <ServerIcon className="w-5 h-5" aria-hidden="true" /> },
+  { label: "Database", icon: <DatabaseIcon className="w-5 h-5" aria-hidden="true" /> },
+];
 
 const workPrinciples = [
   {
@@ -90,6 +91,10 @@ async function getPinned(): Promise<GithubRepo[]> {
   }
 }
 
+async function getTotalStars(pinned: GithubRepo[]): Promise<number> {
+  return pinned.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+}
+
 async function getLangs(): Promise<LanguageStat[]> {
   try {
     return await getLanguageStats();
@@ -137,6 +142,8 @@ export default async function Home() {
     getRecentRepos(),
   ]);
 
+  const totalStars = await getTotalStars(pinnedRepos);
+
   const stats: Array<{ value: number; label: string }> = [
     ...(user
       ? [
@@ -149,8 +156,7 @@ export default async function Home() {
 
   const githubStats = user
     ? [
-        { value: user.public_repos, label: "Репозитории" },
-        { value: user.followers, label: "Подписчики" },
+        { value: totalStars, label: "Всего звёзд" },
       ]
     : [];
 
@@ -193,12 +199,13 @@ export default async function Home() {
 
               {/* Supporting statement */}
               <p className="text-lg md:text-xl text-muted max-w-xl leading-relaxed">
-                Я создаю цифровые продукты — от интерфейса до backend.
+                Full-stack разработчик. Создаю веб-продукты от интерфейса до backend —
+                Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.
               </p>
 
               {/* Tech signature */}
               <p className="font-mono text-sm text-muted">
-                React · Next.js · TypeScript · Python · Django · PostgreSQL
+                React · Next.js · TypeScript · C# · .NET · Python · PostgreSQL 
               </p>
 
               {/* CTAs */}
@@ -228,38 +235,7 @@ export default async function Home() {
               className="hidden lg:block"
               aria-hidden="true"
             >
-              <div className="flex flex-col items-center gap-0">
-                {systemNodes.map((node, index) => (
-                  <Reveal key={node.label} delay={index * 100}>
-                    <div
-                      className={`
-                        relative flex items-center gap-3 bg-bg-elevated border border-line rounded-[var(--radius)]
-                        px-4 py-3 w-full max-w-xs transition-all duration-500 ease-out
-                        ${index < systemNodes.length - 1 ? 'pb-8' : 'pb-3'}
-                      `}
-                    >
-                      {index < systemNodes.length - 1 && (
-                        <>
-                          <div
-                            className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[1px] h-6 bg-line"
-                            aria-hidden="true"
-                          />
-                          <div
-                            className="absolute left-1/2 -translate-x-1/2 bottom-[-4px] w-2 h-2 rounded-full bg-accent"
-                            aria-hidden="true"
-                          />
-                        </>
-                      )}
-                      <span className="text-base" aria-hidden="true">
-                        {node.icon}
-                      </span>
-                      <span className="font-mono text-xs text-muted">
-                        {node.label}
-                      </span>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
+              <ArchitectureDiagram nodes={systemNodes} />
             </div>
           </div>
         </div>
@@ -650,7 +626,7 @@ export default async function Home() {
             <h2 id="work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
               Featured Work
             </h2>
-            <p className="text-muted">Ключевые проекты, которые я создал.</p>
+            <p className="text-muted">Главные проекты — продакшн-продукты и сложные системы.</p>
           </Reveal>
 
           {/* Featured Projects Grid - 3 cards */}
@@ -685,15 +661,15 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Other Experiments Section */}
-      <section className="mt-24 md:mt-32" id="more-work" aria-labelledby="more-work-heading">
+      {/* Other Work Section */}
+      <section className="mt-24 md:mt-32" id="other-work" aria-labelledby="other-work-heading">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
           <Reveal>
             {/* Section heading */}
-            <h2 id="more-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-              Other Experiments
+            <h2 id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
+              Other Work
             </h2>
-            <p className="text-muted">Другие эксперименты и технические проекты.</p>
+            <p className="text-muted">Пет-проекты и эксперименты.</p>
           </Reveal>
 
           {/* Experiments Grid */}
@@ -703,7 +679,7 @@ export default async function Home() {
                 <ProjectCard
                   project={project}
                   variant="compact"
-                  showLiveLink={false}
+                  showLiveLink={true}
                 />
               </Reveal>
             ))}
