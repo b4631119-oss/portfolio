@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   openGraph: {
     type: "website",
-    title: "Bilol — Full-Stack Developer",
+    title: "Bilolidin — Full-Stack Developer",
     description:
       "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
     url: siteUrl,
