@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bilol.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-pi-silk-51.vercel.app";
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
       {
         url: "/opengraph-image",
         width: 1200,
-        height: 630,
+        height: 635,
         alt: "Bilolidin — Full-Stack Developer",
       },
     ],
