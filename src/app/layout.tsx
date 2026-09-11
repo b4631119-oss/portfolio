@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { CursorGrid } from "@/components/effects/CursorGrid";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,13 +26,13 @@ export const metadata: Metadata = {
     template: "%s — Bilol",
   },
   description:
-    "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, Python, Django, PostgreSQL.",
+    "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     type: "website",
     title: "Bilol — Full-Stack Developer",
     description:
-      "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, Python, Django, PostgreSQL.",
+      "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
     url: siteUrl,
     siteName: "Bilol",
     images: [
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bilol — Full-Stack Developer",
     description:
-      "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, Python, Django, PostgreSQL.",
+      "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
     images: ["/opengraph-image"],
   },
   robots: {
@@ -102,8 +103,8 @@ export default function RootLayout({
 (function () {
   try {
     var stored = localStorage.getItem("theme");
-    var theme = stored || "system";
-    if (theme === "system") {
+    var theme = stored;
+    if (!theme) {
       theme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
@@ -122,6 +123,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-bg text-ink`}>
         <ThemeProvider>
+          <CursorGrid />
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1 pt-16">{children}</main>
