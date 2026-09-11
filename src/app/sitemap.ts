@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bilol.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-pi-silk-51.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectIds = [
