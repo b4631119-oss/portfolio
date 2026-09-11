@@ -3,7 +3,28 @@ import Link from "next/link";
 import { getGithubUser, getGithubRepos, getLanguageStats, getPinnedRepos, type GithubUser, type GithubRepo, type LanguageStat } from "@/lib/github";
 import { projects, experiments } from "@/data/projects";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Workflow, ShieldCheck, Puzzle, TrendingUp, Code, Server, Database, GitBranch, Star, GitFork, ExternalLink, Github, Send, Mail, Cpu, Globe, Server as ServerIcon, Database as DatabaseIcon } from "lucide-react";
+import { ArrowRight, Workflow, ShieldCheck, Puzzle, TrendingUp, Star, GitFork, ExternalLink, Github, Send, Mail, Cpu, Globe, Server as ServerIcon, Database as DatabaseIcon } from "lucide-react";
+import {
+  SiHtml5,
+  SiCss,
+  SiTailwindcss,
+  SiJavascript,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiRedux,
+  SiFsharp,
+  SiDotnet,
+  SiPython,
+  SiDjango,
+  SiPostgresql,
+  SiGit,
+  SiGithub,
+  SiDocker,
+  SiLinux,
+  SiFigma,
+  SiPycharm,
+} from "react-icons/si";
 import { ProjectCard } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
@@ -55,23 +76,37 @@ const workPrinciples = [
 const techCategories = [
   {
     label: "Frontend",
-    icon: Code,
-    items: ["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "Tailwind CSS"],
+    items: [
+      { name: "HTML", icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS", icon: SiCss, color: "#1572B6" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { name: "Redux", icon: SiRedux, color: "#764ABC" },
+    ],
   },
   {
     label: "Backend",
-    icon: Server,
-    items: ["Python", "Django", "C#", "Avalonia", "REST API"],
+    items: [
+      { name: "C#", icon: SiFsharp, color: "#239120" },
+      { name: ".NET", icon: SiDotnet, color: "#512BD4" },
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+      { name: "Django", icon: SiDjango, color: "#092E20" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+    ],
   },
   {
-    label: "Database",
-    icon: Database,
-    items: ["PostgreSQL", "Supabase", "Firebase"],
-  },
-  {
-    label: "Other",
-    icon: GitBranch,
-    items: ["Git", "GitHub", "Authentication", "Testing", "Deployment", "Bots/APIs"],
+    label: "Tools & DevOps",
+    items: [
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub, color: "#181717" },
+      { name: "Docker", icon: SiDocker, color: "#2496ED" },
+      { name: "Linux", icon: SiLinux, color: "#FCC624" },
+      { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+      { name: "PyCharm", icon: SiPycharm, color: "#000000" },
+    ],
   },
 ] as const;
 
@@ -372,23 +407,33 @@ export default async function Home() {
               Стек технологий
             </h2>
           </Reveal>
-          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             {techCategories.map((category, index) => (
-              <Reveal key={category.label} delay={index * 80}>
-                <div className="space-y-4">
+              <Reveal key={category.label} delay={index * 120}>
+                <div className="space-y-6">
                   <div className="flex items-center gap-2">
-                    <category.icon size={16} className="text-accent" aria-hidden="true" />
                     <span className="font-mono text-xs text-accent uppercase tracking-wide">
                       {category.label}
                     </span>
                   </div>
-                  <ul className="space-y-2.5" role="list">
-                    {category.items.map((item) => (
-                      <li key={item} className="text-sm text-muted">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="border-b border-line pb-4">
+                    <div className="space-y-3">
+                      {category.items.map((tech) => {
+                        const Icon = tech.icon;
+                        return (
+                          <div key={tech.name} className="flex items-center gap-3">
+                            <span
+                              className="flex-shrink-0 w-6 h-6 flex items-center justify-center"
+                              style={{ color: tech.color }}
+                            >
+                              <Icon size={24} aria-hidden="true" />
+                            </span>
+                            <span className="text-sm text-ink">{tech.name}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -478,8 +523,7 @@ export default async function Home() {
               </div>
             </Reveal>
           )}
-
-          {/* Languages segmented bar */}
+          
           {languageStats.length > 0 && (
             <Reveal delay={240}>
               <div className="mt-12">
@@ -607,7 +651,7 @@ export default async function Home() {
             </Button>
             <Button asChild size="lg" className="shadow-none font-bold">
               <a
-                href="mailto:bilolmen99876@gmail.com"
+                href="mailto:bilolmen998@gmail.com"
                 className="flex items-center gap-2"
               >
                 <Mail size={18} aria-hidden="true" />
@@ -642,7 +686,7 @@ export default async function Home() {
             ))}
           </div>
 
-          {/* PROlab Academy Case Study Link */}
+       
           <Reveal delay={240}>
             <div className="mt-10 text-center">
               <Button
