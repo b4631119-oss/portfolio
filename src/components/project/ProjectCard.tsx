@@ -58,9 +58,11 @@ export function ProjectCard({ project, variant = "compact", showLiveLink = true 
           {/* Content */}
           <div className="space-y-6 pt-6 lg:pt-0">
             <div className="space-y-2">
-              <span className="font-mono text-xs text-muted uppercase tracking-wide">
-                Solo Developer
-              </span>
+              {project.role && (
+                <span className="font-mono text-xs text-muted uppercase tracking-wide">
+                  {project.role}
+                </span>
+              )}
               <h2 className="font-sans font-bold text-ink text-2xl md:text-3xl leading-tight">
                 {project.title}
               </h2>
@@ -117,6 +119,11 @@ export function ProjectCard({ project, variant = "compact", showLiveLink = true 
   return (
     <article className="bg-bg-elevated border border-line rounded-[var(--radius)] p-6 flex flex-col h-full hover:border-accent/50 transition-colors duration-300">
       <div className="space-y-3">
+        {project.role && (
+          <span className="font-mono text-xs text-muted uppercase tracking-wide">
+            {project.role}
+          </span>
+        )}
         <h3 className="font-sans font-semibold text-ink text-lg">{project.title}</h3>
         <p className="text-sm text-muted leading-relaxed line-clamp-2">{project.description}</p>
         <div className="flex flex-wrap gap-1.5">
