@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Self-taught full-stack developer based in Osh, Kyrgyzstan. Building web products from interface to backend with Next.js, TypeScript, React, Python, and PostgreSQL.",
+    "Full-stack developer based in Osh, Kyrgyzstan. Building web products from interface to backend with Next.js, TypeScript, React, C#, .NET, Python, and PostgreSQL.",
 };
 
 const skills = [
@@ -44,9 +44,8 @@ export default function AboutPage() {
       <section className="mb-16 md:mb-24">
         <p className="text-lg text-muted max-w-2xl leading-relaxed">
           Мне нравится разбираться в том, как устроены системы, решать задачи и
-          превращать идеи в работающие продукты. Пишу код 1–2 года, учился
-          смешанно: самостоятельно через видео и статьи, а также через курсы.
-          Сейчас строю пет-проекты в одиночку — от идеи до продакшн-деплоя.
+          превращать идеи в работающие продукты. Строю продакшн-продукты в одиночку —
+          от архитектуры до деплоя.
         </p>
       </section>
 
