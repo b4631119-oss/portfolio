@@ -1,4 +1,4 @@
-import { projects } from "@/data/projects";
+import { projects, experiments } from "@/data/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ExternalLink, Code2, ArrowLeft } from "lucide-react";
@@ -11,7 +11,8 @@ type Props = {
 
 export default async function ProjectPage({ params }: Props) {
   const { id } = await params;
-  const project = projects.find((p) => p.id === id);
+  const allProjects = [...projects, ...experiments];
+  const project = allProjects.find((p) => p.id === id);
 
   if (!project) notFound();
 
