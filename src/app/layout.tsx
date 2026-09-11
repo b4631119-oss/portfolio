@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description:
       "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
     url: siteUrl,
-    siteName: "Bilol",
+    siteName: "Bilolidin",
     images: [
       {
         url: "/opengraph-image",
