@@ -23,7 +23,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bilol.dev";
 export const metadata: Metadata = {
   title: {
     default: "Bilolidin — Full-Stack Developer",
-    template: "%s — Bilol",
+    template: "%s — Bilolidin",
   },
   description:
     "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
