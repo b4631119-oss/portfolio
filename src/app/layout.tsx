@@ -82,7 +82,7 @@ export default function RootLayout({
   const webSiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Bilol — Full-Stack Developer",
+    name: "Bilolidin — Full-Stack Developer",
     url: siteUrl,
     potentialAction: {
       "@type": "SearchAction",
