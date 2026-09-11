@@ -49,11 +49,22 @@ export const experiments: Project[] = [
     liveUrl: "https://cuaderno-nine.vercel.app",
   },
   {
-    id: "movie-app",
-    title: "Movie App",
+    id: "calendar-app",
+    title: "Calendar App",
     description:
-      "Movie discovery application built with React, Vite, Redux Toolkit, Axios, and TMDB API. Features movie search, trending movies, detailed movie pages with cast/crew, and responsive Tailwind CSS styling.",
+      "Calendar discovery application built with Next js,  Redux Toolkit, Axios, and responsive Tailwind CSS styling.",
     tags: ["React", "Vite", "Redux Toolkit", "Axios", "TMDB API", "Tailwind CSS"],
-    githubUrl: "https://github.com/b4631119-oss/movie-app",
+    githubUrl: "https://github.com/b4631119-oss/CalendarApp",
+        liveUrl: "https://kalendar-app-one.vercel.app/",
+
+  },
+   {
+    id: "greenshop",
+    title: "Greenshop",
+    description:
+      " Tailwind CSS styling.",
+    tags: ["Html", "Tailwind CSS"],
+    githubUrl: "https://github.com/b4631119-oss/greenshop",
+
   },
 ];
