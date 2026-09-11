@@ -7,7 +7,7 @@ import { ProjectCard } from "@/components/project/ProjectCard";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Production web applications and technical experiments — full-stack projects with Next.js, TypeScript, Supabase, PostgreSQL, and more.",
+    "Full-stack production applications and technical experiments — Next.js, TypeScript, C#, .NET, Python, PostgreSQL, and more.",
 };
 
 export default function ProjectsPage() {
@@ -28,12 +28,12 @@ export default function ProjectsPage() {
           Все проекты
         </h1>
         <p className="mt-4 text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
-          Полный список работ — от продакшн-продуктов до учебных экспериментов.
+          Продакшн-продукты, сложные системы и пет-проекты.
         </p>
       </header>
 
       {/* Featured Work */}
-      <section className="mb-24 md:mb-32" id="featured-work">
+      <section className="mb-24 md:mb-32" id="projects-featured">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
           Featured Work
         </p>
@@ -49,10 +49,10 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Other Experiments */}
-      <section id="other-experiments">
-        <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-          Other Experiments
+      {/* Other Work */}
+      <section id="other-work" aria-labelledby="other-work-heading">
+        <p id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
+          Other Work
         </p>
         <div className="grid md:grid-cols-2 gap-6">
           {experiments.map((project) => (
@@ -60,7 +60,7 @@ export default function ProjectsPage() {
               key={project.id}
               project={project}
               variant="compact"
-              showLiveLink={false}
+              showLiveLink={true}
             />
           ))}
         </div>
