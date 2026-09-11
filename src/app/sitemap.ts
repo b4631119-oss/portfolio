@@ -5,12 +5,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bilol.dev";
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectIds = [
     "prolab-academy",
-    "telephone-osh",
-    "jerdeshmoskva",
-    "greenshop",
-    "kidztar",
-    "my-js-cards",
-    "calculator",
+    "localbridge",
+    "macos-portfolio",
+    "chat-app",
+    "cuaderno",
+    "movie-app",
   ];
 
   const projectUrls = projectIds.map((id) => ({
