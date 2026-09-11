@@ -22,7 +22,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bilol.dev";
 
 export const metadata: Metadata = {
   title: {
-    default: "Bilol — Full-Stack Developer",
+    default: "Bilolidin — Full-Stack Developer",
     template: "%s — Bilol",
   },
   description:
