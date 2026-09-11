@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bilol — Full-Stack Developer",
+    title: "Bilolidin — Full-Stack Developer",
     description:
       "Full-stack разработчик. Создаю веб-продукты от интерфейса до backend — Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.",
     images: ["/opengraph-image"],
