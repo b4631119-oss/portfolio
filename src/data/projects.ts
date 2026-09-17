@@ -20,6 +20,26 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/b4631119-oss/LocalBridge",
   },
   {
+id: "lifeos",
+
+title: "LifeOS",
+
+description:
+
+
+"Personal life management system for organizing tasks, planning days and weeks, and managing everyday activities. Built with a focus on practical UX, reusable components, authentication, responsive design, and structured state management.",
+
+
+tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "React"],
+
+githubUrl: "https://github.com/b4631119-oss/lifeOS",
+
+liveUrl: "YOUR_LIFEOS_VERCEL_URL",
+
+role: "Solo Developer",
+},
+
+  {
     id: "macos-portfolio",
     title: "macOS Portfolio",
     description:
