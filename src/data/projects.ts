@@ -34,7 +34,7 @@ tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "React"],
 
 githubUrl: "https://github.com/b4631119-oss/lifeOS",
 
-liveUrl: "YOUR_LIFEOS_VERCEL_URL",
+liveUrl: "https://os-life-one.vercel.app/",
 
 role: "Solo Developer",
 },
