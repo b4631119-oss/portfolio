@@ -1,4 +1,4 @@
-# Bilol — Full-Stack Developer Portfolio
+# Bilolidin — Full-Stack Developer Portfolio
 
 A modern, performant portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, and **Tailwind CSS**. Features a dark-first design, smooth animations, and a fully typed codebase.
 
