@@ -201,6 +201,6 @@ MIT License — feel free to use as inspiration for your own portfolio.
 
 ## 🙋‍♂️ Author
 
-**Bilol** — Full-Stack Developer  
+**Bilolidin** — Full-Stack Developer  
 📍 Osh, Kyrgyzstan  
 🔗 [GitHub](https://github.com/b4631119-oss) • [Telegram](https://t.me/Teg123489) • [Email](mailto:bilolmen998@gmail.com)
