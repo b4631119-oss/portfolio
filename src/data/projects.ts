@@ -12,14 +12,6 @@ export const projects: Project[] = [
     role: "Solo Developer",
   },
   {
-    id: "localbridge",
-    title: "LocalBridge",
-    description:
-      "High-performance, zero-configuration P2P utility for sharing files, text, and links between devices on the same LAN — no cloud, no accounts, no IP hunting. Built as a desktop-only application (Linux/Windows/macOS) using C#, .NET, and Avalonia UI.",
-    tags: ["C#", ".NET", "Avalonia", "P2P", "LAN"],
-    githubUrl: "https://github.com/b4631119-oss/LocalBridge",
-  },
-  {
 id: "lifeos",
 
 title: "LifeOS",
@@ -67,6 +59,14 @@ export const experiments: Project[] = [
     tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "Auth"],
     githubUrl: "https://github.com/b4631119-oss/cuaderno",
     liveUrl: "https://cuaderno-nine.vercel.app",
+  },
+    {
+    id: "localbridge",
+    title: "LocalBridge",
+    description:
+      "High-performance, zero-configuration P2P utility for sharing files, text, and links between devices on the same LAN — no cloud, no accounts, no IP hunting. Built as a desktop-only application (Linux/Windows/macOS) using C#, .NET, and Avalonia UI.",
+    tags: ["C#", ".NET", "Avalonia", "P2P", "LAN"],
+    githubUrl: "https://github.com/b4631119-oss/LocalBridge",
   },
   {
     id: "calendar-app",
