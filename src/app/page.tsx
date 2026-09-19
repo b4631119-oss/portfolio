@@ -404,37 +404,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {/* GitHub / Open Source Section */}
-      <section className="mt-24 md:mt-32" id="github" aria-labelledby="github-heading">
-        <div className="max-w-5xl mx-auto px-4 md:px-6">
-          <Reveal>
-            <h2 id="github-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-              Open Source / GitHub
-            </h2>
-          </Reveal>
-
-          {/* Stats row */}
-          {githubStats.length > 0 && (
-            <Reveal delay={80}>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-x-8 sm:gap-y-6">
-                {githubStats.map((stat, index) => (
-                  <div
-                    key={stat.label}
-                    className={`px-6 first:pl-0 sm:pl-6 ${index > 0 ? 'pt-2 sm:pt-0' : ''}`}
-                  >
-                    <div className="font-sans font-bold text-ink text-4xl md:text-5xl">
-                      {stat.value}
-                    </div>
-                    <div className="mt-1 text-xs text-muted font-mono uppercase tracking-wide">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          )}
-
           {/* Pinned Repositories */}
           {pinnedRepos.length > 0 && (
             <Reveal delay={160}>
@@ -577,9 +546,6 @@ export default async function Home() {
               </Link>
             </Button>
           </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section className="mt-24 md:mt-32 relative" id="contact" aria-labelledby="contact-heading">
         <div className="absolute inset-0 glow-surface pointer-events-none" aria-hidden="true" />
