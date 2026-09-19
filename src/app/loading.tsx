@@ -5,7 +5,7 @@ export default function Loading() {
         <div
           className="relative w-8 h-8"
           role="status"
-          aria-label="Loading"
+          aria-label="Загрузка"
         >
           <svg
             className="animate-spin h-8 w-8 text-accent"
@@ -29,7 +29,7 @@ export default function Loading() {
             />
           </svg>
         </div>
-        <p className="font-mono text-sm text-muted">Loading…</p>
+        <p className="font-mono text-sm text-muted">Загрузка…</p>
       </div>
     </div>
   );

@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   description:
     "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
   metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     title: "Bilolidin — Full-Stack Developer",
@@ -81,14 +82,6 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "Bilolidin — Full-Stack Developer",
     url: siteUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 
   return (

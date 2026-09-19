@@ -8,8 +8,8 @@ function nextMode(current: "light" | "dark"): "light" | "dark" {
 }
 
 const labels: Record<"light" | "dark", string> = {
-  light: "Светлая тема",
-  dark: "Тёмная тема",
+  light: "Переключить на тёмную тему",
+  dark: "Переключить на светлую тему",
 };
 
 const icons: Record<"light" | "dark", React.ReactNode> = {
@@ -44,7 +44,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={handleClick}
-      aria-label={labels[mode] ?? "Переключить тема"}
+      aria-label={labels[mode] ?? "Переключить тему"}
       title={labels[mode]}
       className={
         className ??
