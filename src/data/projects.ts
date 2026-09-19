@@ -5,7 +5,7 @@ export const projects: Project[] = [
     id: "prolab-academy",
     title: "PROlab Academy",
     description:
-      "Платформа учебного центра PROlab Academy (Ош, Кыргызстан): онлайн-экзамены с защитой от списывания, отдельные потоки для учителей и учеников и разграничение доступа через Row Level Security в Supabase. В репозитории — экзаменационный модуль платформы.",
+      "Платформа учебного центра PROlab Academy (Ош, Кыргызстан): курсы программирования для начинающих (JavaScript, HTML, CSS) и онлайн-экзамены с защитой от списывания, отдельные потоки для учителей и учеников и разграничение доступа через Row Level Security в Supabase. В репозитории — экзаменационный модуль платформы.",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "JWT", "RLS", "E2E Testing"],
     githubUrl: "https://github.com/b4631119-oss/academy-exam",
     liveUrl: "https://www.prolab-academy.site/",
@@ -76,7 +76,7 @@ export const experiments: Project[] = [
     id: "greenshop",
     title: "Greenshop",
     description:
-      "Проект по вёрстке: многостраничный статический сайт магазина растений — главная, каталог, блог, корзина и оформление заказа. Без фреймворков и сборки: HTML, CSS и JavaScript, адаптивная раскладка под мобильные и десктоп.",
+      "Вёрстка по готовому макету (дизайн не мой): многостраничный статический сайт магазина растений — главная, каталог, блог, корзина и оформление заказа. Без фреймворков и сборки: HTML, CSS и JavaScript, адаптивная раскладка под мобильные и десктоп.",
     tags: ["HTML", "CSS", "JavaScript"],
     githubUrl: "https://github.com/b4631119-oss/greenshop",
     role: "Solo Developer",
