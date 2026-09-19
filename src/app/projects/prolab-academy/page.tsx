@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowLeft, Check, Github, Server, Database, Zap } from "lucide-react";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
+
+const cover = projects.find((project) => project.id === "prolab-academy")?.image;
 
 export const metadata: Metadata = {
   title: "PROlab Academy — Case Study",
   description:
     "Production educational platform for teachers and students in Osh, Kyrgyzstan. Programming courses (JavaScript, HTML, CSS) and online exam system with role-based access via RLS. Built with Next.js, TypeScript, Supabase, PostgreSQL, JWT, RLS, E2E Testing.",
   alternates: { canonical: "/projects/prolab-academy" },
+  openGraph: {
+    title: "PROlab Academy — Case Study",
+    description:
+      "Production educational platform for teachers and students in Osh, Kyrgyzstan. Programming courses (JavaScript, HTML, CSS) and online exam system with role-based access via RLS. Built with Next.js, TypeScript, Supabase, PostgreSQL, JWT, RLS, E2E Testing.",
+    url: "/projects/prolab-academy",
+    images: cover ? [{ url: cover.src, alt: cover.alt }] : undefined,
+  },
 };
 
 const techGroups = [
@@ -58,6 +69,20 @@ export default function ProLabAcademyCaseStudy() {
         <ArrowLeft size={16} aria-hidden="true" />
         Back to work
       </Link>
+
+      {/* Preview */}
+      {cover && (
+        <div className="mt-8 mb-12 md:mb-16 relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-elevated">
+          <Image
+            src={cover.src}
+            alt={cover.alt}
+            fill
+            priority
+            sizes="(min-width: 896px) 896px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      )}
 
       {/* Header */}
       <header className="space-y-6 mb-16 md:mb-24">

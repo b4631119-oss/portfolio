@@ -1,8 +1,11 @@
 import { experiments } from "@/data/projects";
-import { ProjectCard } from "@/components/project/ProjectCard";
+import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 
 export function HomeOtherWork() {
+  const secondary = experiments.filter((project) => projectTier(project) === "secondary");
+  const simple = experiments.filter((project) => projectTier(project) === "experiment");
+
   return (
     <section className="mt-24 md:mt-32" id="other-work" aria-labelledby="other-work-heading">
       <div className="max-w-5xl mx-auto px-4 md:px-6">
@@ -14,18 +17,25 @@ export function HomeOtherWork() {
           <p className="text-muted">Пет-проекты и эксперименты.</p>
         </Reveal>
 
-        {/* Experiments Grid */}
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          {experiments.map((project, index) => (
-            <Reveal key={project.id} delay={index * 80}>
-              <ProjectCard
-                project={project}
-                variant="compact"
-                showLiveLink={true}
-              />
-            </Reveal>
-          ))}
-        </div>
+        {secondary.length > 0 && (
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            {secondary.map((project, index) => (
+              <Reveal key={project.id} delay={index * 80}>
+                <ProjectCard project={project} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+
+        {simple.length > 0 && (
+          <div className="mt-6 space-y-4">
+            {simple.map((project, index) => (
+              <Reveal key={project.id} delay={240 + index * 60}>
+                <ProjectCard project={project} />
+              </Reveal>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

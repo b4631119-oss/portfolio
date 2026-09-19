@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { projects, experiments } from "@/data/projects";
 import { ArrowLeft } from "lucide-react";
-import { ProjectCard } from "@/components/project/ProjectCard";
+import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -12,6 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  const flagship = projects.filter((project) => projectTier(project) === "flagship");
+  const [lead, ...rest] = flagship;
+  const secondary = experiments.filter((project) => projectTier(project) === "secondary");
+  const simple = experiments.filter((project) => projectTier(project) === "experiment");
+
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24 font-sans">
       {/* Back link */}
@@ -38,16 +43,16 @@ export default function ProjectsPage() {
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
           Featured Work
         </p>
-        <div className="space-y-8 md:space-y-12">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              variant="featured"
-              showLiveLink={true}
-            />
-          ))}
-        </div>
+
+        {lead && <ProjectCard project={lead} variant="flagship" />}
+
+        {rest.length > 0 && (
+          <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-6 md:gap-8">
+            {rest.map((project) => (
+              <ProjectCard key={project.id} project={project} variant="flagship" />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Other Work */}
@@ -55,16 +60,22 @@ export default function ProjectsPage() {
         <p id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
           Other Work
         </p>
-        <div className="grid md:grid-cols-2 gap-6">
-          {experiments.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              variant="compact"
-              showLiveLink={true}
-            />
-          ))}
-        </div>
+
+        {secondary.length > 0 && (
+          <div className="grid md:grid-cols-2 gap-6">
+            {secondary.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
+
+        {simple.length > 0 && (
+          <div className="mt-6 space-y-4">
+            {simple.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

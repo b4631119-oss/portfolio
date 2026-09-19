@@ -2,10 +2,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
-import { ProjectCard } from "@/components/project/ProjectCard";
+import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 
 export function HomeFeaturedWork() {
+  const flagship = projects.filter((project) => projectTier(project) === "flagship");
+  const [lead, ...rest] = flagship;
+
   return (
     <section className="mt-24 md:mt-32" id="work" aria-labelledby="work-heading">
       <div className="max-w-5xl mx-auto px-4 md:px-6">
@@ -17,18 +20,23 @@ export function HomeFeaturedWork() {
           <p className="text-muted">Главные проекты — продакшн-продукты и сложные системы.</p>
         </Reveal>
 
-        {/* Featured Projects Grid - 3 cards */}
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
-            <Reveal key={project.id} delay={index * 80}>
-              <ProjectCard
-                project={project}
-                variant="compact"
-                showLiveLink={true}
-              />
-            </Reveal>
-          ))}
-        </div>
+        {lead && (
+          <Reveal delay={80}>
+            <div className="mt-12">
+              <ProjectCard project={lead} variant="flagship" />
+            </div>
+          </Reveal>
+        )}
+
+        {rest.length > 0 && (
+          <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-6 md:gap-8">
+            {rest.map((project, index) => (
+              <Reveal key={project.id} delay={160 + index * 80}>
+                <ProjectCard project={project} variant="flagship" />
+              </Reveal>
+            ))}
+          </div>
+        )}
 
         <Reveal delay={240}>
           <div className="mt-10 text-center">
