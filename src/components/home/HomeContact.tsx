@@ -8,10 +8,11 @@ export function HomeContact() {
       <div className="absolute inset-0 glow-surface pointer-events-none" aria-hidden="true" />
       <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-6 text-center">
         <h2 id="contact-heading" className="font-sans font-bold text-ink text-4xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-          Давайте создадим что-то
+          Открыт к стажировке и проектам
         </h2>
         <p className="mt-6 text-lg text-muted max-w-xl mx-auto leading-relaxed">
-          Есть идея, проект или предложение? Давайте превратим это в реальный продукт.
+          Нужен фронтенд или фулстек-задача, вопрос по проектам или предложение
+          о стажировке — напишите в Telegram или на email.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Button asChild variant="outline" size="lg" className="font-bold">

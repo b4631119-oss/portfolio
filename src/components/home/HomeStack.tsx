@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/reveal";
-import { techCategories } from "@/data/home";
+import { techGroups } from "@/data/home";
 
 export function HomeStack() {
   return (
@@ -11,7 +11,7 @@ export function HomeStack() {
           </h2>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {techCategories.map((category, index) => (
+          {techGroups.map((category, index) => (
             <Reveal key={category.label} delay={index * 120}>
               <div className="space-y-6">
                 <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export function HomeStack() {
                             className="flex-shrink-0 w-6 h-6 flex items-center justify-center"
                             style={{ color: tech.color }}
                           >
-                            <Icon size={24} aria-hidden="true" />
+                            {Icon && <Icon size={24} aria-hidden="true" />}
                           </span>
                           <span className="text-sm text-ink">{tech.name}</span>
                         </div>

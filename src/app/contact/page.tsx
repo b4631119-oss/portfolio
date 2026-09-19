@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import { contact, mailtoHref } from "@/data/contact";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    `Open to internships and new projects. Get in touch via GitHub, Telegram, or email — ${contact.email}.`,
+  title: "Контакты",
+  description: `Контакты: Telegram, email и GitHub. Открыт к стажировке и новым проектам — ${contact.email}.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -38,11 +37,12 @@ export default function ContactPage() {
   return (
     <article className="max-w-2xl mx-auto px-4 md:px-6 py-16 md:py-24 font-sans">
       <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl">
-        Связаться со мной
+        Контакты
       </h1>
 
       <p className="mt-4 text-muted text-lg leading-normal max-w-[70ch]">
-        Открыт к стажировке и новым проектам. Пишите — отвечу быстро!
+        Открыт к стажировке и новым проектам. Напишите в удобный канал — расскажу
+        про проекты, стек и вклад в каждый из них.
       </p>
 
       <div className="mt-10 flex flex-wrap gap-4">

@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
-import { contact } from "@/data/contact";
 
 const systemNodes = [
   { label: "Frontend", icon: <Cpu className="w-5 h-5" aria-hidden="true" /> },
@@ -52,13 +51,15 @@ export function HomeHero() {
 
             {/* Supporting statement */}
             <p className="text-lg md:text-xl text-muted max-w-xl leading-relaxed">
-              Full-stack разработчик. Создаю веб-продукты от интерфейса до backend —
-              Next.js, TypeScript, React, C#, .NET, Python, PostgreSQL.
+              Создаю веб-продукты целиком — от интерфейса до базы данных. Среди проектов:
+              платформа онлайн-экзаменов для учебного центра, система планирования дня
+              и десктоп-утилита для передачи файлов по локальной сети. Развиваюсь в сторону
+              бэкенда — Supabase, PostgreSQL, C#/.NET.
             </p>
 
             {/* Tech signature */}
             <p className="font-mono text-sm text-muted">
-              React · Next.js · TypeScript · C# · .NET · Python · PostgreSQL 
+              React · Next.js · TypeScript · Firebase
             </p>
 
             {/* CTAs */}
@@ -72,13 +73,7 @@ export function HomeHero() {
                 variant="outline"
                 className="font-bold"
               >
-                <a
-                  href={contact.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
+                <Link href="/#contact">Связаться</Link>
               </Button>
             </div>
           </div>

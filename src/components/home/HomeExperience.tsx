@@ -13,10 +13,11 @@ export function HomeExperience() {
               <span className="absolute -left-6 top-1 w-3 h-3 rounded-full bg-accent border-2 border-bg" aria-hidden="true" />
               <div className="space-y-1">
                 <p className="font-mono text-xs text-accent">2026 — настоящее время</p>
-                <p className="font-semibold text-ink text-lg">Frontend Development</p>
+                <p className="font-semibold text-ink text-lg">Frontend-разработка</p>
                 <p className="text-sm text-muted">Стажировка</p>
                 <p className="text-sm text-muted mt-1">
-                  Работаю над реальными фронтенд-проектами, развиваю навыки продакшен-разработки.
+                  Фронтенд-задачи в реальных проектах — первый опыт работы вне личных
+                  проектов.
                 </p>
               </div>
             </div>

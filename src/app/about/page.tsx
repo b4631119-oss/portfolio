@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { techGroups } from "@/data/home";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Обо мне",
   description:
-    "Full-stack developer based in Osh, Kyrgyzstan. Building web products from interface to backend with Next.js, TypeScript, React, C#, .NET, Python, and PostgreSQL.",
+    "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопные утилиты. React, Next.js, TypeScript, Firebase, Supabase.",
   alternates: { canonical: "/about" },
 };
-
-const skills = [
-  { name: "Next.js", level: 70 },
-  { name: "TypeScript", level: 60 },
-  { name: "React", level: 75 },
-  { name: "Tailwind CSS", level: 80 },
-  { name: "Git", level: 60 },
-] as const;
 
 export default function AboutPage() {
   return (
@@ -35,57 +28,44 @@ export default function AboutPage() {
           Обо мне
         </h1>
         <p className="mt-4 text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
-          Я full-stack разработчик, который создаёт надёжные и полезные веб-продукты.
-          Работаю через весь стек: от интерфейсов и UX до API, баз данных, аутентификации
-          и деплоя.
+          Full-stack разработчик из Оша, Кыргызстан. Делаю веб-продукты целиком:
+          интерфейс на React и Next.js, данные в Firebase и Supabase, деплой на Vercel.
         </p>
       </header>
 
       {/* Bio */}
       <section className="mb-16 md:mb-24">
         <p className="text-lg text-muted max-w-2xl leading-relaxed">
-          Мне нравится разбираться в том, как устроены системы, решать задачи и
-          превращать идеи в работающие продукты. Строю продакшн-продукты в одиночку —
-          от архитектуры до деплоя.
+          Все проекты в портфолио написаны мной. Последний крупный проект — платформа онлайн-экзаменов для учебного центра
+          PROlab Academy: отдельные потоки для учителей и учеников, защита от списывания
+          и разграничение доступа на уровне базы через Row Level Security. Кроме неё
+          делал систему планирования дня с привычками и целями — и десктопную утилиту
+          на C# для передачи файлов по локальной сети.
         </p>
       </section>
 
-      {/* Skills */}
-      <section className="mb-16 md:mb-24">
-        <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-          Навыки
-        </p>
-        <div className="space-y-6">
-          {skills.map((skill) => (
-            <div key={skill.name}>
-              <div className="flex items-baseline justify-between">
-                <span className="font-mono text-sm text-ink">{skill.name}</span>
-                <span className="font-mono text-sm text-muted">{skill.level}%</span>
-              </div>
-              <div className="mt-2 h-2 bg-line rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-accent rounded-full transition-all duration-700 ease-out"
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Tech Stack Categories */}
+      {/* Tech Stack */}
       <section>
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
           Стек
         </p>
-        <div className="flex flex-wrap gap-2">
-          {["Next.js", "TypeScript", "Tailwind CSS", "React", "Supabase", "PostgreSQL", "Python", "Django", "C#", "Avalonia"].map((tech) => (
-            <span
-              key={tech}
-              className="font-mono text-xs text-muted bg-bg-elevated px-2.5 py-1 rounded border border-line"
-            >
-              {tech}
-            </span>
+        <div className="space-y-8">
+          {techGroups.map((group) => (
+            <div key={group.label} className="space-y-3">
+              <p className="font-mono text-xs text-accent uppercase tracking-wide">
+                {group.label}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((tech) => (
+                  <span
+                    key={tech.name}
+                    className="font-mono text-xs text-muted bg-bg-elevated px-2.5 py-1 rounded border border-line"
+                  >
+                    {tech.name}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>
