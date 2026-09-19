@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Full-stack developer based in Osh, Kyrgyzstan. Building web products from interface to backend with Next.js, TypeScript, React, C#, .NET, Python, and PostgreSQL.",
+  alternates: { canonical: "/about" },
 };
 
 const skills = [

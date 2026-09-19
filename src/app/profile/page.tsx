@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "GitHub Profile",
   description:
     "Live GitHub data — repositories, followers, and project activity. Explore real-time stats and repository details from github.com/b4631119-oss.",
+  alternates: { canonical: "/profile" },
 };
 
 export default async function ProfilePage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "PROlab Academy — Case Study",
   description:
     "Production educational platform for teachers and students in Osh, Kyrgyzstan. Programming courses (JavaScript, HTML, CSS) and online exam system with role-based access via RLS. Built with Next.js, TypeScript, Supabase, PostgreSQL, JWT, RLS, E2E Testing.",
+  alternates: { canonical: "/projects/prolab-academy" },
 };
 
 const techGroups = [

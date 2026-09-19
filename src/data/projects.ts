@@ -12,25 +12,15 @@ export const projects: Project[] = [
     role: "Solo Developer",
   },
   {
-id: "lifeos",
-
-title: "LifeOS",
-
-description:
-
-
-"Personal life management system for organizing tasks, planning days and weeks, and managing everyday activities. Built with a focus on practical UX, reusable components, authentication, responsive design, and structured state management.",
-
-
-tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "React"],
-
-githubUrl: "https://github.com/b4631119-oss/lifeOS",
-
-liveUrl: "https://os-life-one.vercel.app/",
-
-role: "Solo Developer",
-},
-
+    id: "lifeos",
+    title: "LifeOS",
+    description:
+      "Personal life management system for organizing tasks, planning days and weeks, and managing everyday activities. Built with a focus on practical UX, reusable components, authentication, responsive design, and structured state management.",
+    tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "React"],
+    githubUrl: "https://github.com/b4631119-oss/lifeOS",
+    liveUrl: "https://os-life-one.vercel.app/",
+    role: "Solo Developer",
+  },
   {
     id: "macos-portfolio",
     title: "macOS Portfolio",
@@ -60,7 +50,7 @@ export const experiments: Project[] = [
     githubUrl: "https://github.com/b4631119-oss/cuaderno",
     liveUrl: "https://cuaderno-nine.vercel.app",
   },
-    {
+  {
     id: "localbridge",
     title: "LocalBridge",
     description:
@@ -75,16 +65,14 @@ export const experiments: Project[] = [
       "Calendar discovery application built with Next js,  Redux Toolkit, Axios, and responsive Tailwind CSS styling.",
     tags: ["React", "Vite", "Redux Toolkit", "Axios", "TMDB API", "Tailwind CSS"],
     githubUrl: "https://github.com/b4631119-oss/CalendarApp",
-        liveUrl: "https://kalendar-app-one.vercel.app/",
-
+    liveUrl: "https://kalendar-app-one.vercel.app/",
   },
-   {
+  {
     id: "greenshop",
     title: "Greenshop",
     description:
       " Tailwind CSS styling.",
     tags: ["Html", "Tailwind CSS"],
     githubUrl: "https://github.com/b4631119-oss/greenshop",
-
   },
 ];

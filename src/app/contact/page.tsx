@@ -1,31 +1,33 @@
 import type { Metadata } from "next";
 import { Github, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { contact, mailtoHref } from "@/data/contact";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Open to internships and new projects. Get in touch via GitHub, Telegram, or email — bilolmen99876@gmail.com.",
+    `Open to internships and new projects. Get in touch via GitHub, Telegram, or email — ${contact.email}.`,
+  alternates: { canonical: "/contact" },
 };
 
 const contacts = [
   {
     label: "GitHub",
-    href: "https://github.com/b4631119-oss",
+    href: contact.github,
     icon: Github,
     external: true,
     variant: "outline" as const,
   },
   {
     label: "Telegram",
-    href: "https://t.me/Teg123489",
+    href: contact.telegram,
     icon: Send,
     external: true,
     variant: "outline" as const,
   },
   {
     label: "Email",
-    href: "mailto:bilolmen998@gmail.com",
+    href: mailtoHref,
     icon: Mail,
     external: false,
     variant: "default" as const,

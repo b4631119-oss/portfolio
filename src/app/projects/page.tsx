@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "Full-stack production applications and technical experiments — Next.js, TypeScript, C#, .NET, Python, PostgreSQL, and more.",
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {

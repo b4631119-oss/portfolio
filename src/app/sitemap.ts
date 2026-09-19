@@ -1,19 +1,10 @@
 import { MetadataRoute } from "next";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-pi-silk-51.vercel.app";
+import { projects, experiments } from "@/data/projects";
+import { siteUrl } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const projectIds = [
-    "prolab-academy",
-    "localbridge",
-    "macos-portfolio",
-    "chat-app",
-    "cuaderno",
-    "movie-app",
-  ];
-
-  const projectUrls = projectIds.map((id) => ({
-    url: `${siteUrl}/projects/${id}`,
+  const projectUrls = [...projects, ...experiments].map((project) => ({
+    url: `${siteUrl}/projects/${project.id}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -37,12 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/projects/prolab-academy`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
       url: `${siteUrl}/profile`,

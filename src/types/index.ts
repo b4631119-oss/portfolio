@@ -8,8 +8,3 @@ export interface Project {
   image?: string;
   role?: string;
 }
-
-export interface Skill {
-  name: string;
-  level: "beginner" | "intermediate" | "advanced";
-}

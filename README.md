@@ -1,6 +1,6 @@
 # Bilolidin — Full-Stack Developer Portfolio
 
-A modern, performant portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, and **Tailwind CSS**. Features a dark-first design, smooth animations, and a fully typed codebase.
+A modern, performant portfolio website built with **Next.js 16**, **React 18**, **TypeScript**, and **Tailwind CSS**. Features a dark-first design, smooth animations, and a fully typed codebase.
 
 🔗 **Live Demo**: [https://portfolio-devroot.vercel.app/](https://portfolio-devroot.vercel.app/)
 
@@ -12,7 +12,7 @@ A modern, performant portfolio website built with **Next.js 15**, **React 18**, 
 - **Reveal-on-scroll animations** via `IntersectionObserver` (respects `prefers-reduced-motion`)
 - **Cursor-reactive dot-grid background** — subtle ambient texture that follows the cursor
 - **Pulse-flow animation** on architecture diagrams
-- **Three-way theme toggle** (Light / Dark / System) with View Transitions API ripple effect
+- **Two-way theme toggle** (Light / Dark, initial value follows `prefers-color-scheme`) with View Transitions API ripple effect
 - **Fully typed** with strict TypeScript
 - **SEO-ready**: Open Graph, Twitter Cards, JSON-LD structured data, sitemap, robots.txt
 - **Error/Loading/NotFound pages** with graceful fallbacks
@@ -24,11 +24,11 @@ A modern, performant portfolio website built with **Next.js 15**, **React 18**, 
 
 | Category | Technologies |
 |----------|--------------|
-| **Frontend** | Next.js 15 (App Router), React 18, TypeScript, Tailwind CSS, Framer Motion |
+| **Frontend** | Next.js 16 (App Router), React 18, TypeScript, Tailwind CSS |
 | **UI** | shadcn/ui (Radix UI), Lucide Icons, react-icons (Simple Icons) |
 | **Backend / Data** | GitHub REST API, Supabase, PostgreSQL, Python/Django, C#/.NET |
 | **DevOps** | Git, GitHub Actions, Docker, Linux, Vercel |
-| **Tools** | Figma, PyCharm, Git, GitHub, ESLint, Prettier, TypeScript |
+| **Tools** | Figma, PyCharm, Git, GitHub, ESLint, TypeScript |
 
 ---
 
@@ -37,7 +37,7 @@ A modern, performant portfolio website built with **Next.js 15**, **React 18**, 
 ### Prerequisites
 
 - Node.js 18+
-- pnpm / npm / yarn
+- npm (the repository ships a `package-lock.json`)
 
 ### Installation
 
@@ -49,9 +49,7 @@ cd portfolio
 # Install dependencies
 npm install
 
-# Copy env template
-cp .env.example .env.local
-
+# Create .env.local manually (see "Environment Variables" below)
 # Start dev server
 npm run dev
 ```
@@ -62,7 +60,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```bash
 # .env.local
-NEXT_PUBLIC_SITE_URL=https://your-domain.com      # Optional: overrides default Vercel URL
+NEXT_PUBLIC_SITE_URL=https://your-domain.com      # Optional: overrides the default https://portfolio-devroot.vercel.app
 GITHUB_USERNAME=b4631119-oss                      # Required for GitHub stats
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx             # Optional: increases rate limit
 ```
@@ -86,8 +84,10 @@ npm run typecheck    # TypeScript check (tsc --noEmit)
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── layout.tsx          # Root layout (fonts, theme, CursorGrid, Navbar, Footer)
-│   ├── page.tsx            # Homepage (Hero, Credibility, About, How I Work, Experience, Tech Stack, GitHub, Featured Work, Other Work, Contact)
+│   ├── layout.tsx          # Root layout (fonts, theme, CursorGrid, Navbar, Footer, metadata)
+│   ├── page.tsx            # Homepage: server data fetching + section composition
+│   ├── icon.tsx            # Generated favicon
+│   ├── opengraph-image.tsx # Generated Open Graph image
 │   ├── about/page.tsx      # About page (bio, skills, tech stack)
 │   ├── projects/
 │   │   ├── page.tsx        # All projects page (Featured + Other Work)
@@ -103,13 +103,16 @@ src/
 │   ├── error.tsx           # Global error boundary
 │   └── not-found.tsx       # 404 page
 ├── components/
-│   ├── layout/             # Navbar, Footer, ThemeProvider, ThemeToggle, CursorGrid
+│   ├── home/               # Homepage sections (Hero, About, Principles, Experience, Stack, Github, Contact, FeaturedWork, OtherWork)
+│   ├── layout/             # Navbar, Footer, ThemeProvider, ThemeToggle
 │   ├── project/            # ProjectCard (compact/featured variants)
 │   ├── profile/            # RepoExplorer (filter, sort, README dialog)
 │   ├── ui/                 # shadcn/ui components + Reveal, ArchitectureDiagram
 │   └── effects/            # CursorGrid (cursor-reactive dot-grid)
 ├── data/
-│   └── projects.ts         # Project data (featured + experiments)
+│   ├── projects.ts         # Project data (featured + experiments)
+│   ├── home.ts             # Homepage static data (work principles, tech categories)
+│   └── site.ts             # Canonical site URL (single source)
 ├── lib/
 │   ├── github.ts           # GitHub API client (REST + GraphQL)
 │   └── utils.ts            # Utility functions
@@ -173,29 +176,13 @@ vercel deploy
 
 ### Docker
 
-```dockerfile
-# Dockerfile
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM node:20-alpine AS runner
-WORKDIR /app
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
+Docker is **not set up** in this repository: there is no `Dockerfile`, and `next.config.ts` does not enable `output: "standalone"`, which a `.next/standalone`-based image requires.
 
 ---
 
 ## 📝 License
 
-MIT License — feel free to use as inspiration for your own portfolio.
+No license file is included in this repository yet.
 
 ---
 

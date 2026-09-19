@@ -1,20 +1,21 @@
 import { Github, Mail, Send } from "lucide-react";
+import { contact, mailtoHref } from "@/data/contact";
 
 const socialLinks = [
   {
-    href: "https://github.com/b4631119-oss",
+    href: contact.github,
     label: "GitHub",
     icon: Github,
     external: true,
   },
   {
-    href: "https://t.me/Teg123489",
+    href: contact.telegram,
     label: "Telegram",
     icon: Send,
     external: true,
   },
   {
-    href: "mailto:bilolmen99876@gmail.com",
+    href: mailtoHref,
     label: "Email",
     icon: Mail,
     external: false,

@@ -4,6 +4,8 @@ import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CursorGrid } from "@/components/effects/CursorGrid";
+import { siteUrl } from "@/data/site";
+import { contact } from "@/data/contact";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,8 +19,6 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
   variable: "--font-mono",
 });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-pi-silk-51.vercel.app";
 
 export const metadata: Metadata = {
   title: {
@@ -73,10 +73,7 @@ export default function RootLayout({
     name: "Bilol",
     jobTitle: "Full-Stack Developer",
     url: siteUrl,
-    sameAs: [
-      "https://github.com/b4631119-oss",
-      "https://t.me/Teg123489",
-    ],
+    sameAs: [contact.github, contact.telegram],
   };
 
   const webSiteSchema = {
