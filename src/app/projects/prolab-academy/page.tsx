@@ -6,8 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowLeft, Check, Github, Server, Database, Zap } from "lucide-react";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
+import { ProjectScreenshots } from "@/components/projects/CaseStudyLayout";
 
 const cover = projects.find((project) => project.id === "prolab-academy")?.image;
+const projectScreenshots = cover
+  ? [
+      cover,
+      { src: "/projects/prolab-academy/1.webp", alt: "Экран экзамена ученика в PROlab Academy" },
+      { src: "/projects/prolab-academy/2.webp", alt: "Кабинет учителя в PROlab Academy" },
+    ]
+  : [];
 
 export const metadata: Metadata = {
   title: "PROlab Academy — Case Study",
@@ -217,6 +225,10 @@ export default function ProLabAcademyCaseStudy() {
           ))}
         </div>
       </section>
+
+      <div className="mb-16 md:mb-24">
+        <ProjectScreenshots images={projectScreenshots} />
+      </div>
 
       {/* Notes */}
       <section className="mb-16 md:mb-24">

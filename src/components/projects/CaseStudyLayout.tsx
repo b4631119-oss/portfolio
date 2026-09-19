@@ -31,6 +31,37 @@ function List({ items }: { items: string[] }) {
   );
 }
 
+export function ProjectScreenshots({
+  images,
+  label = "Скриншоты",
+}: {
+  images: ProjectCaseStudy["screenshots"];
+  label?: string;
+}) {
+  if (!images || images.length === 0) return null;
+
+  return (
+    <Section label={label}>
+      <div className="space-y-6">
+        {images.map((shot) => (
+          <div
+            key={shot.src}
+            className="relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-elevated"
+          >
+            <Image
+              src={shot.src}
+              alt={shot.alt}
+              fill
+              sizes="(min-width: 768px) 768px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 export function CaseStudyLayout({ caseStudy }: { caseStudy: ProjectCaseStudy }) {
   return (
     <div className="mt-16 space-y-14">
@@ -74,26 +105,7 @@ export function CaseStudyLayout({ caseStudy }: { caseStudy: ProjectCaseStudy }) 
         </Section>
       )}
 
-      {caseStudy.screenshots && caseStudy.screenshots.length > 0 && (
-        <Section label="Скриншоты">
-          <div className="space-y-6">
-            {caseStudy.screenshots.map((shot) => (
-              <div
-                key={shot.src}
-                className="relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-elevated"
-              >
-                <Image
-                  src={shot.src}
-                  alt={shot.alt}
-                  fill
-                  sizes="(min-width: 768px) 768px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
+      {caseStudy.screenshots && <ProjectScreenshots images={caseStudy.screenshots} />}
     </div>
   );
 }
