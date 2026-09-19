@@ -34,6 +34,14 @@ export interface LanguageStat {
   percentage: number;
 }
 
+export interface GithubData {
+  user: GithubUser | null;
+  repos: GithubRepo[];
+  pinnedRepos: GithubRepo[];
+  languageStats: LanguageStat[];
+  recentRepos: GithubRepo[];
+}
+
 export class GithubApiError extends Error {
   readonly status: number;
 
@@ -132,40 +140,23 @@ export async function getGithubRepos(): Promise<GithubRepo[]> {
   return repos.filter((repo) => !repo.fork);
 }
 
-// Count-based language stats (pragmatic: byte-weighted would need /languages per repo, expensive)
-export async function getLanguageStats(): Promise<LanguageStat[]> {
-  try {
-    const repos = await getGithubRepos();
-    const counts = new Map<string, number>();
-
-    for (const repo of repos) {
-      if (repo.language) {
-        counts.set(repo.language, (counts.get(repo.language) ?? 0) + 1);
-      }
-    }
-
-    if (counts.size === 0) return [];
-
-    const total = repos.length;
-    const entries = [...counts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .map(([language, count]) => ({
-        language,
-        percentage: Math.round((count / total) * 100),
-      }));
-
-    // Top 5 + "Other" bucket
-    if (entries.length <= 5) return entries;
-
-    const top5 = entries.slice(0, 5);
-    const otherPercentage = entries.slice(5).reduce((sum, e) => sum + e.percentage, 0);
-    return [...top5, { language: "Other", percentage: otherPercentage }];
-  } catch {
-    return [];
+function languageStatsFromRepos(repos: GithubRepo[]): LanguageStat[] {
+  const counts = new Map<string, number>();
+  for (const repo of repos) {
+    if (repo.language) counts.set(repo.language, (counts.get(repo.language) ?? 0) + 1);
   }
+  if (counts.size === 0) return [];
+  const entries = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([language, count]) => ({ language, percentage: Math.round((count / repos.length) * 100) }));
+  if (entries.length <= 5) return entries;
+  return [
+    ...entries.slice(0, 5),
+    { language: "Other", percentage: entries.slice(5).reduce((sum, item) => sum + item.percentage, 0) },
+  ];
 }
 
-// Try GraphQL for pinned repos; fallback to REST top-by-stars
+// Pinned repositories are read only from GraphQL. An unavailable token/API means no pinned section.
 export async function getPinnedRepos(): Promise<GithubRepo[]> {
   const query = `
     query GetPinnedRepos($login: String!) {
@@ -227,16 +218,26 @@ export async function getPinnedRepos(): Promise<GithubRepo[]> {
         }));
     }
   } catch {
-    // Fall through to REST fallback
-  }
-
-  // REST fallback: top 6 by stars
-  try {
-    const repos = await getGithubRepos();
-    return [...repos].sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 6);
-  } catch {
     return [];
   }
+
+  return [];
+}
+
+export async function getGithubData(): Promise<GithubData> {
+  const [userResult, reposResult, pinnedResult] = await Promise.allSettled([
+    getGithubUser(),
+    getGithubRepos(),
+    getPinnedRepos(),
+  ]);
+  const user = userResult.status === "fulfilled" ? userResult.value : null;
+  const repos = reposResult.status === "fulfilled" ? reposResult.value : [];
+  const pinnedRepos = pinnedResult.status === "fulfilled" ? pinnedResult.value : [];
+  const recentRepos = [...repos]
+    .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
+    .slice(0, 4);
+
+  return { user, repos, pinnedRepos, languageStats: languageStatsFromRepos(repos), recentRepos };
 }
 
 export async function getRepoReadme(

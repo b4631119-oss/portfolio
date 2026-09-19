@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  getGithubUser,
-  getGithubRepos,
-  type GithubRepo,
-  type GithubUser,
-} from "@/lib/github";
+import { getGithubData } from "@/lib/github";
 import RepoExplorer from "@/components/profile/RepoExplorer";
 
 export const metadata: Metadata = {
@@ -17,16 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
-  let user: GithubUser | null = null;
-  let repos: GithubRepo[] = [];
-
-  try {
-    const results = await Promise.all([getGithubUser(), getGithubRepos()]);
-    user = results[0];
-    repos = results[1];
-  } catch {
-    // fallback rendered below
-  }
+  const { user, repos } = await getGithubData();
 
   if (!user) {
     return (
@@ -81,9 +67,7 @@ export default async function ProfilePage() {
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-x-8">
             {stats.map((stat) => (
               <div key={stat.label} className="px-6 first:pl-0 sm:pl-6">
-                <div className="font-mono text-xl text-ink">
-                  {stat.value}
-                </div>
+                <div className="font-mono text-xl text-ink">{stat.value}</div>
                 <div className="mt-1 text-muted text-xs">{stat.label}</div>
               </div>
             ))}
