@@ -84,18 +84,18 @@ export default async function Home() {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 pb-24 font-sans">
       <HomeHero />
-      <HomeAbout />
-      <HomePrinciples />
-      <HomeExperience />
+      <HomeFeaturedWork />
+      <HomeOtherWork />
       <HomeStack />
+      <HomePrinciples />
+      <HomeAbout />
+      <HomeExperience />
       <HomeGithub
         pinnedRepos={pinnedRepos}
         languageStats={languageStats}
         recentRepos={recentRepos}
       />
       <HomeContact />
-      <HomeFeaturedWork />
-      <HomeOtherWork />
     </div>
   );
 }

@@ -36,7 +36,8 @@ function formatRelativeDate(iso: string): string {
 
 export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGithubProps) {
   return (
-    <>
+    <section className="mt-24 md:mt-32" id="github" aria-labelledby="github-heading">
+      <h2 id="github-heading" className="sr-only">GitHub</h2>
       {/* Pinned Repositories */}
       {pinnedRepos.length > 0 && (
         <Reveal delay={160}>
@@ -96,7 +97,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
             <h3 id="languages-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
               Языки
             </h3>
-            <div className="h-2 rounded-full overflow-hidden flex bg-line" role="img" aria-label="Language distribution">
+            <div className="h-2 rounded-full overflow-hidden flex bg-line" role="img" aria-label="Распределение языков по репозиториям">
               {languageStats.map((stat, index) => (
                 <div
                   key={stat.language}
@@ -174,11 +175,11 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
       <div className="mt-10 text-center">
         <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">
           <Link href="/profile">
-            View full GitHub profile
+            Открыть профиль GitHub
             <ExternalLink size={18} className="ml-2" aria-hidden="true" />
           </Link>
         </Button>
       </div>
-    </>
+    </section>
   );
 }

@@ -75,7 +75,7 @@ export default function ProLabAcademyCaseStudy() {
         className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm mb-12"
       >
         <ArrowLeft size={16} aria-hidden="true" />
-        Back to work
+        Назад к проектам
       </Link>
 
       {/* Preview */}
@@ -117,7 +117,7 @@ export default function ProLabAcademyCaseStudy() {
               rel="noopener noreferrer"
             >
               <ExternalLink size={18} className="mr-2" aria-hidden="true" />
-              Live Project
+              Live
             </a>
           </Button>
           <Button asChild size="lg" variant="outline" className="font-bold">
@@ -127,7 +127,7 @@ export default function ProLabAcademyCaseStudy() {
               rel="noopener noreferrer"
             >
               <Github size={18} className="mr-2" aria-hidden="true" />
-              GitHub
+              Код
             </a>
           </Button>
         </div>
@@ -136,7 +136,7 @@ export default function ProLabAcademyCaseStudy() {
       {/* Overview */}
       <section className="mb-16 md:mb-24">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-          Overview
+          Обзор
         </p>
         <div className="prose prose-invert max-w-none text-muted leading-relaxed space-y-4">
           <p>
@@ -158,7 +158,7 @@ export default function ProLabAcademyCaseStudy() {
       {/* Role */}
       <section className="mb-16 md:mb-24">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-          Role
+          Роль
         </p>
         <div className="prose prose-invert max-w-none text-muted leading-relaxed space-y-4">
           <p>
@@ -173,7 +173,7 @@ export default function ProLabAcademyCaseStudy() {
       {/* Architecture */}
       <section className="mb-16 md:mb-24" aria-labelledby="architecture-heading">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6" id="architecture-heading">
-          Architecture
+          Архитектура
         </p>
         <ArchitectureDiagram nodes={archNodes} />
         <p className="mt-8 text-sm text-muted text-center">
@@ -184,7 +184,7 @@ export default function ProLabAcademyCaseStudy() {
       {/* Features */}
       <section className="mb-16 md:mb-24">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-          Features
+          Функции
         </p>
         <div className="grid md:grid-cols-2 gap-4">
           {features.map((feature) => (
@@ -206,7 +206,7 @@ export default function ProLabAcademyCaseStudy() {
       {/* Tech Stack */}
       <section className="mb-16 md:mb-24">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-          Tech Stack
+          Стек технологий
         </p>
         <div className="space-y-6">
           {techGroups.map((group) => (
@@ -233,7 +233,7 @@ export default function ProLabAcademyCaseStudy() {
       {/* Notes */}
       <section className="mb-16 md:mb-24">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-          Notes
+          Примечания
         </p>
         <div className="prose prose-invert max-w-none text-muted leading-relaxed">
           <p>
@@ -277,7 +277,7 @@ export default function ProLabAcademyCaseStudy() {
         >
           <Link href="/#work">
             <ArrowLeft size={18} className="mr-2" aria-hidden="true" />
-            Back to work
+            Назад к проектам
           </Link>
         </Button>
       </footer>

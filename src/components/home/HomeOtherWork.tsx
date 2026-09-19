@@ -12,7 +12,7 @@ export function HomeOtherWork() {
         <Reveal>
           {/* Section heading */}
           <h2 id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-            Other Work
+Другие проекты
           </h2>
           <p className="text-muted">Пет-проекты и эксперименты.</p>
         </Reveal>

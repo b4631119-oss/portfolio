@@ -25,7 +25,7 @@ export default function ProjectsPage() {
         className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm mb-12"
       >
         <ArrowLeft size={16} aria-hidden="true" />
-        Back
+        Назад
       </Link>
 
       {/* Header */}
@@ -41,7 +41,7 @@ export default function ProjectsPage() {
       {/* Featured Work */}
       <section className="mb-24 md:mb-32" id="projects-featured">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-          Featured Work
+          Избранные проекты
         </p>
 
         {lead && <ProjectCard project={lead} variant="flagship" />}
@@ -58,7 +58,7 @@ export default function ProjectsPage() {
       {/* Other Work */}
       <section id="other-work" aria-labelledby="other-work-heading">
         <p id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-          Other Work
+          Другие проекты
         </p>
 
         {secondary.length > 0 && (

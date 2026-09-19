@@ -26,10 +26,10 @@ export function HomeStack() {
                       return (
                         <div key={tech.name} className="flex items-center gap-3">
                           <span
-                            className="flex-shrink-0 w-6 h-6 flex items-center justify-center"
-                            style={{ color: tech.color }}
+                            className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-ink"
+                            style={{ color: tech.color === "currentColor" ? "currentColor" : tech.color }}
                           >
-                            {Icon && <Icon size={24} aria-hidden="true" />}
+                            {Icon && <Icon size={24} strokeWidth={1.8} aria-hidden="true" />}
                           </span>
                           <span className="text-sm text-ink">{tech.name}</span>
                         </div>

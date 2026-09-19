@@ -31,7 +31,7 @@ export function HomeHero() {
             {/* Availability line */}
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs tracking-widest text-muted uppercase">
-                Open to work
+                Открыт к работе
               </span>
               <span
                 className="relative h-1.5 w-1.5 rounded-full bg-accent animate-pulse"

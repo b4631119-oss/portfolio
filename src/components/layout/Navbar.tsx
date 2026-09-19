@@ -10,11 +10,11 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/s
 import ThemeToggle from "@/components/layout/ThemeToggle";
 
 const navLinks = [
-  { href: "/#work", label: "WORK" },
-  { href: "/#about", label: "ABOUT" },
-  { href: "/#stack", label: "STACK" },
-  { href: "/#github", label: "GITHUB" },
-  { href: "/#contact", label: "CONTACT" },
+  { href: "/#work", label: "Проекты" },
+  { href: "/#about", label: "Обо мне" },
+  { href: "/#stack", label: "Стек" },
+  { href: "/#github", label: "GitHub" },
+  { href: "/#contact", label: "Контакты" },
 ] as const;
 
 export default function Navbar() {
@@ -44,13 +44,13 @@ export default function Navbar() {
       )}
       role="banner"
     >
-      <nav className="mx-auto max-w-7xl px-4 md:px-6" aria-label="Main navigation">
+      <nav className="mx-auto max-w-7xl px-4 md:px-6" aria-label="Основная навигация">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Wordmark */}
           <Link
             href="/"
             className="font-mono text-sm tracking-widest text-ink hover:opacity-80 transition-opacity"
-            aria-label="Home"
+            aria-label="На главную"
           >
             BILOLIDIN
           </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
             <Button asChild size="sm" className="hidden md:inline-flex font-mono text-xs tracking-wider">
-              <Link href="/#contact">Let&apos;s talk</Link>
+              <Link href="/#contact">Связаться</Link>
             </Button>
 
             <ThemeToggle className="h-8 w-8" />
@@ -95,15 +95,16 @@ export default function Navbar() {
                 <button
                   type="button"
                   className="md:hidden inline-flex h-10 w-10 items-center justify-center text-muted hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                  aria-label="Open menu"
+                  aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
                   aria-expanded={mobileMenuOpen}
+                  aria-controls="mobile-navigation"
                 >
                   {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="w-full sm:max-w-sm p-6">
                 <div className="flex flex-col gap-6">
-                  <nav className="flex flex-col gap-4">
+                  <nav id="mobile-navigation" className="flex flex-col gap-4" aria-label="Мобильная навигация">
                     {navLinks.map((link) => (
                       <SheetClose asChild key={link.href}>
                         <Link
@@ -121,7 +122,7 @@ export default function Navbar() {
                   <div className="flex items-center justify-between pt-4 border-t border-line">
                     <ThemeToggle className="h-10 w-10 text-muted" />
                     <Button asChild className="w-full sm:w-auto font-mono text-sm tracking-wider">
-                      <Link href="/#contact">Let&apos;s talk</Link>
+                      <Link href="/#contact">Связаться</Link>
                     </Button>
                   </div>
                 </div>

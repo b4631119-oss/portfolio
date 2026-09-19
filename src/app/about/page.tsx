@@ -19,7 +19,7 @@ export default function AboutPage() {
         className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm mb-12"
       >
         <ArrowLeft size={16} aria-hidden="true" />
-        Back
+        Назад
       </Link>
 
       {/* Header */}

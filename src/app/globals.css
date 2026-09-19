@@ -64,6 +64,10 @@
   --radius: 0.5rem;
 }
 
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
 body {
   background-color: var(--bg);
   color: var(--ink);

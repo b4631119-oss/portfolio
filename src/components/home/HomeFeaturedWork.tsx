@@ -15,7 +15,7 @@ export function HomeFeaturedWork() {
         <Reveal>
           {/* Section heading */}
           <h2 id="work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-            Featured Work
+            Избранные проекты
           </h2>
           <p className="text-muted">Главные проекты — продакшн-продукты и сложные системы.</p>
         </Reveal>
@@ -47,7 +47,7 @@ export function HomeFeaturedWork() {
               className="font-bold font-mono text-sm tracking-wider"
             >
               <Link href="/projects/prolab-academy">
-                PROlab Academy — Case Study
+                PROlab Academy — кейс
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>
             </Button>
