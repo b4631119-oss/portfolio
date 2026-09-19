@@ -276,45 +276,9 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Credibility Section */}
-      <section className="mt-24 md:mt-32" id="credibility" aria-labelledby="credibility-heading">
-        <div className="max-w-5xl mx-auto px-4 md:px-6">
-          <Reveal>
-            {/* Section heading */}
-            <h2 id="credibility-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-              Создаю реальные продукты
-            </h2>
+  
 
-            {/* Capability tags row */}
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 sm:gap-6 md:gap-x-6 md:gap-y-3">
-              {capabilities.map((cap) => (
-                <span key={cap} className="font-mono text-sm text-muted text-center">
-                  {cap}
-                </span>
-              ))}
-            </div>
-
-            {/* Stats row */}
-            {stats.length > 0 && (
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-x-8 sm:gap-y-6">
-                {stats.map((stat, index) => (
-                  <div
-                    key={stat.label}
-                    className={`px-6 first:pl-0 sm:pl-6 ${index > 0 ? 'pt-2 sm:pt-0' : ''}`}
-                  >
-                    <div className="font-sans font-bold text-ink text-4xl md:text-5xl">
-                      {stat.value}
-                    </div>
-                    <div className="mt-1 text-xs text-muted font-mono uppercase tracking-wide">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </Reveal>
-        </div>
-      </section>
+         
 
       {/* About Section */}
       <section className="mt-24 md:mt-32" id="about" aria-labelledby="about-heading">
