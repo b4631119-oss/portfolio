@@ -1,18 +1,40 @@
 import type { MetadataRoute } from "next";
-import { projects, experiments } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { siteUrl } from "@/data/site";
+import { localePath } from "@/i18n/metadata";
+import { locales, type Locale } from "@/i18n/config";
 
-function entry(path: string, priority: number, changeFrequency: "daily" | "weekly" | "monthly"): MetadataRoute.Sitemap[number] {
-  const ru = `${siteUrl}${path}`;
-  const en = `${siteUrl}/en${path === "/" ? "" : path}`;
-  return { url: ru, lastModified: new Date(), changeFrequency, priority, alternates: { languages: { ru, en, "x-default": ru } } };
+function entry(
+  path: string,
+  locale: Locale,
+  priority: number,
+  changeFrequency: "daily" | "weekly" | "monthly"
+): MetadataRoute.Sitemap[number] {
+  const ru = `${siteUrl}${localePath(path, "ru")}`;
+  const en = `${siteUrl}${localePath(path, "en")}`;
+  return {
+    url: locale === "en" ? en : ru,
+    lastModified: new Date(),
+    changeFrequency,
+    priority,
+    alternates: { languages: { ru, en, "x-default": ru } },
+  };
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
-    ["/", 1, "weekly"], ["/about", 0.8, "monthly"], ["/projects", 0.9, "weekly"], ["/profile", 0.8, "daily"], ["/contact", 0.7, "monthly"],
+    ["/", 1, "weekly"],
+    ["/about", 0.8, "monthly"],
+    ["/projects", 0.9, "weekly"],
+    ["/profile", 0.8, "daily"],
+    ["/contact", 0.7, "monthly"],
   ] as const;
-  const base = paths.map(([path, priority, frequency]) => entry(path, priority, frequency));
-  const projectsEntries = [...projects, ...experiments].map((project) => entry(`/projects/${project.id}`, 0.7, "monthly"));
-  return [...base, ...projectsEntries];
+  const pathsWithProjects = [
+    ...paths,
+    ...projects.map((project) => [`/projects/${project.id}`, 0.7, "monthly"] as const),
+  ];
+
+  return pathsWithProjects.flatMap(([path, priority, frequency]) =>
+    locales.map((locale) => entry(path, locale, priority, frequency))
+  );
 }

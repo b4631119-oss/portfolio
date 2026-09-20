@@ -3,39 +3,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Code2, ExternalLink } from "lucide-react";
-import { projects, experiments } from "@/data/projects";
+import { getProject, isCustomCaseStudy, localizeProject, projects } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CaseStudyLayout } from "@/components/projects/CaseStudyLayout";
 import { getDictionary } from "@/i18n";
 import { isLocale, locales, type Locale } from "@/i18n/config";
-import { localizeProject } from "@/i18n/projects";
 import { alternatesFor } from "@/i18n/metadata";
 
 type Props = { params: Promise<{ locale: string; id: string }> };
-const allProjects = [...projects, ...experiments];
-const CASE_STUDY_ROUTE_ID = "prolab-academy";
+const allProjects = projects;
 
 export function generateStaticParams() {
-  return locales.flatMap((locale) => allProjects.filter((project) => project.id !== CASE_STUDY_ROUTE_ID).map((project) => ({ locale, id: project.id })));
+  return locales.flatMap((locale) => allProjects.filter((project) => !isCustomCaseStudy(project)).map((project) => ({ locale, id: project.id })));
 }
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: raw, id } = await params;
   const locale: Locale = isLocale(raw) ? raw : "ru";
-  const project = allProjects.find((item) => item.id === id);
+  const project = getProject(id);
   if (!project) return {};
   const localized = localizeProject(project, locale);
   const path = `/projects/${project.id}`;
-  return { title: localized.title, description: localized.description, alternates: alternatesFor(path, locale), openGraph: { title: localized.title, description: localized.description, url: locale === "en" ? `/en${path}` : path, locale: locale === "en" ? "en_US" : "ru_RU", images: localized.image ? [{ url: localized.image.src, alt: localized.image.alt }] : undefined } };
+  const ogImage = localized.image?.src ?? "/opengraph-image";
+  return { title: localized.title, description: localized.description, alternates: alternatesFor(path, locale), openGraph: { title: localized.title, description: localized.description, url: locale === "en" ? `/en${path}` : path, locale: locale === "en" ? "en_US" : "ru_RU", images: [{ url: ogImage, alt: localized.image?.alt ?? localized.title }] }, twitter: { card: "summary_large_image", title: localized.title, description: localized.description, images: [ogImage] } };
 }
 
 export default async function ProjectPage({ params }: Props) {
   const { locale: raw, id } = await params;
   const locale: Locale = isLocale(raw) ? raw : "ru";
   const d = getDictionary(locale);
-  const project = allProjects.find((item) => item.id === id);
+  const project = getProject(id);
   if (!project) notFound();
   const localized = localizeProject(project, locale);
   const pathPrefix = locale === "en" ? "/en" : "";

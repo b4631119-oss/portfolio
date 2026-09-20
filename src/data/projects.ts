@@ -1,4 +1,22 @@
-import { Project } from "@/types";
+import type { Project } from "@/types";
+import type { Locale } from "@/i18n/config";
+
+/*
+  Template for a future record:
+  {
+    id: "project-id",
+    title: "Project title",
+    description: "Русское описание",
+    tags: ["Next.js"],
+    githubUrl: "https://github.com/...",
+    liveUrl: "https://...", // optional
+    role: "Solo Developer", // optional
+    tier: "flagship", // flagship | secondary | experiment
+    image: { src: "/projects/project-id/cover.webp", alt: "Русский alt" }, // optional
+    localized: { en: { description: "English description", image: { src: "/projects/project-id/cover.webp", alt: "English alt" } } },
+    caseStudy: { overview: "...", features: ["..."] }, // optional
+  }
+*/
 
 export const projects: Project[] = [
   {
@@ -11,9 +29,55 @@ export const projects: Project[] = [
     liveUrl: "https://www.prolab-academy.site/",
     role: "Solo Developer",
     tier: "flagship",
-    image: {
-      src: "/projects/prolab-academy/cover.webp",
-      alt: "Главная страница платформы PROlab Academy",
+    customCaseStudy: {
+      metadataTitle: "PROlab Academy — Кейс",
+      back: "Назад к проектам",
+      role: "Solo Developer",
+      badge: "Избранный",
+      intro: "Образовательная платформа для учителей и учеников в Оше, Кыргызстан — курсы программирования и система онлайн-экзаменов с ролевым доступом.",
+      overview: "Обзор",
+      overviewOne: "PROlab Academy — это образовательная платформа, созданная для учителей и учеников в Оше, Кыргызстан. Платформа предоставляет доступ к курсам программирования для начинающих (JavaScript, HTML, CSS) и включает полноценную систему онлайн-экзаменов и тестирования.",
+      overviewTwo: "Ключевая особенность — раздельные потоки для учителей и учеников: учителя могут создавать курсы, экзамены, просматривать результаты и прогресс класса, а ученики — проходить обучение, сдавать тесты и видеть свои оценки. Вся логика доступа построена на Row Level Security (RLS) в PostgreSQL через Supabase.",
+      roleTitle: "Роль",
+      roleText: "Solo Developer — спроектировал, разработал и задеплоил всю платформу самостоятельно: от архитектуры базы данных и настройки Supabase до фронтенда на Next.js, реализации аутентификации, ролевой модели доступа, системы экзаменов и E2E-тестов.",
+      architecture: "Архитектура",
+      architectureFlow: "Next.js → Server Actions → Supabase → PostgreSQL",
+      features: "Функции",
+      featureItems: ["Аутентификация", "Панель учителя", "Система ученика", "Экзамены", "Тесты", "Результаты", "Сохранение ответов", "Контроль доступа на RLS", "E2E-тестирование", "Развёртывание в продакшен"],
+      stack: "Стек технологий",
+      techGroups: [{ label: "Фронтенд", items: ["Next.js", "TypeScript"] }, { label: "Бэкенд и данные", items: ["Supabase", "PostgreSQL", "JWT", "RLS"] }, { label: "Качество", items: ["E2E-тестирование"] }],
+      notes: "Примечания",
+      notesText: "Главная задача при разработке — правильно смоделировать доступ для двух принципиально разных типов пользователей (учителя и ученики) и обеспечить изоляцию данных на уровне базы. RLS в Supabase/PostgreSQL позволил решить это декларативно, а Server Actions в Next.js упростили мутации данных и убрали необходимость в отдельном API-слое.",
+      live: "Открыть проект",
+      code: "Код",
+    },
+    localized: {
+      en: {
+        description:
+          "PROlab Academy educational-center platform (Osh, Kyrgyzstan): programming courses for beginners (JavaScript, HTML, CSS) and online exams with anti-cheating protection, separate teacher and student flows, and access control through Row Level Security in Supabase. The repository contains the platform's exam module.",
+        customCaseStudy: {
+          metadataTitle: "PROlab Academy — Case Study",
+          back: "Back to projects",
+          role: "Solo Developer",
+          badge: "Featured",
+          intro: "Educational platform for teachers and students in Osh, Kyrgyzstan — programming courses and an online exam system with role-based access.",
+          overview: "Overview",
+          overviewOne: "PROlab Academy is an educational platform created for teachers and students in Osh, Kyrgyzstan. It provides beginner programming courses (JavaScript, HTML, CSS) and includes a full online exam and testing system.",
+          overviewTwo: "The key feature is separate flows for teachers and students: teachers can create courses and exams, review results and class progress, while students can learn, take tests and see their grades. Access logic is built on Row Level Security (RLS) in PostgreSQL through Supabase.",
+          roleTitle: "Role",
+          roleText: "Solo Developer — designed, developed, and deployed the entire platform independently: from database architecture and Supabase setup to the Next.js frontend, authentication, role-based access model, exam system, and E2E tests.",
+          architecture: "Architecture",
+          architectureFlow: "Next.js → Server Actions → Supabase → PostgreSQL",
+          features: "Features",
+          featureItems: ["Authentication", "Teacher dashboard", "Student system", "Exams", "Tests", "Results", "Answer persistence", "RLS-based access control", "E2E testing", "Production deployment"],
+          stack: "Technology stack",
+          techGroups: [{ label: "Frontend", items: ["Next.js", "TypeScript"] }, { label: "Backend & data", items: ["Supabase", "PostgreSQL", "JWT", "RLS"] }, { label: "Quality", items: ["E2E testing"] }],
+          notes: "Notes",
+          notesText: "The main development task was modeling access for two fundamentally different user types (teachers and students) and isolating data at the database level. RLS in Supabase/PostgreSQL addressed this declaratively, while Server Actions in Next.js simplified data mutations and removed the need for a separate API layer.",
+          live: "Open project",
+          code: "Code",
+        },
+      },
     },
   },
   {
@@ -26,10 +90,6 @@ export const projects: Project[] = [
     liveUrl: "https://os-life-one.vercel.app/",
     role: "Solo Developer",
     tier: "flagship",
-    image: {
-      src: "/projects/lifeos/cover.webp",
-      alt: "Экран планирования дня в LifeOS",
-    },
     caseStudy: {
       overview:
         "LifeOS — личная система управления делами и планирования дня. Проект объединяет задачи, расписание, привычки, цели, аналитику и заметки за одним Google-входом.",
@@ -52,10 +112,35 @@ export const projects: Project[] = [
         "Графики аналитики сделаны вручную на SVG без charting-библиотеки.",
         "Поддержка русского и английского языков организована через next-intl и словари сообщений.",
       ],
-      screenshots: [
-        { src: "/projects/lifeos/1.webp", alt: "Экран привычек в LifeOS" },
-        { src: "/projects/lifeos/2.webp", alt: "Экран целей и задач в LifeOS" },
-      ],
+    },
+    localized: {
+      en: {
+        description:
+          "A personal planning system: hourly day schedule, habits with streaks, and tasks linked to long-term goals. Sign-in through Google; all documents are isolated by owner in Firestore.",
+        caseStudy: {
+          overview:
+            "LifeOS is a personal task-management and day-planning system. The project brings tasks, schedule, habits, goals, analytics, and notes together behind one Google sign-in.",
+          scope:
+            "Solo Developer. Built the application with Next.js, Firebase Authentication, and Firestore; the code is divided into App Router, feature components, contexts, hooks, and a data-access layer.",
+          features: [
+            "Today and Week for planning tasks by day",
+            "Schedule with an hourly timeline",
+            "Habits with current and best streaks",
+            "Goals and links between goals and tasks",
+            "Analytics for task completion and habit activity",
+            "Notes with date-based history",
+            "Profile with Google account data",
+          ],
+          architecture:
+            "Next.js App Router uses feature components for Today, Habits, Schedule, Goals, Analytics, and Notes. Firebase Authentication handles sign-in, Firestore stores data, and Firestore rules restrict documents to their owner. Shared subscriptions and operations are kept in hooks and lib.",
+          decisions: [
+            "Owner-scoped Firestore rules: documents are available only to the corresponding user.",
+            "The schedule uses @dnd-kit/core rather than a separate drag-and-drop layer.",
+            "Analytics charts are built manually with SVG without a charting library.",
+            "Russian and English support is organized through next-intl and message dictionaries.",
+          ],
+        },
+      },
     },
   },
   {
@@ -68,10 +153,6 @@ export const projects: Project[] = [
     liveUrl: "https://mac-os-portfolio-app.vercel.app/",
     role: "Solo Developer",
     tier: "flagship",
-    image: {
-      src: "/projects/macos-portfolio/cover.webp",
-      alt: "Рабочий стол macOS Portfolio с открытыми окнами",
-    },
     caseStudy: {
       overview:
         "macOS Portfolio — интерактивное веб-портфолио, оформленное как рабочий стол macOS. Навигация построена вокруг окон и небольших приложений, а данные профиля и репозиториев загружаются из GitHub API.",
@@ -92,27 +173,65 @@ export const projects: Project[] = [
         "xterm.js выбран для терминального интерфейса внутри портфолио.",
         "Framer Motion используется для анимаций окон и переходов интерфейса.",
       ],
-      screenshots: [
-        { src: "/projects/macos-portfolio/1.webp", alt: "Терминал в macOS Portfolio" },
-        { src: "/projects/macos-portfolio/2.webp", alt: "Dock и контекстное меню macOS Portfolio" },
-      ],
+    },
+    localized: {
+      en: {
+        description:
+          "An interactive portfolio styled as a macOS desktop: draggable and resizable windows, a Dock for launching applications, a context menu, and an xterm.js terminal. Profile and repository data are loaded through the GitHub API, with animations built using Framer Motion.",
+        caseStudy: {
+          overview:
+            "macOS Portfolio is an interactive web portfolio presented as a macOS desktop. Navigation is built around windows and small applications, while profile and repository data is loaded from the GitHub API.",
+          scope:
+            "Solo Developer. Built the App Router page, window interface, Dock, context menu, terminal, and GitHub API integration with Next.js and TypeScript.",
+          features: [
+            "Draggable and resizable windows",
+            "Dock for launching applications",
+            "Desktop context menu",
+            "Terminal built on xterm.js",
+            "Profile and repository data loaded through the GitHub API",
+            "Cuaderno, Real-Time Chat App, and StarStream applications",
+          ],
+          architecture:
+            "The main screen is in src/app, interactive desktop parts are in src/app/components, UI primitives are in src/components/ui, and shared functions are in src/lib. This separates the desktop shell, applications, and reusable UI components.",
+          decisions: [
+            "AbortController cancels GitHub API fetch requests and protects against stale responses.",
+            "xterm.js is used for the terminal interface inside the portfolio.",
+            "Framer Motion is used for window animations and interface transitions.",
+          ],
+        },
+      },
     },
   },
-];
-
-export const experiments: Project[] = [
   {
     id: "chat-app",
     title: "Real-Time Chat App",
     description:
-      "Многокомнатный чат в реальном времени: авторизация, профили пользователей, комнаты и история сообщений. Обмен сообщениями и онлайн-статусы работают через Firestore.",
+      "Веб-чат на Next.js с авторизацией Firebase и хранением сообщений в Cloud Firestore. Репозиторий также содержит правила безопасности Firestore.",
     tags: ["Next.js", "TypeScript", "Firebase", "Firestore", "Auth"],
     githubUrl: "https://github.com/b4631119-oss/chat-app",
     role: "Solo Developer",
     tier: "secondary",
-    image: {
-      src: "/projects/chat-app/cover.webp",
-      alt: "Комната чата с историей сообщений и списком участников",
+    localized: {
+      en: {
+        description:
+          "A web chat built with Next.js, Firebase Authentication, and Cloud Firestore. The repository also contains Firestore security rules.",
+      },
+    },
+  },
+  {
+    id: "localbridge",
+    title: "LocalBridge",
+    description:
+      "Кроссплатформенная десктопная утилита для передачи файлов, текста и ссылок между устройствами в одной локальной сети — без облака, аккаунтов и ручного поиска IP. Написана на C#, интерфейс — Avalonia UI.",
+    tags: ["C#", ".NET", "Avalonia", "P2P", "LAN"],
+    githubUrl: "https://github.com/b4631119-oss/LocalBridge",
+    role: "Solo Developer",
+    tier: "secondary",
+    localized: {
+      en: {
+        description:
+          "A cross-platform desktop utility for transferring files, text, and links between devices on one local network — without cloud services, accounts, or manual IP lookup. Written in C# with an Avalonia UI.",
+      },
     },
   },
   {
@@ -125,23 +244,11 @@ export const experiments: Project[] = [
     liveUrl: "https://cuaderno-nine.vercel.app",
     role: "Solo Developer",
     tier: "secondary",
-    image: {
-      src: "/projects/cuaderno/cover.webp",
-      alt: "Страница заметки в Cuaderno с настраиваемой обложкой",
-    },
-  },
-  {
-    id: "localbridge",
-    title: "LocalBridge",
-    description:
-      "Кроссплатформенная десктопная утилита для передачи файлов, текста и ссылок между устройствами в одной локальной сети — без облака, аккаунтов и ручного поиска IP. Написана на C#, интерфейс — Avalonia UI.",
-    tags: ["C#", ".NET", "Avalonia", "P2P", "LAN"],
-    githubUrl: "https://github.com/b4631119-oss/LocalBridge",
-    role: "Solo Developer",
-    tier: "secondary",
-    image: {
-      src: "/projects/localbridge/cover.webp",
-      alt: "Окно LocalBridge с передачей файла между устройствами",
+    localized: {
+      en: {
+        description:
+          "A digital notebook for notes: pages with autosave and customizable covers. Authentication and data storage use Firebase and Firestore.",
+      },
     },
   },
   {
@@ -154,6 +261,12 @@ export const experiments: Project[] = [
     liveUrl: "https://kalendar-app-one.vercel.app/",
     role: "Solo Developer",
     tier: "experiment",
+    localized: {
+      en: {
+        description:
+          "A single-page calendar application built with Next.js: custom calendar components, state managed with React Context, responsive Tailwind CSS layout, and Framer Motion animations.",
+      },
+    },
   },
   {
     id: "greenshop",
@@ -164,5 +277,33 @@ export const experiments: Project[] = [
     githubUrl: "https://github.com/b4631119-oss/greenshop",
     role: "Solo Developer",
     tier: "experiment",
+    localized: {
+      en: {
+        description:
+          "A build from a ready-made design (the design is not mine): a multi-page static plant-shop website with a home page, catalog, blog, cart, and checkout. No framework or build tool: HTML, CSS, and JavaScript with responsive mobile and desktop layouts.",
+      },
+    },
   },
 ];
+
+export function localizeProject(project: Project, locale: Locale): Project {
+  if (locale === "ru" || !project.localized?.en) return project;
+  const translation = project.localized.en;
+  return {
+    ...project,
+    ...translation,
+    localized: undefined,
+  };
+}
+
+export function localizeProjects(items: Project[], locale: Locale): Project[] {
+  return items.map((project) => localizeProject(project, locale));
+}
+
+export function getProject(id: string): Project | undefined {
+  return projects.find((project) => project.id === id);
+}
+
+export function isCustomCaseStudy(project: Project): boolean {
+  return Boolean(project.customCaseStudy);
+}

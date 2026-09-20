@@ -43,7 +43,7 @@ export const workPrinciples = [
     icon: TrendingUp,
     title: "Продолжаю учиться",
     description:
-      "Постоянно расширяю стек: от фронтенда (Next.js, TypeScript, Tailwind) в сторону полного цикла — Supabase, PostgreSQL, Python, Django, C#.",
+      "Расширяю full-stack практику: работаю с фронтендом, backend-частями проектов, базами данных и интеграциями — Next.js, Supabase, PostgreSQL, Python, Django и C#.",
   },
 ] as const;
 
@@ -62,23 +62,23 @@ export const techGroups = [
     ],
   },
   {
-    label: "Использовано в реальных проектах",
+    label: "Работаю с",
     items: [
       { name: "Firebase / Firestore", icon: SiFirebase, color: "#FFCA28" },
       { name: "Supabase", icon: SiSupabase, color: "#3FCF8E" },
       { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+      { name: "Django", icon: SiDjango, color: "#092E20" },
       { name: "C#", icon: TbBrandCSharp, color: "#239120" },
       { name: ".NET", icon: SiDotnet, color: "#512BD4" },
       { name: "Avalonia", icon: undefined, color: undefined },
-      { name: "Framer Motion", icon: SiFramer, color: "#0055FF" },
-      { name: "Playwright", icon: undefined, color: undefined },
     ],
   },
   {
-    label: "Изучаю",
+    label: "Инструменты / инфраструктура",
     items: [
-      { name: "Python", icon: SiPython, color: "#3776AB" },
-      { name: "Django", icon: SiDjango, color: "#092E20" },
+      { name: "Framer Motion", icon: SiFramer, color: "#0055FF" },
+      { name: "Playwright", icon: undefined, color: undefined },
       { name: "Docker", icon: SiDocker, color: "#2496ED" },
       { name: "Linux", icon: SiLinux, color: "#FCC624" },
     ],

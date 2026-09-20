@@ -65,6 +65,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
   const d = dictionary ?? getDictionary();
   const cardVariant = variant ?? tierToVariant(projectTier(project));
   const detailsHref = `${d.locale === "en" ? "/en" : ""}/projects/${project.id}`;
+  const hasCaseStudy = Boolean(project.customCaseStudy || project.caseStudy);
 
   if (cardVariant === "flagship") {
     return (
@@ -94,7 +95,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="shadow-none font-bold">
               <Link href={detailsHref}>
-                {d.buttons.caseStudy}
+                {hasCaseStudy ? d.buttons.caseStudy : d.buttons.details}
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>
             </Button>
