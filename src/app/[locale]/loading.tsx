@@ -1,11 +1,16 @@
-export default function Loading() {
+import { getDictionary } from "@/i18n";
+import { headers } from "next/headers";
+
+export default async function Loading() {
+  const locale = (await headers()).get("x-locale") === "en" ? "en" : "ru";
+  const d = getDictionary(locale);
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg">
       <div className="flex flex-col items-center gap-4 text-center">
         <div
           className="relative w-8 h-8"
           role="status"
-          aria-label="Загрузка"
+          aria-label={d.states.loading}
         >
           <svg
             className="animate-spin h-8 w-8 text-accent"
@@ -29,7 +34,7 @@ export default function Loading() {
             />
           </svg>
         </div>
-        <p className="font-mono text-sm text-muted">Загрузка…</p>
+        <p className="font-mono text-sm text-muted">{d.states.loading}</p>
       </div>
     </div>
   );

@@ -1,10 +1,14 @@
 import { experiments } from "@/data/projects";
+import { localizeProjects } from "@/i18n/projects";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-export function HomeOtherWork() {
-  const secondary = experiments.filter((project) => projectTier(project) === "secondary");
-  const simple = experiments.filter((project) => projectTier(project) === "experiment");
+export function HomeOtherWork({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
+  const localized = localizeProjects(experiments, d.locale);
+  const secondary = localized.filter((project) => projectTier(project) === "secondary");
+  const simple = localized.filter((project) => projectTier(project) === "experiment");
 
   return (
     <section className="mt-24 md:mt-32" id="other-work" aria-labelledby="other-work-heading">
@@ -12,16 +16,16 @@ export function HomeOtherWork() {
         <Reveal>
           {/* Section heading */}
           <h2 id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-Другие проекты
+{d.home.otherTitle}
           </h2>
-          <p className="text-muted">Пет-проекты и эксперименты.</p>
+          <p className="text-muted">{d.home.otherDescription}</p>
         </Reveal>
 
         {secondary.length > 0 && (
           <div className="mt-12 grid md:grid-cols-2 gap-6">
             {secondary.map((project, index) => (
               <Reveal key={project.id} delay={index * 80}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} dictionary={d} />
               </Reveal>
             ))}
           </div>
@@ -31,7 +35,7 @@ export function HomeOtherWork() {
           <div className="mt-6 space-y-4">
             {simple.map((project, index) => (
               <Reveal key={project.id} delay={240 + index * 60}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} dictionary={d} />
               </Reveal>
             ))}
           </div>

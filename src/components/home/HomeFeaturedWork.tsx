@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects } from "@/data/projects";
+import { localizeProjects } from "@/i18n/projects";
 import { Button } from "@/components/ui/button";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-export function HomeFeaturedWork() {
-  const flagship = projects.filter((project) => projectTier(project) === "flagship");
+export function HomeFeaturedWork({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
+  const flagship = localizeProjects(projects, d.locale).filter((project) => projectTier(project) === "flagship");
   const [lead, ...rest] = flagship;
 
   return (
@@ -15,15 +18,15 @@ export function HomeFeaturedWork() {
         <Reveal>
           {/* Section heading */}
           <h2 id="work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-            Избранные проекты
+            {d.home.featuredTitle}
           </h2>
-          <p className="text-muted">Главные проекты — продакшн-продукты и сложные системы.</p>
+          <p className="text-muted">{d.home.featuredDescription}</p>
         </Reveal>
 
         {lead && (
           <Reveal delay={80}>
             <div className="mt-12">
-              <ProjectCard project={lead} variant="flagship" />
+              <ProjectCard project={lead} variant="flagship" dictionary={d} />
             </div>
           </Reveal>
         )}
@@ -32,7 +35,7 @@ export function HomeFeaturedWork() {
           <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-6 md:gap-8">
             {rest.map((project, index) => (
               <Reveal key={project.id} delay={160 + index * 80}>
-                <ProjectCard project={project} variant="flagship" />
+                <ProjectCard project={project} variant="flagship" dictionary={d} />
               </Reveal>
             ))}
           </div>
@@ -46,8 +49,8 @@ export function HomeFeaturedWork() {
               size="lg"
               className="font-bold font-mono text-sm tracking-wider"
             >
-              <Link href="/projects/prolab-academy">
-                PROlab Academy — кейс
+              <Link href={`${d.locale === "en" ? "/en" : ""}/projects/prolab-academy`}>
+                {d.home.caseLink}
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>
             </Button>

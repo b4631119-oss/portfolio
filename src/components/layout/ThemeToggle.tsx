@@ -1,16 +1,14 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/layout/ThemeProvider";
+import { getDictionary } from "@/i18n";
+
 
 function nextMode(current: "light" | "dark"): "light" | "dark" {
   return current === "light" ? "dark" : "light";
 }
-
-const labels: Record<"light" | "dark", string> = {
-  light: "Переключить на тёмную тему",
-  dark: "Переключить на светлую тему",
-};
 
 const icons: Record<"light" | "dark", React.ReactNode> = {
   light: <Sun size={18} aria-hidden />,
@@ -18,6 +16,9 @@ const icons: Record<"light" | "dark", React.ReactNode> = {
 };
 
 export default function ThemeToggle({ className }: { className?: string }) {
+  const pathname = usePathname();
+  const d = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  const labels: Record<"light" | "dark", string> = { light: d.aria.themeLight, dark: d.aria.themeDark };
   const { mode, setMode } = useTheme();
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -44,7 +45,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={handleClick}
-      aria-label={labels[mode] ?? "Переключить тему"}
+      aria-label={labels[mode] ?? d.aria.themeLight}
       title={labels[mode]}
       className={
         className ??

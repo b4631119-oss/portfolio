@@ -1,13 +1,15 @@
 import { Reveal } from "@/components/ui/reveal";
 import { techGroups } from "@/data/home";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-export function HomeStack() {
+export function HomeStack({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32" id="stack" aria-labelledby="stack-heading">
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <Reveal>
           <h2 id="stack-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-12">
-            Стек технологий
+            {d.home.stackTitle}
           </h2>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -16,7 +18,7 @@ export function HomeStack() {
               <div className="space-y-6">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs text-accent uppercase tracking-wide">
-                    {category.label}
+                    {d.techGroups[index] ?? category.label}
                   </span>
                 </div>
                 <div className="border-b border-line pb-4">

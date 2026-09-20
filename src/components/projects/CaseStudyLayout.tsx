@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ProjectCaseStudy } from "@/types";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 function Section({
   label,
@@ -33,15 +34,19 @@ function List({ items }: { items: string[] }) {
 
 export function ProjectScreenshots({
   images,
-  label = "Скриншоты",
+  label,
+  dictionary,
 }: {
   images: ProjectCaseStudy["screenshots"];
   label?: string;
+  dictionary?: UiDictionary;
 }) {
+  const d = dictionary ?? getDictionary();
+  const sectionLabel = label ?? d.project.screenshots;
   if (!images || images.length === 0) return null;
 
   return (
-    <Section label={label}>
+    <Section label={sectionLabel}>
       <div className="space-y-6">
         {images.map((shot) => (
           <div
@@ -62,50 +67,51 @@ export function ProjectScreenshots({
   );
 }
 
-export function CaseStudyLayout({ caseStudy }: { caseStudy: ProjectCaseStudy }) {
+export function CaseStudyLayout({ caseStudy, dictionary }: { caseStudy: ProjectCaseStudy; dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <div className="mt-16 space-y-14">
-      <Section label="Обзор">
+      <Section label={d.project.overview}>
         <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.overview}</p>
       </Section>
 
       {caseStudy.problem && (
-        <Section label="Задача">
+        <Section label={d.project.problem}>
           <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.problem}</p>
         </Section>
       )}
 
       {caseStudy.scope && (
-        <Section label="Роль и scope">
+        <Section label={d.project.scope}>
           <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.scope}</p>
         </Section>
       )}
 
       {caseStudy.features && caseStudy.features.length > 0 && (
-        <Section label="Ключевые функции">
+        <Section label={d.project.features}>
           <List items={caseStudy.features} />
         </Section>
       )}
 
       {caseStudy.architecture && (
-        <Section label="Архитектура">
+        <Section label={d.project.architecture}>
           <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.architecture}</p>
         </Section>
       )}
 
       {caseStudy.decisions && caseStudy.decisions.length > 0 && (
-        <Section label="Технические решения">
+        <Section label={d.project.decisions}>
           <List items={caseStudy.decisions} />
         </Section>
       )}
 
       {caseStudy.limitations && caseStudy.limitations.length > 0 && (
-        <Section label="Ограничения">
+        <Section label={d.project.limitations}>
           <List items={caseStudy.limitations} />
         </Section>
       )}
 
-      {caseStudy.screenshots && <ProjectScreenshots images={caseStudy.screenshots} />}
+      {caseStudy.screenshots && <ProjectScreenshots images={caseStudy.screenshots} dictionary={d} />}
     </div>
   );
 }

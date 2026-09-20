@@ -1,46 +1,18 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { projects, experiments } from "@/data/projects";
 import { siteUrl } from "@/data/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const projectUrls = [...projects, ...experiments].map((project) => ({
-    url: `${siteUrl}/projects/${project.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+function entry(path: string, priority: number, changeFrequency: "daily" | "weekly" | "monthly"): MetadataRoute.Sitemap[number] {
+  const ru = `${siteUrl}${path}`;
+  const en = `${siteUrl}/en${path === "/" ? "" : path}`;
+  return { url: ru, lastModified: new Date(), changeFrequency, priority, alternates: { languages: { ru, en, "x-default": ru } } };
+}
 
-  return [
-    {
-      url: siteUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${siteUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/profile`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    ...projectUrls,
-  ];
+export default function sitemap(): MetadataRoute.Sitemap {
+  const paths = [
+    ["/", 1, "weekly"], ["/about", 0.8, "monthly"], ["/projects", 0.9, "weekly"], ["/profile", 0.8, "daily"], ["/contact", 0.7, "monthly"],
+  ] as const;
+  const base = paths.map(([path, priority, frequency]) => entry(path, priority, frequency));
+  const projectsEntries = [...projects, ...experiments].map((project) => entry(`/projects/${project.id}`, 0.7, "monthly"));
+  return [...base, ...projectsEntries];
 }

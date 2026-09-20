@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
@@ -9,14 +10,16 @@ import { contact } from "@/data/contact";
 import "./globals.css";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
   variable: "--font-sans",
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600"],
+  display: "swap",
   variable: "--font-mono",
 });
 
@@ -28,7 +31,6 @@ export const metadata: Metadata = {
   description:
     "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
   metadataBase: new URL(siteUrl),
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     title: "Bilolidin — Full-Stack Developer",
@@ -63,17 +65,19 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = (await headers()).get("x-locale") === "en" ? "en" : "ru";
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Bilol",
     jobTitle: "Full-Stack Developer",
     url: siteUrl,
+    inLanguage: locale,
     sameAs: [contact.github, contact.telegram],
   };
 
@@ -82,10 +86,11 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "Bilolidin — Full-Stack Developer",
     url: siteUrl,
+    inLanguage: locale,
   };
 
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -117,7 +122,7 @@ export default function RootLayout({
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1 pt-16">{children}</main>
-            <Footer />
+            <Footer locale={locale} />
           </div>
         </ThemeProvider>
       </body>

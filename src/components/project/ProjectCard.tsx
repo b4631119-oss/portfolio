@@ -4,6 +4,7 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Project, ProjectTier } from "@/types";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 /** Способ подачи карточки: flagship — крупное превью, standard — среднее, compact — строка. */
 export type ProjectCardVariant = "flagship" | "standard" | "compact";
@@ -11,6 +12,7 @@ export type ProjectCardVariant = "flagship" | "standard" | "compact";
 interface ProjectCardProps {
   project: Project;
   variant?: ProjectCardVariant;
+  dictionary?: UiDictionary;
 }
 
 /** Tier из данных проекта; проекты без tier считаются secondary. */
@@ -59,9 +61,10 @@ function Preview({
   );
 }
 
-export function ProjectCard({ project, variant }: ProjectCardProps) {
+export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) {
+  const d = dictionary ?? getDictionary();
   const cardVariant = variant ?? tierToVariant(projectTier(project));
-  const detailsHref = `/projects/${project.id}`;
+  const detailsHref = `${d.locale === "en" ? "/en" : ""}/projects/${project.id}`;
 
   if (cardVariant === "flagship") {
     return (
@@ -77,7 +80,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
         <div className="p-8 md:p-12 space-y-6">
           {project.role && (
             <span className="font-mono text-xs text-muted uppercase tracking-wide">
-              {project.role}
+              {d.home.roleLabel}
             </span>
           )}
           <h2 className="font-sans font-bold text-ink text-2xl md:text-3xl leading-tight">
@@ -91,7 +94,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="shadow-none font-bold">
               <Link href={detailsHref}>
-                Кейс
+                {d.buttons.caseStudy}
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>
             </Button>
@@ -103,7 +106,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
                   rel="noopener noreferrer"
                 >
                   <ExternalLink size={18} className="mr-2" aria-hidden="true" />
-                  Live
+                  {d.buttons.live}
                 </a>
               </Button>
             )}
@@ -114,7 +117,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
                 rel="noopener noreferrer"
               >
                 <Github size={18} className="mr-2" aria-hidden="true" />
-                Код
+                {d.buttons.code}
               </a>
             </Button>
           </div>
@@ -138,7 +141,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
           <div className="space-y-2">
             {project.role && (
               <span className="font-mono text-xs text-muted uppercase tracking-wide">
-                {project.role}
+                {d.home.roleLabel}
               </span>
             )}
             <h3 className="font-sans font-semibold text-ink text-lg">
@@ -154,7 +157,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
           <div className="mt-auto pt-4 border-t border-line">
             <Button asChild variant="outline" size="sm" className="font-mono text-xs">
               <Link href={detailsHref}>
-                Подробнее
+                {d.buttons.details}
                 <ArrowRight size={12} className="ml-1.5" aria-hidden="true" />
               </Link>
             </Button>
@@ -174,7 +177,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
             </h3>
             {project.role && (
               <span className="font-mono text-xs text-muted uppercase tracking-wide">
-                {project.role}
+                {d.home.roleLabel}
               </span>
             )}
           </div>
@@ -184,7 +187,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
 
         <div className="flex flex-wrap items-center gap-2 shrink-0">
           <Button asChild variant="outline" size="sm" className="font-mono text-xs">
-            <Link href={detailsHref}>Подробнее</Link>
+            <Link href={detailsHref}>{d.buttons.details}</Link>
           </Button>
           {project.liveUrl && (
             <Button asChild variant="outline" size="sm" className="font-mono text-xs">
@@ -194,7 +197,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
                 rel="noopener noreferrer"
               >
                 <ExternalLink size={12} className="mr-1.5" aria-hidden="true" />
-                Live
+                {d.buttons.live}
               </a>
             </Button>
           )}
@@ -205,7 +208,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
               rel="noopener noreferrer"
             >
               <Github size={12} className="mr-1.5" aria-hidden="true" />
-              Код
+              {d.buttons.code}
             </a>
           </Button>
         </div>
