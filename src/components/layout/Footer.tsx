@@ -1,35 +1,17 @@
 import { Github, Mail, Send } from "lucide-react";
 import { contact, mailtoHref } from "@/data/contact";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const socialLinks = [
-  {
-    href: contact.github,
-    label: "GitHub",
-    icon: Github,
-    external: true,
-  },
-  {
-    href: contact.telegram,
-    label: "Telegram",
-    icon: Send,
-    external: true,
-  },
-  {
-    href: mailtoHref,
-    label: "Email",
-    icon: Mail,
-    external: false,
-  },
-] as const;
-
-export default function Footer() {
+export default function Footer({ locale = "ru" }: { locale?: "ru" | "en" }) {
+  const d: UiDictionary = getDictionary(locale);
+  const socialLinks = [{ href: contact.github, label: "GitHub", icon: Github, external: true }, { href: contact.telegram, label: "Telegram", icon: Send, external: true }, { href: mailtoHref, label: "Email", icon: Mail, external: false }] as const;
   return (
     <footer className="border-t border-line bg-bg" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-16">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-sm text-ink">BILOLIDIN</span>
-            <span className="text-muted text-xs">Full-Stack Developer</span>
+            <span className="text-muted text-xs">{d.home.heroTitle}</span>
             <span className="font-mono text-xs text-muted">
               React · Next.js · TypeScript · Python
             </span>

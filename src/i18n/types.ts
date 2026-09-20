@@ -26,6 +26,7 @@ export interface UiDictionary {
     retry: string;
     returnHome: string;
     readme: string;
+    close: string;
   };
   home: {
     available: string;
@@ -55,6 +56,9 @@ export interface UiDictionary {
     contactTitle: string;
     contactDescription: string;
     caseLink: string;
+    roleLabel: string;
+    architectureNodes: { frontend: string; api: string; backend: string; database: string };
+    relativeJustNow: string;
   };
   pages: {
     aboutTitle: string;
@@ -69,6 +73,7 @@ export interface UiDictionary {
     profileError: string;
     repositories: string;
     openGithub: string;
+    stats: [string, string, string];
   };
   project: {
     overview: string;

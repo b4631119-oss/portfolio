@@ -13,7 +13,7 @@ interface HomeGithubProps {
 
 const opacitySteps = [1, 0.8, 0.6, 0.4, 0.25, 0.15];
 
-function formatRelativeDate(iso: string, locale: "ru" | "en"): string {
+function formatRelativeDate(iso: string, locale: "ru" | "en", justNow: string): string {
   const then = new Date(iso).getTime();
   const seconds = Math.round((then - Date.now()) / 1000);
   const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
@@ -32,7 +32,7 @@ function formatRelativeDate(iso: string, locale: "ru" | "en"): string {
       return rtf.format(Math.round(seconds / secondsPerUnit), unit);
     }
   }
-  return locale === "ru" ? "только что" : "just now";
+  return justNow;
 }
 
 export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary }: HomeGithubProps & { dictionary?: UiDictionary }) {
@@ -156,7 +156,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary
                       dateTime={repo.updated_at}
                       className="text-sm text-muted shrink-0"
                     >
-                      {formatRelativeDate(repo.updated_at, d.locale)}
+                      {formatRelativeDate(repo.updated_at, d.locale, d.home.relativeJustNow)}
                     </time>
                   </li>
                 </Reveal>

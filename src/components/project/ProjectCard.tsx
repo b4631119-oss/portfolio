@@ -106,7 +106,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
                   rel="noopener noreferrer"
                 >
                   <ExternalLink size={18} className="mr-2" aria-hidden="true" />
-                  Live
+                  {d.buttons.live}
                 </a>
               </Button>
             )}

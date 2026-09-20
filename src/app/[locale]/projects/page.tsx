@@ -6,11 +6,12 @@ import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { getDictionary } from "@/i18n";
 import { isLocale, type Locale } from "@/i18n/config";
 import { localizeProjects } from "@/i18n/projects";
+import { alternatesFor } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const d = getDictionary(isLocale(raw) ? raw : "ru");
-  return { title: d.pages.projectsTitle, description: d.pages.projectsDescription, alternates: { canonical: isLocale(raw) && raw === "en" ? "/en/projects" : "/projects" } };
+  return { title: d.pages.projectsTitle, description: d.pages.projectsDescription, alternates: alternatesFor("/projects", isLocale(raw) ? raw : "ru") };
 }
 
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {

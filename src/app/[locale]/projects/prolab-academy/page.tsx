@@ -10,6 +10,7 @@ import { ProjectScreenshots } from "@/components/projects/CaseStudyLayout";
 import { getDictionary } from "@/i18n";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { prolabContent } from "@/i18n/prolab";
+import { alternatesFor } from "@/i18n/metadata";
 
 const cover = projects.find((project) => project.id === "prolab-academy")?.image;
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale: Locale = isLocale(raw) ? raw : "ru";
   const content = prolabContent[locale];
   const path = locale === "en" ? "/en/projects/prolab-academy" : "/projects/prolab-academy";
-  return { title: locale === "en" ? "PROlab Academy — Case Study" : "PROlab Academy — Кейс", description: content.intro, alternates: { canonical: path }, openGraph: { title: locale === "en" ? "PROlab Academy — Case Study" : "PROlab Academy — Кейс", description: content.intro, url: path, locale: locale === "en" ? "en_US" : "ru_RU", images: cover ? [{ url: cover.src, alt: cover.alt }] : undefined } };
+  return { title: locale === "en" ? "PROlab Academy — Case Study" : "PROlab Academy — Кейс", description: content.intro, alternates: alternatesFor("/projects/prolab-academy", locale), openGraph: { title: locale === "en" ? "PROlab Academy — Case Study" : "PROlab Academy — Кейс", description: content.intro, url: path, locale: locale === "en" ? "en_US" : "ru_RU", images: cover ? [{ url: cover.src, alt: cover.alt }] : undefined } };
 }
 
 const archNodes = [

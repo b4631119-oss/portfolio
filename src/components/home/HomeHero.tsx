@@ -9,15 +9,14 @@ import { Button } from "@/components/ui/button";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
-const systemNodes = [
-  { label: "Frontend", icon: <Cpu className="w-5 h-5" aria-hidden="true" /> },
-  { label: "API", icon: <Globe className="w-5 h-5" aria-hidden="true" /> },
-  { label: "Backend", icon: <ServerIcon className="w-5 h-5" aria-hidden="true" /> },
-  { label: "Database", icon: <DatabaseIcon className="w-5 h-5" aria-hidden="true" /> },
-];
-
 export function HomeHero({ dictionary }: { dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
+  const systemNodes = [
+    { label: d.home.architectureNodes.frontend, icon: <Cpu className="w-5 h-5" aria-hidden="true" /> },
+    { label: d.home.architectureNodes.api, icon: <Globe className="w-5 h-5" aria-hidden="true" /> },
+    { label: d.home.architectureNodes.backend, icon: <ServerIcon className="w-5 h-5" aria-hidden="true" /> },
+    { label: d.home.architectureNodes.database, icon: <DatabaseIcon className="w-5 h-5" aria-hidden="true" /> },
+  ];
   return (
     <section className="relative min-h-[90vh] flex items-center">
       {/* Glow surface background */}

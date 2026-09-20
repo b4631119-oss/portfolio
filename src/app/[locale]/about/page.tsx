@@ -4,10 +4,11 @@ import { ArrowLeft } from "lucide-react";
 import { techGroups } from "@/data/home";
 import { getDictionary } from "@/i18n";
 import { isLocale, type Locale } from "@/i18n/config";
+import { alternatesFor } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params; const locale: Locale = isLocale(raw) ? raw : "ru"; const d = getDictionary(locale);
-  return { title: d.pages.aboutTitle, description: d.pages.aboutDescription, alternates: { canonical: locale === "en" ? "/en/about" : "/about" } };
+  return { title: d.pages.aboutTitle, description: d.pages.aboutDescription, alternates: alternatesFor("/about", locale) };
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

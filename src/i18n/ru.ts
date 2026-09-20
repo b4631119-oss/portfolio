@@ -9,8 +9,8 @@ export const ru = {
   },
   buttons: {
     contact: "Связаться", projects: "Смотреть проекты", details: "Подробнее", caseStudy: "Кейс",
-    live: "Live", code: "Код", back: "Назад", backToProjects: "Назад к проектам",
-    profile: "Открыть профиль GitHub", retry: "Попробовать снова", returnHome: "На главную", readme: "README",
+    live: "Открыть проект", code: "Код", back: "Назад", backToProjects: "Назад к проектам",
+    profile: "Открыть профиль GitHub", retry: "Попробовать снова", returnHome: "На главную", readme: "README", close: "Закрыть",
   },
   home: {
     available: "Открыт к работе", heroTitle: "Full-Stack Developer",
@@ -27,13 +27,11 @@ export const ru = {
     languages: "Языки", languageChart: "Распределение языков по репозиториям", recent: "Недавняя активность",
     githubError: "Не удалось загрузить данные GitHub. Попробуйте обновить страницу позже.",
     contactTitle: "Открыт к стажировке и проектам", contactDescription: "Нужен фронтенд или фулстек-задача, вопрос по проектам или предложение о стажировке — напишите в Telegram или на email.",
-    caseLink: "PROlab Academy — кейс",
+    caseLink: "PROlab Academy — кейс", roleLabel: "Разработчик", architectureNodes: { frontend: "Интерфейс", api: "API", backend: "Бэкенд", database: "База данных" }, relativeJustNow: "только что",
   },
   pages: {
     aboutTitle: "Обо мне", aboutDescription: "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопные утилиты. React, Next.js, TypeScript, Firebase, Supabase.", stack: "Стек",
-    projectsTitle: "Все проекты", projectsDescription: "Продакшн-продукты, сложные системы и пет-проекты.",
-    contactTitle: "Контакты", contactDescription: "Контакты: Telegram, email и GitHub. Открыт к стажировке и новым проектам.",
-    profileTitle: "Профиль", profileDescription: "Данные GitHub — репозитории и активность профиля.", profileError: "Не удалось загрузить данные с GitHub. Попробуйте позже.", repositories: "Репозитории", openGithub: "Открыть на GitHub",
+    projectsTitle: "Все проекты", projectsDescription: "Продакшн-продукты, сложные системы и пет-проекты.",contactTitle: "Контакты", contactDescription: "Контакты: Telegram, email и GitHub. Открыт к стажировке и новым проектам.", profileTitle: "Профиль", profileDescription: "Данные GitHub — репозитории и активность профиля.", profileError: "Не удалось загрузить данные с GitHub. Попробуйте позже.", repositories: "Репозитории", openGithub: "Открыть на GitHub", stats: ["репозитории", "подписчики", "подписки"],
   },
   project: { overview: "Обзор", problem: "Задача", scope: "Роль и scope", features: "Ключевые функции", architecture: "Архитектура", decisions: "Технические решения", limitations: "Ограничения", screenshots: "Скриншоты" },
   states: { loading: "Загрузка…", notFound: "Страница не найдена", notFoundDescription: "Похоже, этой страницы не существует или она была перемещена.", errorTitle: "Что-то пошло не так", errorDescription: "Произошла непредвиденная ошибка. Мы уже работаем над этим.", noResults: "Ничего не найдено.", noReadme: "У этого репозитория нет README.", readmeError: "Не удалось загрузить README.", sort: "Сортировка", all: "Все", sortStars: "по звёздам", sortUpdated: "по дате обновления", sortName: "по названию" },

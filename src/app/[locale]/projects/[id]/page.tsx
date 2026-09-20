@@ -10,6 +10,7 @@ import { CaseStudyLayout } from "@/components/projects/CaseStudyLayout";
 import { getDictionary } from "@/i18n";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { localizeProject } from "@/i18n/projects";
+import { alternatesFor } from "@/i18n/metadata";
 
 type Props = { params: Promise<{ locale: string; id: string }> };
 const allProjects = [...projects, ...experiments];
@@ -26,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = allProjects.find((item) => item.id === id);
   if (!project) return {};
   const localized = localizeProject(project, locale);
-  const path = `/${locale === "en" ? "en/" : ""}projects/${project.id}`;
-  return { title: localized.title, description: localized.description, alternates: { canonical: path }, openGraph: { title: localized.title, description: localized.description, url: path, locale: locale === "en" ? "en_US" : "ru_RU", images: localized.image ? [{ url: localized.image.src, alt: localized.image.alt }] : undefined } };
+  const path = `/${project.id}`;
+  return { title: localized.title, description: localized.description, alternates: alternatesFor(path, locale), openGraph: { title: localized.title, description: localized.description, url: locale === "en" ? `/en${path}` : path, locale: locale === "en" ? "en_US" : "ru_RU", images: localized.image ? [{ url: localized.image.src, alt: localized.image.alt }] : undefined } };
 }
 
 export default async function ProjectPage({ params }: Props) {
