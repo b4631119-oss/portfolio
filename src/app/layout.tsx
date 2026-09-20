@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
@@ -63,17 +64,19 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = (await headers()).get("x-locale") === "en" ? "en" : "ru";
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Bilol",
     jobTitle: "Full-Stack Developer",
     url: siteUrl,
+    inLanguage: locale,
     sameAs: [contact.github, contact.telegram],
   };
 
@@ -82,10 +85,11 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "Bilolidin — Full-Stack Developer",
     url: siteUrl,
+    inLanguage: locale,
   };
 
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

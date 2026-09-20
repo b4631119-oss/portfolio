@@ -4,11 +4,10 @@ import { projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const d = getDictionary();
-
-export function HomeFeaturedWork() {
+export function HomeFeaturedWork({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   const flagship = projects.filter((project) => projectTier(project) === "flagship");
   const [lead, ...rest] = flagship;
 
@@ -26,7 +25,7 @@ export function HomeFeaturedWork() {
         {lead && (
           <Reveal delay={80}>
             <div className="mt-12">
-              <ProjectCard project={lead} variant="flagship" />
+              <ProjectCard project={lead} variant="flagship" dictionary={d} />
             </div>
           </Reveal>
         )}
@@ -35,7 +34,7 @@ export function HomeFeaturedWork() {
           <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-6 md:gap-8">
             {rest.map((project, index) => (
               <Reveal key={project.id} delay={160 + index * 80}>
-                <ProjectCard project={project} variant="flagship" />
+                <ProjectCard project={project} variant="flagship" dictionary={d} />
               </Reveal>
             ))}
           </div>
@@ -49,7 +48,7 @@ export function HomeFeaturedWork() {
               size="lg"
               className="font-bold font-mono text-sm tracking-wider"
             >
-              <Link href="/projects/prolab-academy">
+              <Link href={`${d.locale === "en" ? "/en" : ""}/projects/prolab-academy`}>
                 {d.home.caseLink}
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>

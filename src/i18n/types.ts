@@ -11,6 +11,7 @@ export interface UiDictionary {
     mobile: string;
     openMenu: string;
     closeMenu: string;
+    languageSwitch: string;
   };
   buttons: {
     contact: string;

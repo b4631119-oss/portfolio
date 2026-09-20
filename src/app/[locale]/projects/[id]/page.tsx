@@ -7,124 +7,44 @@ import { projects, experiments } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CaseStudyLayout } from "@/components/projects/CaseStudyLayout";
+import { getDictionary } from "@/i18n";
+import { isLocale, locales, type Locale } from "@/i18n/config";
+import { localizeProject } from "@/i18n/projects";
 
-type Props = {
-  params: Promise<{ id: string }>;
-};
-
+type Props = { params: Promise<{ locale: string; id: string }> };
 const allProjects = [...projects, ...experiments];
-
-/** prolab-academy обслуживается отдельным кастомным case study. */
 const CASE_STUDY_ROUTE_ID = "prolab-academy";
 
 export function generateStaticParams() {
-  return allProjects
-    .filter((project) => project.id !== CASE_STUDY_ROUTE_ID)
-    .map((project) => ({ id: project.id }));
+  return locales.flatMap((locale) => allProjects.filter((project) => project.id !== CASE_STUDY_ROUTE_ID).map((project) => ({ locale, id: project.id })));
 }
-
-/** Полный набор id задан выше — всё остальное должно отдавать 404, а не пустую страницу. */
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { locale: raw, id } = await params;
+  const locale: Locale = isLocale(raw) ? raw : "ru";
   const project = allProjects.find((item) => item.id === id);
-
   if (!project) return {};
-
-  return {
-    title: project.title,
-    description: project.description,
-    alternates: { canonical: `/projects/${project.id}` },
-    openGraph: {
-      title: project.title,
-      description: project.description,
-      url: `/projects/${project.id}`,
-      images: project.image
-        ? [{ url: project.image.src, alt: project.image.alt }]
-        : undefined,
-    },
-  };
+  const localized = localizeProject(project, locale);
+  const path = `/${locale === "en" ? "en/" : ""}projects/${project.id}`;
+  return { title: localized.title, description: localized.description, alternates: { canonical: path }, openGraph: { title: localized.title, description: localized.description, url: path, locale: locale === "en" ? "en_US" : "ru_RU", images: localized.image ? [{ url: localized.image.src, alt: localized.image.alt }] : undefined } };
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const { id } = await params;
+  const { locale: raw, id } = await params;
+  const locale: Locale = isLocale(raw) ? raw : "ru";
+  const d = getDictionary(locale);
   const project = allProjects.find((item) => item.id === id);
-
   if (!project) notFound();
-
-  const caseStudy = project.caseStudy;
-
+  const localized = localizeProject(project, locale);
+  const pathPrefix = locale === "en" ? "/en" : "";
   return (
     <article className="max-w-3xl mx-auto px-4 md:px-6 py-16 md:py-24 font-sans">
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm"
-      >
-        <ArrowLeft size={16} aria-hidden="true" />
-        Все проекты
-      </Link>
-
-      {project.image && (
-        <div className="mt-8 relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-elevated">
-          <Image
-            src={project.image.src}
-            alt={project.image.alt}
-            fill
-            priority
-            sizes="(min-width: 768px) 768px, 100vw"
-            className="object-cover"
-          />
-        </div>
-      )}
-
-      <header className="mt-8 space-y-4">
-        {project.role && (
-          <span className="block font-mono text-xs text-muted uppercase tracking-wide">
-            {project.role}
-          </span>
-        )}
-        <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl leading-tight">
-          {project.title}
-        </h1>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="font-mono text-xs">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-4 pt-2">
-          {project.liveUrl && (
-            <Button asChild className="shadow-none font-bold">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ExternalLink size={18} className="mr-2" aria-hidden="true" />
-                Live
-              </a>
-            </Button>
-          )}
-          <Button asChild variant="outline" className="font-bold">
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Code2 size={18} className="mr-2" aria-hidden="true" />
-              Код
-            </a>
-          </Button>
-        </div>
-      </header>
-
-      <p className="mt-8 text-muted text-lg leading-relaxed max-w-[70ch]">
-        {project.description}
-      </p>
-
-      {caseStudy && <CaseStudyLayout caseStudy={caseStudy} />}
+      <Link href={`${pathPrefix}/projects`} className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm"><ArrowLeft size={16} aria-hidden="true" />{d.buttons.backToProjects}</Link>
+      {localized.image && <div className="mt-8 relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-elevated"><Image src={localized.image.src} alt={localized.image.alt} fill priority sizes="(min-width: 768px) 768px, 100vw" className="object-cover" /></div>}
+      <header className="mt-8 space-y-4">{localized.role && <span className="block font-mono text-xs text-muted uppercase tracking-wide">{localized.role}</span>}<h1 className="font-sans font-bold text-ink text-4xl md:text-5xl leading-tight">{localized.title}</h1><div className="flex flex-wrap gap-2">{localized.tags.map((tag) => <Badge key={tag} variant="secondary" className="font-mono text-xs">{tag}</Badge>)}</div><div className="flex flex-wrap gap-4 pt-2">{localized.liveUrl && <Button asChild className="shadow-none font-bold"><a href={localized.liveUrl} target="_blank" rel="noopener noreferrer"><ExternalLink size={18} className="mr-2" aria-hidden="true" />{d.buttons.live}</a></Button>}<Button asChild variant="outline" className="font-bold"><a href={localized.githubUrl} target="_blank" rel="noopener noreferrer"><Code2 size={18} className="mr-2" aria-hidden="true" />{d.buttons.code}</a></Button></div></header>
+      <p className="mt-8 text-muted text-lg leading-relaxed max-w-[70ch]">{localized.description}</p>
+      {localized.caseStudy && <CaseStudyLayout caseStudy={localized.caseStudy} dictionary={d} />}
     </article>
   );
 }

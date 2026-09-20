@@ -3,9 +3,7 @@ import { ExternalLink, GitFork, Star } from "lucide-react";
 import type { GithubRepo, LanguageStat } from "@/lib/github";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { getDictionary } from "@/i18n";
-
-const d = getDictionary();
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 interface HomeGithubProps {
   pinnedRepos: GithubRepo[];
@@ -15,10 +13,10 @@ interface HomeGithubProps {
 
 const opacitySteps = [1, 0.8, 0.6, 0.4, 0.25, 0.15];
 
-function formatRelativeDate(iso: string): string {
+function formatRelativeDate(iso: string, locale: "ru" | "en"): string {
   const then = new Date(iso).getTime();
   const seconds = Math.round((then - Date.now()) / 1000);
-  const rtf = new Intl.RelativeTimeFormat("ru", { numeric: "auto" });
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
 
   const units: Array<[Intl.RelativeTimeFormatUnit, number]> = [
     ["year", 31536000],
@@ -34,10 +32,11 @@ function formatRelativeDate(iso: string): string {
       return rtf.format(Math.round(seconds / secondsPerUnit), unit);
     }
   }
-  return d.states.loading === "Загрузка…" ? "только что" : "just now";
+  return locale === "ru" ? "только что" : "just now";
 }
 
-export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGithubProps) {
+export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary }: HomeGithubProps & { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32" id="github" aria-labelledby="github-heading">
       <h2 id="github-heading" className="sr-only">GitHub</h2>
@@ -157,7 +156,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
                       dateTime={repo.updated_at}
                       className="text-sm text-muted shrink-0"
                     >
-                      {formatRelativeDate(repo.updated_at)}
+                      {formatRelativeDate(repo.updated_at, d.locale)}
                     </time>
                   </li>
                 </Reveal>
@@ -177,7 +176,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
       {/* View full profile link */}
       <div className="mt-10 text-center">
         <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">
-          <Link href="/profile">
+          <Link href={`${d.locale === "en" ? "/en" : ""}/profile`}>
             {d.buttons.profile}
             <ExternalLink size={18} className="ml-2" aria-hidden="true" />
           </Link>

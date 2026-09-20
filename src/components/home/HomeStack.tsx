@@ -1,10 +1,9 @@
 import { Reveal } from "@/components/ui/reveal";
 import { techGroups } from "@/data/home";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const d = getDictionary();
-
-export function HomeStack() {
+export function HomeStack({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32" id="stack" aria-labelledby="stack-heading">
       <div className="max-w-5xl mx-auto px-4 md:px-6">

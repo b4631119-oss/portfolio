@@ -7,9 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
-import { getDictionary } from "@/i18n";
-
-const d = getDictionary();
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 const systemNodes = [
   { label: "Frontend", icon: <Cpu className="w-5 h-5" aria-hidden="true" /> },
@@ -18,7 +16,8 @@ const systemNodes = [
   { label: "Database", icon: <DatabaseIcon className="w-5 h-5" aria-hidden="true" /> },
 ];
 
-export function HomeHero() {
+export function HomeHero({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="relative min-h-[90vh] flex items-center">
       {/* Glow surface background */}
@@ -65,7 +64,7 @@ export function HomeHero() {
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 pt-2">
               <Button asChild size="lg" className="shadow-none font-bold">
-                <Link href="/#work">{d.buttons.projects}</Link>
+                <Link href={`${d.locale === "en" ? "/en" : ""}/#work`}>{d.buttons.projects}</Link>
               </Button>
               <Button
                 asChild
@@ -73,7 +72,7 @@ export function HomeHero() {
                 variant="outline"
                 className="font-bold"
               >
-                <Link href="/#contact">{d.buttons.contact}</Link>
+                <Link href={`${d.locale === "en" ? "/en" : ""}/#contact`}>{d.buttons.contact}</Link>
               </Button>
             </div>
           </div>

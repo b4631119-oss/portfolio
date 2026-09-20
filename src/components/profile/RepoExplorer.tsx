@@ -3,6 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 import { Star, GitFork, FileText } from "lucide-react";
 import type { GithubRepo } from "@/lib/github";
@@ -32,15 +33,10 @@ const ReactMarkdown = dynamic(() => import("react-markdown"), {
 
 type SortKey = "stars" | "updated" | "name";
 
-const d = getDictionary();
-
-const sortLabels: Record<SortKey, string> = {
-  stars: d.states.sortStars,
-  updated: d.states.sortUpdated,
-  name: d.states.sortName,
-};
-
 export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
+  const pathname = usePathname();
+  const d = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  const sortLabels: Record<SortKey, string> = { stars: d.states.sortStars, updated: d.states.sortUpdated, name: d.states.sortName };
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("stars");
 

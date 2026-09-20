@@ -1,9 +1,8 @@
 import { Reveal } from "@/components/ui/reveal";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const d = getDictionary();
-
-export function HomeExperience() {
+export function HomeExperience({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32" id="experience" aria-labelledby="experience-heading">
       <div className="max-w-3xl mx-auto px-4 md:px-6">

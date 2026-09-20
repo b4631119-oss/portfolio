@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const d = getDictionary();
-
-export function HomeAbout() {
+export function HomeAbout({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32" id="about" aria-labelledby="about-heading">
       <div className="max-w-3xl mx-auto px-4 md:px-6">
@@ -23,7 +22,7 @@ export function HomeAbout() {
           </div>
           <div className="mt-8 text-center">
             <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">
-              <Link href="/about">{d.buttons.details}</Link>
+              <Link href={`${d.locale === "en" ? "/en" : ""}/about`}>{d.buttons.details}</Link>
             </Button>
           </div>
         </Reveal>

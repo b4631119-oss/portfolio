@@ -1,8 +1,6 @@
 import Image from "next/image";
 import type { ProjectCaseStudy } from "@/types";
-import { getDictionary } from "@/i18n";
-
-const d = getDictionary();
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 function Section({
   label,
@@ -36,15 +34,19 @@ function List({ items }: { items: string[] }) {
 
 export function ProjectScreenshots({
   images,
-  label = d.project.screenshots,
+  label,
+  dictionary,
 }: {
   images: ProjectCaseStudy["screenshots"];
   label?: string;
+  dictionary?: UiDictionary;
 }) {
+  const d = dictionary ?? getDictionary();
+  const sectionLabel = label ?? d.project.screenshots;
   if (!images || images.length === 0) return null;
 
   return (
-    <Section label={label}>
+    <Section label={sectionLabel}>
       <div className="space-y-6">
         {images.map((shot) => (
           <div
@@ -65,7 +67,8 @@ export function ProjectScreenshots({
   );
 }
 
-export function CaseStudyLayout({ caseStudy }: { caseStudy: ProjectCaseStudy }) {
+export function CaseStudyLayout({ caseStudy, dictionary }: { caseStudy: ProjectCaseStudy; dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <div className="mt-16 space-y-14">
       <Section label={d.project.overview}>
@@ -108,7 +111,7 @@ export function CaseStudyLayout({ caseStudy }: { caseStudy: ProjectCaseStudy }) 
         </Section>
       )}
 
-      {caseStudy.screenshots && <ProjectScreenshots images={caseStudy.screenshots} />}
+      {caseStudy.screenshots && <ProjectScreenshots images={caseStudy.screenshots} dictionary={d} />}
     </div>
   );
 }

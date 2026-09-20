@@ -1,11 +1,10 @@
 import { experiments } from "@/data/projects";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const d = getDictionary();
-
-export function HomeOtherWork() {
+export function HomeOtherWork({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   const secondary = experiments.filter((project) => projectTier(project) === "secondary");
   const simple = experiments.filter((project) => projectTier(project) === "experiment");
 
@@ -24,7 +23,7 @@ export function HomeOtherWork() {
           <div className="mt-12 grid md:grid-cols-2 gap-6">
             {secondary.map((project, index) => (
               <Reveal key={project.id} delay={index * 80}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} dictionary={d} />
               </Reveal>
             ))}
           </div>
@@ -34,7 +33,7 @@ export function HomeOtherWork() {
           <div className="mt-6 space-y-4">
             {simple.map((project, index) => (
               <Reveal key={project.id} delay={240 + index * 60}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} dictionary={d} />
               </Reveal>
             ))}
           </div>

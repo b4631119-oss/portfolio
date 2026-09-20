@@ -1,11 +1,10 @@
 import { Github, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { contact, mailtoHref } from "@/data/contact";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type UiDictionary } from "@/i18n";
 
-const d = getDictionary();
-
-export function HomeContact() {
+export function HomeContact({ dictionary }: { dictionary?: UiDictionary }) {
+  const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32 relative" id="contact" aria-labelledby="contact-heading">
       <div className="absolute inset-0 glow-surface pointer-events-none" aria-hidden="true" />

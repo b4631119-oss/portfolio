@@ -4,9 +4,7 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Project, ProjectTier } from "@/types";
-import { getDictionary } from "@/i18n";
-
-const d = getDictionary();
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 /** Способ подачи карточки: flagship — крупное превью, standard — среднее, compact — строка. */
 export type ProjectCardVariant = "flagship" | "standard" | "compact";
@@ -14,6 +12,7 @@ export type ProjectCardVariant = "flagship" | "standard" | "compact";
 interface ProjectCardProps {
   project: Project;
   variant?: ProjectCardVariant;
+  dictionary?: UiDictionary;
 }
 
 /** Tier из данных проекта; проекты без tier считаются secondary. */
@@ -62,9 +61,10 @@ function Preview({
   );
 }
 
-export function ProjectCard({ project, variant }: ProjectCardProps) {
+export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) {
+  const d = dictionary ?? getDictionary();
   const cardVariant = variant ?? tierToVariant(projectTier(project));
-  const detailsHref = `/projects/${project.id}`;
+  const detailsHref = `${d.locale === "en" ? "/en" : ""}/projects/${project.id}`;
 
   if (cardVariant === "flagship") {
     return (
