@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     template: "%s — Bilolidin",
   },
   description:
-    "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
+    "Full-stack разработчик из Кыргызстана: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     type: "website",
     title: "Bilolidin — Full-Stack Developer",
     description:
-      "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
+      "Full-stack разработчик из Кыргызстана: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
     url: siteUrl,
     siteName: "Bilolidin",
     images: [
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bilolidin — Full-Stack Developer",
     description:
-      "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
+      "Full-stack разработчик из Кыргызстана: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
     images: ["/opengraph-image"],
   },
   robots: {

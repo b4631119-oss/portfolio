@@ -19,7 +19,7 @@ export const ru = {
     featuredTitle: "Избранные проекты", featuredDescription: "Главные проекты с разным уровнем сложности и задач.",
     otherTitle: "Другие проекты", otherDescription: "Пет-проекты и эксперименты.",
     aboutTitle: "Обо мне",
-    aboutIntro: "Фулстек-разработчик из Оша, Кыргызстан. Делаю веб-продукты целиком: интерфейс на React и Next.js, данные в Firebase и Supabase, деплой на Vercel. Все проекты в портфолио написаны мной.",
+    aboutIntro: "Фулстек-разработчик из Кыргызстана. Делаю веб-продукты целиком: интерфейс на React и Next.js, данные в Firebase и Supabase, деплой на Vercel. Все проекты в портфолио написаны мной.",
     aboutDetails: "Последний крупный проект — платформа онлайн-экзаменов для учебного центра PROlab Academy: отдельные потоки для учителей и учеников, защита от списывания и разграничение доступа на уровне базы через Row Level Security. Кроме неё делал систему планирования дня с привычками и целями — и десктопную утилиту на C# для передачи файлов по локальной сети.",
     experienceTitle: "Опыт", experienceDate: "2026 — настоящее время", experienceRole: "Frontend-разработка", experienceType: "Стажировка",
     experienceDescription: "Фронтенд-задачи в реальных проектах — первый опыт работы вне личных проектов.",
@@ -30,7 +30,7 @@ export const ru = {
     caseLink: "PROlab Academy — кейс", roleLabel: "Разработчик", architectureNodes: { frontend: "Интерфейс", api: "API", backend: "Бэкенд", database: "База данных" }, relativeJustNow: "только что",
   },
   pages: {
-    aboutTitle: "Обо мне", aboutDescription: "Фулстек-разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопные утилиты. React, Next.js, TypeScript, Firebase, Supabase.", stack: "Стек",
+    aboutTitle: "Обо мне", aboutDescription: "Фулстек-разработчик из Кыргызстана: платформа онлайн-экзаменов, система планирования дня и десктопные утилиты. React, Next.js, TypeScript, Firebase, Supabase.", stack: "Стек",
     projectsTitle: "Все проекты", projectsDescription: "Рабочие продукты, сложные системы и пет-проекты.",contactTitle: "Контакты", contactDescription: "Контакты: Telegram, email и GitHub. Открыт к стажировке и новым проектам.", profileTitle: "Профиль", profileDescription: "Данные GitHub — репозитории и активность профиля.", profileError: "Не удалось загрузить данные с GitHub. Попробуйте позже.", repositories: "Репозитории", openGithub: "Открыть на GitHub", stats: ["репозитории", "подписчики", "подписки"],
   },
   project: { overview: "Обзор", problem: "Задача", scope: "Роль и scope", features: "Ключевые функции", architecture: "Архитектура", decisions: "Технические решения", limitations: "Ограничения" },
