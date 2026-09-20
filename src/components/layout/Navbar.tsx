@@ -8,13 +8,16 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import ThemeToggle from "@/components/layout/ThemeToggle";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 const navLinks = [
-  { href: "/#work", label: "Проекты" },
-  { href: "/#about", label: "Обо мне" },
-  { href: "/#stack", label: "Стек" },
-  { href: "/#github", label: "GitHub" },
-  { href: "/#contact", label: "Контакты" },
+  { href: "/#work", label: d.nav.projects },
+  { href: "/#about", label: d.nav.about },
+  { href: "/#stack", label: d.nav.stack },
+  { href: "/#github", label: d.nav.github },
+  { href: "/#contact", label: d.nav.contact },
 ] as const;
 
 export default function Navbar() {
@@ -44,13 +47,13 @@ export default function Navbar() {
       )}
       role="banner"
     >
-      <nav className="mx-auto max-w-7xl px-4 md:px-6" aria-label="Основная навигация">
+      <nav className="mx-auto max-w-7xl px-4 md:px-6" aria-label={d.aria.mainNav}>
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Wordmark */}
           <Link
             href="/"
             className="font-mono text-sm tracking-widest text-ink hover:opacity-80 transition-opacity"
-            aria-label="На главную"
+            aria-label={d.nav.home}
           >
             BILOLIDIN
           </Link>
@@ -84,7 +87,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
             <Button asChild size="sm" className="hidden md:inline-flex font-mono text-xs tracking-wider">
-              <Link href="/#contact">Связаться</Link>
+              <Link href="/#contact">{d.buttons.contact}</Link>
             </Button>
 
             <ThemeToggle className="h-8 w-8" />
@@ -95,7 +98,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   className="md:hidden inline-flex h-10 w-10 items-center justify-center text-muted hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                  aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+                  aria-label={mobileMenuOpen ? d.nav.closeMenu : d.nav.openMenu}
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-navigation"
                 >
@@ -104,7 +107,7 @@ export default function Navbar() {
               </SheetTrigger>
               <SheetContent side="right" className="w-full sm:max-w-sm p-6">
                 <div className="flex flex-col gap-6">
-                  <nav id="mobile-navigation" className="flex flex-col gap-4" aria-label="Мобильная навигация">
+                  <nav id="mobile-navigation" className="flex flex-col gap-4" aria-label={d.aria.mobileNav}>
                     {navLinks.map((link) => (
                       <SheetClose asChild key={link.href}>
                         <Link
@@ -122,7 +125,7 @@ export default function Navbar() {
                   <div className="flex items-center justify-between pt-4 border-t border-line">
                     <ThemeToggle className="h-10 w-10 text-muted" />
                     <Button asChild className="w-full sm:w-auto font-mono text-sm tracking-wider">
-                      <Link href="/#contact">Связаться</Link>
+                      <Link href="/#contact">{d.buttons.contact}</Link>
                     </Button>
                   </div>
                 </div>

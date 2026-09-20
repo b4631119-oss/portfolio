@@ -1,5 +1,8 @@
 import Image from "next/image";
 import type { ProjectCaseStudy } from "@/types";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 function Section({
   label,
@@ -33,7 +36,7 @@ function List({ items }: { items: string[] }) {
 
 export function ProjectScreenshots({
   images,
-  label = "Скриншоты",
+  label = d.project.screenshots,
 }: {
   images: ProjectCaseStudy["screenshots"];
   label?: string;
@@ -65,42 +68,42 @@ export function ProjectScreenshots({
 export function CaseStudyLayout({ caseStudy }: { caseStudy: ProjectCaseStudy }) {
   return (
     <div className="mt-16 space-y-14">
-      <Section label="Обзор">
+      <Section label={d.project.overview}>
         <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.overview}</p>
       </Section>
 
       {caseStudy.problem && (
-        <Section label="Задача">
+        <Section label={d.project.problem}>
           <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.problem}</p>
         </Section>
       )}
 
       {caseStudy.scope && (
-        <Section label="Роль и scope">
+        <Section label={d.project.scope}>
           <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.scope}</p>
         </Section>
       )}
 
       {caseStudy.features && caseStudy.features.length > 0 && (
-        <Section label="Ключевые функции">
+        <Section label={d.project.features}>
           <List items={caseStudy.features} />
         </Section>
       )}
 
       {caseStudy.architecture && (
-        <Section label="Архитектура">
+        <Section label={d.project.architecture}>
           <p className="text-muted leading-relaxed max-w-[70ch]">{caseStudy.architecture}</p>
         </Section>
       )}
 
       {caseStudy.decisions && caseStudy.decisions.length > 0 && (
-        <Section label="Технические решения">
+        <Section label={d.project.decisions}>
           <List items={caseStudy.decisions} />
         </Section>
       )}
 
       {caseStudy.limitations && caseStudy.limitations.length > 0 && (
-        <Section label="Ограничения">
+        <Section label={d.project.limitations}>
           <List items={caseStudy.limitations} />
         </Section>
       )}

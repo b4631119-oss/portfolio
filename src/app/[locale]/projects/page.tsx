@@ -3,11 +3,13 @@ import Link from "next/link";
 import { projects, experiments } from "@/data/projects";
 import { ArrowLeft } from "lucide-react";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description:
-    "Full-stack production applications and technical experiments — Next.js, TypeScript, C#, .NET, Python, PostgreSQL, and more.",
+  title: d.pages.projectsTitle,
+  description: d.pages.projectsDescription,
   alternates: { canonical: "/projects" },
 };
 
@@ -25,23 +27,23 @@ export default function ProjectsPage() {
         className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm mb-12"
       >
         <ArrowLeft size={16} aria-hidden="true" />
-        Назад
+        {d.buttons.back}
       </Link>
 
       {/* Header */}
       <header className="mb-16 md:mb-24">
         <h1 className="font-sans font-bold text-ink text-4xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-          Все проекты
+          {d.pages.projectsTitle}
         </h1>
         <p className="mt-4 text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
-          Продакшн-продукты, сложные системы и пет-проекты.
+          {d.pages.projectsDescription}
         </p>
       </header>
 
       {/* Featured Work */}
       <section className="mb-24 md:mb-32" id="projects-featured">
         <p className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-          Избранные проекты
+          {d.home.featuredTitle}
         </p>
 
         {lead && <ProjectCard project={lead} variant="flagship" />}
@@ -58,7 +60,7 @@ export default function ProjectsPage() {
       {/* Other Work */}
       <section id="other-work" aria-labelledby="other-work-heading">
         <p id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-8">
-          Другие проекты
+          {d.home.otherTitle}
         </p>
 
         {secondary.length > 0 && (

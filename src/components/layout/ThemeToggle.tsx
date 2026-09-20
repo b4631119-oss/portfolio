@@ -2,14 +2,17 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/layout/ThemeProvider";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 function nextMode(current: "light" | "dark"): "light" | "dark" {
   return current === "light" ? "dark" : "light";
 }
 
 const labels: Record<"light" | "dark", string> = {
-  light: "Переключить на тёмную тему",
-  dark: "Переключить на светлую тему",
+  light: d.aria.themeLight,
+  dark: d.aria.themeDark,
 };
 
 const icons: Record<"light" | "dark", React.ReactNode> = {
@@ -44,7 +47,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={handleClick}
-      aria-label={labels[mode] ?? "Переключить тему"}
+      aria-label={labels[mode] ?? d.aria.themeLight}
       title={labels[mode]}
       className={
         className ??

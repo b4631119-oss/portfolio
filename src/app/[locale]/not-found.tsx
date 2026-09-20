@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export default function NotFound() {
   return (
@@ -12,17 +15,17 @@ export default function NotFound() {
             404
           </h1>
           <p className="text-muted">
-            Страница не найдена
+            {d.states.notFound}
           </p>
           <p className="text-sm text-muted max-w-xs">
-            Похоже, этой страницы не существует или она была перемещена.
+            {d.states.notFoundDescription}
           </p>
         </div>
         <Link
           href="/"
           className="inline-flex items-center gap-2 font-mono text-sm text-muted hover:text-accent transition-colors"
         >
-          ← Вернуться на главную
+          ← {d.buttons.returnHome}
         </Link>
       </div>
     </div>

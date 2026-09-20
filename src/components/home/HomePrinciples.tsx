@@ -1,5 +1,8 @@
 import { Reveal } from "@/components/ui/reveal";
 import { workPrinciples } from "@/data/home";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export function HomePrinciples() {
   return (
@@ -7,7 +10,7 @@ export function HomePrinciples() {
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <Reveal>
           <h2 id="how-i-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-12">
-            Как я работаю
+            {d.home.principlesTitle}
           </h2>
         </Reveal>
         <div className="mt-12 grid md:grid-cols-2 gap-6">
@@ -20,10 +23,10 @@ export function HomePrinciples() {
                   </div>
                   <div>
                     <h3 className="font-sans font-semibold text-ink text-lg">
-                      {principle.title}
+                      {d.principles[index]?.title ?? principle.title}
                     </h3>
                     <p className="mt-2 text-sm text-muted leading-relaxed">
-                      {principle.description}
+                      {d.principles[index]?.description ?? principle.description}
                     </p>
                   </div>
                 </div>

@@ -3,11 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { getGithubData } from "@/lib/github";
 import RepoExplorer from "@/components/profile/RepoExplorer";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export const metadata: Metadata = {
-  title: "GitHub Profile",
-  description:
-    "Live GitHub data — repositories, followers, and project activity. Explore real-time stats and repository details from github.com/b4631119-oss.",
+  title: d.pages.profileTitle,
+  description: d.pages.profileDescription,
   alternates: { canonical: "/profile" },
 };
 
@@ -18,10 +20,10 @@ export default async function ProfilePage() {
     return (
       <div className="max-w-5xl mx-auto px-6 pb-24 font-sans">
         <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl">
-          Профиль
+          {d.pages.profileTitle}
         </h1>
         <p className="mt-6 text-muted">
-          Не удалось загрузить данные с GitHub. Попробуйте позже.
+          {d.pages.profileError}
         </p>
       </div>
     );
@@ -36,14 +38,14 @@ export default async function ProfilePage() {
   return (
     <div className="max-w-5xl mx-auto px-4 md:px-6 pt-16 pb-24 font-sans">
       <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl">
-        Профиль
+        {d.pages.profileTitle}
       </h1>
 
       <header className="mt-8 flex flex-col sm:flex-row gap-8 sm:items-start">
         {user.avatar_url && (
           <Image
             src={user.avatar_url}
-            alt={`Аватар ${user.name ?? user.login}`}
+            alt={d.aria.avatarOf(user.name ?? user.login)}
             width={120}
             height={120}
             className="rounded-none bg-line shrink-0"
@@ -80,14 +82,14 @@ export default async function ProfilePage() {
               rel="noopener noreferrer"
               className="text-accent hover:underline"
             >
-              Открыть на GitHub
+              {d.pages.openGithub}
             </Link>
           </div>
         </div>
       </header>
 
       <section className="mt-16 md:mt-20">
-        <h2 className="font-mono text-lg text-ink">Репозитории</h2>
+        <h2 className="font-mono text-lg text-ink">{d.pages.repositories}</h2>
         <div className="mt-4">
           <RepoExplorer repos={repos} />
         </div>

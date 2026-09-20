@@ -3,6 +3,9 @@ import { ExternalLink, GitFork, Star } from "lucide-react";
 import type { GithubRepo, LanguageStat } from "@/lib/github";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 interface HomeGithubProps {
   pinnedRepos: GithubRepo[];
@@ -31,7 +34,7 @@ function formatRelativeDate(iso: string): string {
       return rtf.format(Math.round(seconds / secondsPerUnit), unit);
     }
   }
-  return "только что";
+  return d.states.loading === "Загрузка…" ? "только что" : "just now";
 }
 
 export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGithubProps) {
@@ -43,7 +46,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
         <Reveal delay={160}>
           <div className="mt-12">
             <h3 id="pinned-repos-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-              Закреплённые репозитории
+              {d.home.pinned}
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               {pinnedRepos.map((repo, index) => (
@@ -95,9 +98,9 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
         <Reveal delay={240}>
           <div className="mt-12">
             <h3 id="languages-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-              Языки
+              {d.home.languages}
             </h3>
-            <div className="h-2 rounded-full overflow-hidden flex bg-line" role="img" aria-label="Распределение языков по репозиториям">
+            <div className="h-2 rounded-full overflow-hidden flex bg-line" role="img" aria-label={d.aria.languageChart}>
               {languageStats.map((stat, index) => (
                 <div
                   key={stat.language}
@@ -136,7 +139,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
         <Reveal delay={320}>
           <div className="mt-12">
             <h3 id="recent-activity-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
-              Недавняя активность
+              {d.home.recent}
             </h3>
             <ul className="space-y-3" role="list">
               {recentRepos.map((repo, index) => (
@@ -167,7 +170,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
       {/* Fallback if all GitHub data failed */}
       {(pinnedRepos.length === 0 && languageStats.length === 0 && recentRepos.length === 0) && (
         <p className="mt-8 text-muted text-center">
-          Не удалось загрузить данные GitHub. Попробуйте обновить страницу позже.
+          {d.home.githubError}
         </p>
       )}
 
@@ -175,7 +178,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos }: HomeGith
       <div className="mt-10 text-center">
         <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">
           <Link href="/profile">
-            Открыть профиль GitHub
+            {d.buttons.profile}
             <ExternalLink size={18} className="ml-2" aria-hidden="true" />
           </Link>
         </Button>

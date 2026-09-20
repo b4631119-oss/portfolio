@@ -7,6 +7,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 const systemNodes = [
   { label: "Frontend", icon: <Cpu className="w-5 h-5" aria-hidden="true" /> },
@@ -31,7 +34,7 @@ export function HomeHero() {
             {/* Availability line */}
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs tracking-widest text-muted uppercase">
-                Открыт к работе
+                {d.home.available}
               </span>
               <span
                 className="relative h-1.5 w-1.5 rounded-full bg-accent animate-pulse"
@@ -45,27 +48,24 @@ export function HomeHero() {
                 Bilolidin
               </p>
               <h1 className="font-sans font-bold text-ink text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight">
-                Full-Stack Developer
+                {d.home.heroTitle}
               </h1>
             </div>
 
             {/* Supporting statement */}
             <p className="text-lg md:text-xl text-muted max-w-xl leading-relaxed">
-              Создаю веб-продукты целиком — от интерфейса до базы данных. Среди проектов:
-              платформа онлайн-экзаменов для учебного центра, система планирования дня
-              и десктоп-утилита для передачи файлов по локальной сети. Развиваюсь в сторону
-              бэкенда — Supabase, PostgreSQL, C#/.NET.
+              {d.home.heroDescription}
             </p>
 
             {/* Tech signature */}
             <p className="font-mono text-sm text-muted">
-              React · Next.js · TypeScript · Firebase
+              {d.home.heroTech}
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 pt-2">
               <Button asChild size="lg" className="shadow-none font-bold">
-                <Link href="/#work">Смотреть проекты</Link>
+                <Link href="/#work">{d.buttons.projects}</Link>
               </Button>
               <Button
                 asChild
@@ -73,7 +73,7 @@ export function HomeHero() {
                 variant="outline"
                 className="font-bold"
               >
-                <Link href="/#contact">Связаться</Link>
+                <Link href="/#contact">{d.buttons.contact}</Link>
               </Button>
             </div>
           </div>

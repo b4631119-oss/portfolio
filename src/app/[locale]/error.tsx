@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export default function Error({
   error,
@@ -24,10 +27,10 @@ export default function Error({
             <span className="text-3xl" aria-hidden="true">⚠</span>
           </div>
           <h1 className="font-sans font-bold text-ink text-2xl">
-            Что-то пошло не так
+            {d.states.errorTitle}
           </h1>
           <p className="text-muted text-sm">
-            Произошла непредвиденная ошибка. Мы уже работаем над этим.
+            {d.states.errorDescription}
           </p>
         </div>
         <div className="flex flex-col gap-3">
@@ -36,13 +39,13 @@ export default function Error({
             className="w-full shadow-none font-bold"
           >
             <RefreshCw size={16} className="mr-2" aria-hidden="true" />
-            Попробовать снова
+            {d.buttons.retry}
           </Button>
           <Link
             href="/"
             className="font-mono text-sm text-muted hover:text-accent transition-colors"
           >
-            ← На главную
+            ← {d.buttons.returnHome}
           </Link>
         </div>
       </div>

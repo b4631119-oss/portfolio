@@ -4,6 +4,9 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Project, ProjectTier } from "@/types";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 /** Способ подачи карточки: flagship — крупное превью, standard — среднее, compact — строка. */
 export type ProjectCardVariant = "flagship" | "standard" | "compact";
@@ -91,7 +94,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="shadow-none font-bold">
               <Link href={detailsHref}>
-                Кейс
+                {d.buttons.caseStudy}
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>
             </Button>
@@ -114,7 +117,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
                 rel="noopener noreferrer"
               >
                 <Github size={18} className="mr-2" aria-hidden="true" />
-                Код
+                {d.buttons.code}
               </a>
             </Button>
           </div>
@@ -154,7 +157,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
           <div className="mt-auto pt-4 border-t border-line">
             <Button asChild variant="outline" size="sm" className="font-mono text-xs">
               <Link href={detailsHref}>
-                Подробнее
+                {d.buttons.details}
                 <ArrowRight size={12} className="ml-1.5" aria-hidden="true" />
               </Link>
             </Button>
@@ -184,7 +187,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
 
         <div className="flex flex-wrap items-center gap-2 shrink-0">
           <Button asChild variant="outline" size="sm" className="font-mono text-xs">
-            <Link href={detailsHref}>Подробнее</Link>
+            <Link href={detailsHref}>{d.buttons.details}</Link>
           </Button>
           {project.liveUrl && (
             <Button asChild variant="outline" size="sm" className="font-mono text-xs">
@@ -205,7 +208,7 @@ export function ProjectCard({ project, variant }: ProjectCardProps) {
               rel="noopener noreferrer"
             >
               <Github size={12} className="mr-1.5" aria-hidden="true" />
-              Код
+              {d.buttons.code}
             </a>
           </Button>
         </div>

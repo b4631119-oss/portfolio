@@ -4,6 +4,9 @@ import { projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export function HomeFeaturedWork() {
   const flagship = projects.filter((project) => projectTier(project) === "flagship");
@@ -15,9 +18,9 @@ export function HomeFeaturedWork() {
         <Reveal>
           {/* Section heading */}
           <h2 id="work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-            Избранные проекты
+            {d.home.featuredTitle}
           </h2>
-          <p className="text-muted">Главные проекты — продакшн-продукты и сложные системы.</p>
+          <p className="text-muted">{d.home.featuredDescription}</p>
         </Reveal>
 
         {lead && (
@@ -47,7 +50,7 @@ export function HomeFeaturedWork() {
               className="font-bold font-mono text-sm tracking-wider"
             >
               <Link href="/projects/prolab-academy">
-                PROlab Academy — кейс
+                {d.home.caseLink}
                 <ArrowRight size={18} className="ml-2" aria-hidden="true" />
               </Link>
             </Button>

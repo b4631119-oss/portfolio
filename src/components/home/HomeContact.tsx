@@ -1,6 +1,9 @@
 import { Github, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { contact, mailtoHref } from "@/data/contact";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export function HomeContact() {
   return (
@@ -8,11 +11,10 @@ export function HomeContact() {
       <div className="absolute inset-0 glow-surface pointer-events-none" aria-hidden="true" />
       <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-6 text-center">
         <h2 id="contact-heading" className="font-sans font-bold text-ink text-4xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-          Открыт к стажировке и проектам
+          {d.home.contactTitle}
         </h2>
         <p className="mt-6 text-lg text-muted max-w-xl mx-auto leading-relaxed">
-          Нужен фронтенд или фулстек-задача, вопрос по проектам или предложение
-          о стажировке — напишите в Telegram или на email.
+          {d.home.contactDescription}
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Button asChild variant="outline" size="lg" className="font-bold">

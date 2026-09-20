@@ -1,3 +1,7 @@
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
+
 export default function Loading() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg">
@@ -5,7 +9,7 @@ export default function Loading() {
         <div
           className="relative w-8 h-8"
           role="status"
-          aria-label="Загрузка"
+          aria-label={d.states.loading}
         >
           <svg
             className="animate-spin h-8 w-8 text-accent"
@@ -29,7 +33,7 @@ export default function Loading() {
             />
           </svg>
         </div>
-        <p className="font-mono text-sm text-muted">Загрузка…</p>
+        <p className="font-mono text-sm text-muted">{d.states.loading}</p>
       </div>
     </div>
   );

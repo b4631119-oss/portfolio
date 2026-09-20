@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import { Github, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { contact, mailtoHref } from "@/data/contact";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export const metadata: Metadata = {
-  title: "Контакты",
-  description: `Контакты: Telegram, email и GitHub. Открыт к стажировке и новым проектам — ${contact.email}.`,
+  title: d.pages.contactTitle,
+  description: `${d.pages.contactDescription} — ${contact.email}.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -37,12 +40,11 @@ export default function ContactPage() {
   return (
     <article className="max-w-2xl mx-auto px-4 md:px-6 py-16 md:py-24 font-sans">
       <h1 className="font-sans font-bold text-ink text-4xl md:text-5xl">
-        Контакты
+        {d.pages.contactTitle}
       </h1>
 
       <p className="mt-4 text-muted text-lg leading-normal max-w-[70ch]">
-        Открыт к стажировке и новым проектам. Напишите в удобный канал — расскажу
-        про проекты, стек и вклад в каждый из них.
+        {d.home.contactDescription}
       </p>
 
       <div className="mt-10 flex flex-wrap gap-4">

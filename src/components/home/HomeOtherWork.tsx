@@ -1,6 +1,9 @@
 import { experiments } from "@/data/projects";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
+import { getDictionary } from "@/i18n";
+
+const d = getDictionary();
 
 export function HomeOtherWork() {
   const secondary = experiments.filter((project) => projectTier(project) === "secondary");
@@ -12,9 +15,9 @@ export function HomeOtherWork() {
         <Reveal>
           {/* Section heading */}
           <h2 id="other-work-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-2">
-Другие проекты
+{d.home.otherTitle}
           </h2>
-          <p className="text-muted">Пет-проекты и эксперименты.</p>
+          <p className="text-muted">{d.home.otherDescription}</p>
         </Reveal>
 
         {secondary.length > 0 && (

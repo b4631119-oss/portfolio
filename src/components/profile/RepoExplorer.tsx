@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getDictionary } from "@/i18n";
 import {
   Dialog,
   DialogContent,
@@ -31,10 +32,12 @@ const ReactMarkdown = dynamic(() => import("react-markdown"), {
 
 type SortKey = "stars" | "updated" | "name";
 
+const d = getDictionary();
+
 const sortLabels: Record<SortKey, string> = {
-  stars: "по звёздам",
-  updated: "по дате обновления",
-  name: "по названию",
+  stars: d.states.sortStars,
+  updated: d.states.sortUpdated,
+  name: d.states.sortName,
 };
 
 export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
@@ -79,7 +82,7 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
   }, [repos, languageFilter, sortKey]);
 
   const chips: Array<{ value: string | null; label: string }> = [
-    { value: null, label: "Все" },
+    { value: null, label: d.states.all },
     ...languages.map((language) => ({ value: language, label: language })),
   ];
 
@@ -259,10 +262,10 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
           onValueChange={(value) => setSortKey(value as SortKey)}
         >
           <SelectTrigger
-            aria-label="Сортировка репозиториев"
+            aria-label={d.aria.sortRepositories}
             className="w-full sm:w-[220px] font-mono text-sm"
           >
-            <SelectValue placeholder="Сортировка" />
+            <SelectValue placeholder={d.states.sort} />
           </SelectTrigger>
           <SelectContent>
             {(Object.keys(sortLabels) as SortKey[]).map((key) => (
@@ -275,7 +278,7 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
       </div>
 
       {visible.length === 0 ? (
-        <p className="mt-8 text-muted text-sm">Ничего не найдено.</p>
+        <p className="mt-8 text-muted text-sm">{d.states.noResults}</p>
       ) : (
         <ul className="mt-8 border border-line divide-y divide-line">
           {visible.map((repo) => (
@@ -295,7 +298,7 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
                 <button
                   type="button"
                   onClick={() => toggleReadme(repo)}
-                  aria-label={`Показать README репозитория ${repo.name}`}
+                  aria-label={d.aria.showReadme(repo.name)}
                   className="text-muted hover:text-accent transition-colors shrink-0"
                 >
                   <FileText size={16} aria-hidden />
@@ -361,15 +364,15 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
             </DialogTitle>
             <DialogDescription className="sr-only">
               {openRepo
-                ? `README репозитория ${openRepo.name}`
-                : "README репозитория"}
+                ? d.aria.readmeOf(openRepo.name)
+                : d.aria.readmeOf()}
             </DialogDescription>
           </DialogHeader>
 
           {openRepo &&
             (errorRepo === openRepo.full_name ? (
               <p className="text-muted text-sm">
-                Не удалось загрузить README.
+                {d.states.readmeError}
               </p>
             ) : loadingRepo === openRepo.full_name ? (
               <div className="space-y-3 py-1" aria-hidden>
@@ -379,7 +382,7 @@ export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
               </div>
             ) : readmes[openRepo.full_name] === null ? (
               <p className="text-muted text-sm">
-                У этого репозитория нет README.
+                {d.states.noReadme}
               </p>
             ) : readmes[openRepo.full_name] ? (
               <div className="text-sm text-ink leading-relaxed">
