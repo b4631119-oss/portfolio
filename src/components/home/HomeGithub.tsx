@@ -39,7 +39,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary
   const d = dictionary ?? getDictionary();
   return (
     <section className="mt-24 md:mt-32" id="github" aria-labelledby="github-heading">
-      <h2 id="github-heading" className="sr-only">GitHub</h2>
+      <h2 id="github-heading" className="sr-only">{d.home.githubTitle}</h2>
       {/* Pinned Repositories */}
       {pinnedRepos.length > 0 && (
         <Reveal delay={160}>

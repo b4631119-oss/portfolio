@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = allProjects.find((item) => item.id === id);
   if (!project) return {};
   const localized = localizeProject(project, locale);
-  const path = `/${project.id}`;
+  const path = `/projects/${project.id}`;
   return { title: localized.title, description: localized.description, alternates: alternatesFor(path, locale), openGraph: { title: localized.title, description: localized.description, url: locale === "en" ? `/en${path}` : path, locale: locale === "en" ? "en_US" : "ru_RU", images: localized.image ? [{ url: localized.image.src, alt: localized.image.alt }] : undefined } };
 }
 

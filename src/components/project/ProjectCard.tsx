@@ -80,7 +80,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
         <div className="p-8 md:p-12 space-y-6">
           {project.role && (
             <span className="font-mono text-xs text-muted uppercase tracking-wide">
-              {project.role}
+              {d.home.roleLabel}
             </span>
           )}
           <h2 className="font-sans font-bold text-ink text-2xl md:text-3xl leading-tight">
@@ -141,7 +141,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
           <div className="space-y-2">
             {project.role && (
               <span className="font-mono text-xs text-muted uppercase tracking-wide">
-                {project.role}
+                {d.home.roleLabel}
               </span>
             )}
             <h3 className="font-sans font-semibold text-ink text-lg">
@@ -177,7 +177,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
             </h3>
             {project.role && (
               <span className="font-mono text-xs text-muted uppercase tracking-wide">
-                {project.role}
+                {d.home.roleLabel}
               </span>
             )}
           </div>
@@ -197,7 +197,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
                 rel="noopener noreferrer"
               >
                 <ExternalLink size={12} className="mr-1.5" aria-hidden="true" />
-                Live
+                {d.buttons.live}
               </a>
             </Button>
           )}

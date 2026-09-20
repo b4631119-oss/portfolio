@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
-import { getDictionary } from "@/i18n";
-
-const d = getDictionary();
+import { getDictionary, type UiDictionary } from "@/i18n";
 
 export default function Error({
   error,
@@ -15,6 +14,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const pathname = usePathname();
+  const d: UiDictionary = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
   useEffect(() => {
     console.error("Application error:", error);
   }, [error]);

@@ -1,12 +1,14 @@
 import { experiments } from "@/data/projects";
+import { localizeProjects } from "@/i18n/projects";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
 export function HomeOtherWork({ dictionary }: { dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
-  const secondary = experiments.filter((project) => projectTier(project) === "secondary");
-  const simple = experiments.filter((project) => projectTier(project) === "experiment");
+  const localized = localizeProjects(experiments, d.locale);
+  const secondary = localized.filter((project) => projectTier(project) === "secondary");
+  const simple = localized.filter((project) => projectTier(project) === "experiment");
 
   return (
     <section className="mt-24 md:mt-32" id="other-work" aria-labelledby="other-work-heading">

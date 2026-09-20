@@ -26,11 +26,12 @@ export default function Navbar() {
   ] as const;
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const hash = typeof window === "undefined" ? "" : window.location.hash;
   const targetLocalePath = () => {
     const isEnglish = locale === "en";
     const base = isEnglish ? pathname.replace(/^\/en(?=\/|$)/, "") || "/" : `/en${pathname === "/" ? "" : pathname}`;
     const query = searchParams.toString();
-    return `${base}${query ? `?${query}` : ""}${window.location.hash}`;
+    return `${base}${query ? `?${query}` : ""}${hash}`;
   };
 
   useEffect(() => {

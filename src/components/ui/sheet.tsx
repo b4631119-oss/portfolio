@@ -7,10 +7,10 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { getDictionary } from "@/i18n"
+import { usePathname } from "next/navigation"
 
 const Sheet = SheetPrimitive.Root
 
-const sheetDictionary = getDictionary()
 
 const SheetTrigger = SheetPrimitive.Trigger
 
@@ -56,6 +56,12 @@ interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
     VariantProps<typeof sheetVariants> {}
 
+function SheetCloseButton({ className }: { className?: string }) {
+  const pathname = usePathname();
+  const d = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  return <SheetPrimitive.Close className={className}><X className="h-4 w-4" /><span className="sr-only">{d.buttons.close}</span></SheetPrimitive.Close>;
+}
+
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
@@ -67,10 +73,7 @@ const SheetContent = React.forwardRef<
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="h-4 w-4" />
-        <span className="sr-only">{sheetDictionary.buttons.close}</span>
-      </SheetPrimitive.Close>
+      <SheetCloseButton className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary" />
       {children}
     </SheetPrimitive.Content>
   </SheetPortal>

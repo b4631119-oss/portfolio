@@ -10,14 +10,16 @@ import { contact } from "@/data/contact";
 import "./globals.css";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
   variable: "--font-sans",
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600"],
+  display: "swap",
   variable: "--font-mono",
 });
 
@@ -29,7 +31,6 @@ export const metadata: Metadata = {
   description:
     "Full-stack разработчик из Оша, Кыргызстан: платформа онлайн-экзаменов, система планирования дня и десктопная утилита для локальной сети. React, Next.js, TypeScript, Firebase, Supabase.",
   metadataBase: new URL(siteUrl),
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     title: "Bilolidin — Full-Stack Developer",

@@ -81,49 +81,39 @@ npm run typecheck    # TypeScript check (tsc --noEmit)
 
 ## 📁 Project Structure
 
-```
+```text
 src/
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx          # Root layout (fonts, theme, CursorGrid, Navbar, Footer, metadata)
-│   ├── page.tsx            # Homepage: server data fetching + section composition
-│   ├── icon.tsx            # Generated favicon
-│   ├── opengraph-image.tsx # Generated Open Graph image
-│   ├── about/page.tsx      # About page (bio, skills, tech stack)
-│   ├── projects/
-│   │   ├── page.tsx        # All projects page (Featured + Other Work)
-│   │   ├── [id]/page.tsx   # Dynamic project detail page
-│   │   └── prolab-academy/ # Case study page
-│   ├── profile/page.tsx    # GitHub profile with repo explorer
-│   ├── contact/page.tsx    # Contact page
-│   ├── api/readme/         # GitHub README proxy API
-│   ├── globals.css         # Global styles + design tokens + animations
-│   ├── sitemap.ts          # Dynamic sitemap generation
-│   ├── robots.ts           # Robots.txt generation
-│   ├── loading.tsx         # Global loading UI
-│   ├── error.tsx           # Global error boundary
-│   └── not-found.tsx       # 404 page
-├── components/
-│   ├── home/               # Homepage sections (Hero, About, Principles, Experience, Stack, Github, Contact, FeaturedWork, OtherWork)
-│   ├── layout/             # Navbar, Footer, ThemeProvider, ThemeToggle
-│   ├── project/            # ProjectCard (compact/featured variants)
-│   ├── profile/            # RepoExplorer (filter, sort, README dialog)
-│   ├── ui/                 # shadcn/ui components + Reveal, ArchitectureDiagram
-│   └── effects/            # CursorGrid (cursor-reactive dot-grid)
-├── data/
-│   ├── projects.ts         # Project data (featured + experiments)
-│   ├── home.ts             # Homepage static data (work principles, tech categories)
-│   └── site.ts             # Canonical site URL (single source)
-├── lib/
-│   ├── github.ts           # GitHub API client (REST + GraphQL)
-│   └── utils.ts            # Utility functions
-├── types/
-│   └── index.ts            # Shared TypeScript interfaces
-├── hooks/
-│   └── use-in-view.ts      # IntersectionObserver hook for scroll animations
-└── public/
-    ├── manifest.json       # PWA manifest
-    └── ...                 # Static assets
+├── app/
+│   ├── [locale]/            # RU/EN page tree; RU is exposed without a prefix
+│   │   ├── layout.tsx       # Locale validation and localized metadata
+│   │   ├── page.tsx         # Homepage composition and GitHub data loading
+│   │   ├── about/           # About page
+│   │   ├── projects/        # Project index, dynamic details, and PROlab case study
+│   │   ├── profile/         # GitHub profile and repository explorer
+│   │   └── contact/         # Contact page
+│   ├── api/readme/          # GitHub README proxy
+│   ├── layout.tsx           # Root providers, fonts, theme, navigation and JSON-LD
+│   ├── sitemap.ts           # RU/EN sitemap with language alternates
+│   ├── robots.ts            # Robots.txt generation
+│   └── globals.css          # Design tokens, focus styles and animations
+├── i18n/
+│   ├── config.ts            # Supported locales and default locale
+│   ├── types.ts             # Required dictionary contract
+│   ├── ru.ts, en.ts         # Typed UI dictionaries
+│   ├── projects.ts          # Localized project content
+│   ├── prolab.ts            # Localized PROlab case-study content
+│   └── metadata.ts          # Canonical and hreflang helpers
+├── components/              # home, layout, project, profile, UI and effects
+├── data/                    # Projects, home data, contact and site configuration
+├── lib/                     # GitHub client and shared utilities
+├── types/                   # Shared TypeScript interfaces
+└── proxy.ts                 # Locale rewrite, redirect and project 404 handling
+public/                     # Manifest and replaceable project preview assets
 ```
+
+### Localization
+
+Russian is the default language and keeps the existing URLs (`/`, `/about`, `/projects`). English is available under `/en/...`. The proxy internally rewrites unprefixed requests to the `ru` route tree, redirects `/ru/...` to the unprefixed URL, and rejects unknown locales. Each localized page emits its own canonical URL and RU/EN/x-default alternate links.
 
 ---
 
@@ -149,10 +139,10 @@ src/
   --bg-elevated: #ffffff;
   --ink: #0a0a0c;
   --muted: #6e6e73;
-  --accent: #3b6fe0;
+  --accent: #3568d8;
   --accent-2: #8b5cf6;
   --line: #e5e5e7;
-  --glow: rgba(59, 111, 224, 0.08);
+  --glow: rgba(53, 104, 216, 0.08);
   --radius: 0.5rem;
 }
 ```

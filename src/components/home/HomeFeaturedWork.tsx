@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects } from "@/data/projects";
+import { localizeProjects } from "@/i18n/projects";
 import { Button } from "@/components/ui/button";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
@@ -8,7 +9,7 @@ import { getDictionary, type UiDictionary } from "@/i18n";
 
 export function HomeFeaturedWork({ dictionary }: { dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
-  const flagship = projects.filter((project) => projectTier(project) === "flagship");
+  const flagship = localizeProjects(projects, d.locale).filter((project) => projectTier(project) === "flagship");
   const [lead, ...rest] = flagship;
 
   return (
