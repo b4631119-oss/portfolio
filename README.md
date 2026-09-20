@@ -100,20 +100,32 @@ src/
 │   ├── config.ts            # Supported locales and default locale
 │   ├── types.ts             # Required dictionary contract
 │   ├── ru.ts, en.ts         # Typed UI dictionaries
-│   ├── projects.ts          # Localized project content
-│   ├── prolab.ts            # Localized PROlab case-study content
-│   └── metadata.ts          # Canonical and hreflang helpers
+│   ├── metadata.ts          # Canonical and hreflang helpers
 ├── components/              # home, layout, project, profile, UI and effects
-├── data/                    # Projects, home data, contact and site configuration
+├── data/                    # Single project registry, home data, contact and site configuration
+│   └── projects.ts          # All projects, tiers, links and optional localized content
 ├── lib/                     # GitHub client and shared utilities
 ├── types/                   # Shared TypeScript interfaces
 └── proxy.ts                 # Locale rewrite, redirect and project 404 handling
-public/                     # Manifest and replaceable project preview assets
+public/                     # Manifest and optional project assets
 ```
 
 ### Localization
 
-Russian is the default language and keeps the existing URLs (`/`, `/about`, `/projects`). English is available under `/en/...`. The proxy internally rewrites unprefixed requests to the `ru` route tree, redirects `/ru/...` to the unprefixed URL, and rejects unknown locales. Each localized page emits its own canonical URL and RU/EN/x-default alternate links.
+Russian is the default language and keeps the existing URLs (`/`, `/about`, `/projects`). English is available under `/en/...`. The proxy internally rewrites unprefixed requests to the `ru` route tree, redirects `/ru/...` to the unprefixed URL, and rejects unknown locales. Each localized page emits its own canonical URL and RU/EN/x-default alternate links. Project descriptions and case-study content are localized in the same project record in `src/data/projects.ts`.
+
+# Как добавить проект
+
+1. Откройте `src/data/projects.ts`.
+2. Добавьте одну запись в массив `projects` и сохраните обязательные поля: `id`, `title`, `description`, `tags`, `githubUrl` и `tier`.
+3. Выберите подходящий tier: `flagship`, `secondary` или `experiment`. Порядок записей внутри tier сохраняется.
+4. Добавьте английскую версию в `localized.en` для описания и, если нужно, case study. Ссылки GitHub/Live и теги остаются общими.
+5. `caseStudy` необязателен. Для специальной страницы PROlab используется существующее поле `customCaseStudy`; обычным проектам его заполнять не нужно.
+6. `image` необязателен. Если позже появится скриншот, создайте `public/projects/<id>/cover.webp` и добавьте `image` в эту же запись; для английского alt-текста используйте `localized.en.image`.
+7. Не нужно вручную менять homepage, `/projects`, `generateStaticParams`, sitemap, metadata, canonical, hreflang или карточки.
+8. Проверьте изменения командой `npm run build`.
+
+Из одной записи проект автоматически используется в homepage, списке проектов, локализованной detail-странице, metadata, sitemap и tier-фильтрации. Проекты без `image` отображаются без пустого блока превью.
 
 ---
 
