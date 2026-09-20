@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { ProjectCaseStudy } from "@/types";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
@@ -29,41 +28,6 @@ function List({ items }: { items: string[] }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-export function ProjectScreenshots({
-  images,
-  label,
-  dictionary,
-}: {
-  images: ProjectCaseStudy["screenshots"];
-  label?: string;
-  dictionary?: UiDictionary;
-}) {
-  const d = dictionary ?? getDictionary();
-  const sectionLabel = label ?? d.project.screenshots;
-  if (!images || images.length === 0) return null;
-
-  return (
-    <Section label={sectionLabel}>
-      <div className="space-y-6">
-        {images.map((shot) => (
-          <div
-            key={shot.src}
-            className="relative aspect-[16/10] w-full overflow-hidden rounded-[var(--radius)] border border-line bg-bg-elevated"
-          >
-            <Image
-              src={shot.src}
-              alt={shot.alt}
-              fill
-              sizes="(min-width: 768px) 768px, 100vw"
-              className="object-cover"
-            />
-          </div>
-        ))}
-      </div>
-    </Section>
   );
 }
 
@@ -111,7 +75,6 @@ export function CaseStudyLayout({ caseStudy, dictionary }: { caseStudy: ProjectC
         </Section>
       )}
 
-      {caseStudy.screenshots && <ProjectScreenshots images={caseStudy.screenshots} dictionary={d} />}
     </div>
   );
 }

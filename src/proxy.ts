@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { ENABLE_EN } from "@/i18n/config";
-import { projects, experiments } from "@/data/projects";
+import { projects } from "@/data/projects";
 
-const projectIds = new Set([...projects, ...experiments].map((project) => project.id));
+const projectIds = new Set(projects.map((project) => project.id));
 
 function withLocale(request: NextRequest, locale: string, rewrite = false) {
   const headers = new Headers(request.headers);

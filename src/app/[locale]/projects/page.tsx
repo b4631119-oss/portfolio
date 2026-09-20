@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { projects, experiments } from "@/data/projects";
+import { localizeProjects, projects } from "@/data/projects";
 import { ArrowLeft } from "lucide-react";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { getDictionary } from "@/i18n";
 import { isLocale, type Locale } from "@/i18n/config";
-import { localizeProjects } from "@/i18n/projects";
 import { alternatesFor } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -19,11 +18,10 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
   const locale: Locale = isLocale(raw) ? raw : "ru";
   const d = getDictionary(locale);
   const localizedProjects = localizeProjects(projects, locale);
-  const localizedExperiments = localizeProjects(experiments, locale);
   const flagship = localizedProjects.filter((project) => projectTier(project) === "flagship");
   const [lead, ...rest] = flagship;
-  const secondary = localizedExperiments.filter((project) => projectTier(project) === "secondary");
-  const simple = localizedExperiments.filter((project) => projectTier(project) === "experiment");
+  const secondary = localizedProjects.filter((project) => projectTier(project) === "secondary");
+  const simple = localizedProjects.filter((project) => projectTier(project) === "experiment");
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24 font-sans">

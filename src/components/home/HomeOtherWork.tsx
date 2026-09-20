@@ -1,12 +1,11 @@
-import { experiments } from "@/data/projects";
-import { localizeProjects } from "@/i18n/projects";
+import { localizeProjects, projects } from "@/data/projects";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
 export function HomeOtherWork({ dictionary }: { dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
-  const localized = localizeProjects(experiments, d.locale);
+  const localized = localizeProjects(projects, d.locale);
   const secondary = localized.filter((project) => projectTier(project) === "secondary");
   const simple = localized.filter((project) => projectTier(project) === "experiment");
 

@@ -13,7 +13,7 @@ export default function Footer({ locale = "ru" }: { locale?: "ru" | "en" }) {
             <span className="font-mono text-sm text-ink">BILOLIDIN</span>
             <span className="text-muted text-xs">{d.home.heroTitle}</span>
             <span className="font-mono text-xs text-muted">
-              React · Next.js · TypeScript · Python
+              React · Next.js · TypeScript · Python · Django
             </span>
           </div>
 

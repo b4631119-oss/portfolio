@@ -83,7 +83,6 @@ export interface UiDictionary {
     architecture: string;
     decisions: string;
     limitations: string;
-    screenshots: string;
   };
   states: {
     loading: string;
