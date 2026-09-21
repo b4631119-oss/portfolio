@@ -6,12 +6,13 @@ import { ArrowLeft } from "lucide-react";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { getDictionary } from "@/i18n";
 import { isLocale, type Locale } from "@/i18n/config";
-import { alternatesFor } from "@/i18n/metadata";
+import { alternatesFor, socialMetadata } from "@/i18n/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const d = getDictionary(isLocale(raw) ? raw : "ru");
-  return { title: d.pages.projectsTitle, description: d.pages.projectsDescription, alternates: alternatesFor("/projects", isLocale(raw) ? raw : "ru") };
+  const locale = isLocale(raw) ? raw : "ru";
+  return { title: d.pages.projectsTitle, description: d.pages.projectsDescription, alternates: alternatesFor("/projects", locale), ...socialMetadata("/projects", locale, d.pages.projectsTitle, d.pages.projectsDescription) };
 }
 
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {

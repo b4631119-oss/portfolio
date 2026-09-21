@@ -2,7 +2,7 @@ import { getGithubData } from "@/lib/github";
 import { getDictionary } from "@/i18n";
 import { isLocale, type Locale } from "@/i18n/config";
 import type { Metadata } from "next";
-import { alternatesFor } from "@/i18n/metadata";
+import { alternatesFor, socialMetadata } from "@/i18n/metadata";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomePrinciples } from "@/components/home/HomePrinciples";
@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : "ru";
   const d = getDictionary(locale);
-  return { title: `Bilolidin — ${d.home.heroTitle}`, description: d.home.heroDescription, alternates: alternatesFor("/", locale), openGraph: { title: `Bilolidin — ${d.home.heroTitle}`, description: d.home.heroDescription, locale: locale === "en" ? "en_US" : "ru_RU", url: locale === "en" ? "/en" : "/" } };
+  const title = `Bilolidin — ${d.home.heroTitle}`;
+  return { title, description: d.home.heroDescription, alternates: alternatesFor("/", locale), ...socialMetadata("/", locale, title, d.home.heroDescription) };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {

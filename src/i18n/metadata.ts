@@ -15,3 +15,20 @@ export function alternatesFor(path: string, locale: Locale) {
     },
   };
 }
+
+export function socialMetadata(path: string, locale: Locale, title: string, description: string, image = "/opengraph-image") {
+  const url = `${siteUrl}${localePath(path, locale)}`;
+  const ogLocale = locale === "en" ? "en_US" : "ru_RU";
+  return {
+    openGraph: {
+      type: "website" as const,
+      title,
+      description,
+      url,
+      locale: ogLocale,
+      alternateLocale: locale === "en" ? ["ru_RU"] : ["en_US"],
+      images: [{ url: image, alt: title }],
+    },
+    twitter: { card: "summary_large_image" as const, title, description, images: [image] },
+  };
+}

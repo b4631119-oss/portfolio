@@ -184,7 +184,7 @@ Docker is **not set up** in this repository: there is no `Dockerfile`, and `next
 
 ## 📝 License
 
-No license file is included in this repository yet.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
