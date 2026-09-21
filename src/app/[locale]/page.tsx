@@ -10,8 +10,6 @@ import { HomeExperience } from "@/components/home/HomeExperience";
 import { HomeStack } from "@/components/home/HomeStack";
 import { HomeGithub } from "@/components/home/HomeGithub";
 import { HomeContact } from "@/components/home/HomeContact";
-import { HomeFeaturedWork } from "@/components/home/HomeFeaturedWork";
-import { HomeOtherWork } from "@/components/home/HomeOtherWork";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -29,8 +27,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 pb-24 font-sans">
       <HomeHero dictionary={dictionary} />
-      <HomeFeaturedWork pinnedRepos={pinnedRepos} dictionary={dictionary} />
-      <HomeOtherWork pinnedRepos={pinnedRepos} dictionary={dictionary} />
       <HomeStack dictionary={dictionary} />
       <HomePrinciples dictionary={dictionary} />
       <HomeAbout dictionary={dictionary} />
