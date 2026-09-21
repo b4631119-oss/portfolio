@@ -1,4 +1,4 @@
-export type ProjectTier = "flagship" | "secondary" | "experiment";
+export type ProjectTier = "secondary" | "experiment";
 
 export interface ProjectImage {
   src: string;

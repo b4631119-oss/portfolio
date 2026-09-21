@@ -35,6 +35,7 @@ export interface UiDictionary {
     heroTech: string;
     featuredTitle: string;
     featuredDescription: string;
+    selectedWorkEmpty: string;
     otherTitle: string;
     otherDescription: string;
     aboutTitle: string;
@@ -55,7 +56,6 @@ export interface UiDictionary {
     githubError: string;
     contactTitle: string;
     contactDescription: string;
-    caseLink: string;
     roleLabel: string;
     architectureNodes: { frontend: string; api: string; backend: string; database: string };
     relativeJustNow: string;

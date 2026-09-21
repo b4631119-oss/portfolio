@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import type { Project, ProjectTier } from "@/types";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
-/** Способ подачи карточки: flagship — крупное превью, standard — среднее, compact — строка. */
-export type ProjectCardVariant = "flagship" | "standard" | "compact";
+/** Способ подачи карточки: selected — крупное превью, standard — среднее, compact — строка. */
+export type ProjectCardVariant = "selected" | "standard" | "compact";
 
 interface ProjectCardProps {
   project: Project;
@@ -20,11 +20,9 @@ export function projectTier(project: Project): ProjectTier {
   return project.tier ?? "secondary";
 }
 
-/** Tier из данных (flagship/secondary/experiment) → вариант карточки. */
+/** Tier из данных → вариант карточки; Selected Work получает selected-вариант отдельно. */
 function tierToVariant(tier: ProjectTier): ProjectCardVariant {
-  if (tier === "flagship") return "flagship";
-  if (tier === "secondary") return "standard";
-  return "compact";
+  return tier === "secondary" ? "standard" : "compact";
 }
 
 function Tags({ tags }: { tags: string[] }) {
@@ -67,7 +65,7 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
   const detailsHref = `${d.locale === "en" ? "/en" : ""}/projects/${project.id}`;
   const hasCaseStudy = Boolean(project.customCaseStudy || project.caseStudy);
 
-  if (cardVariant === "flagship") {
+  if (cardVariant === "selected") {
     return (
       <article className="bg-bg-elevated border border-line rounded-[var(--radius)] overflow-hidden hover:border-accent/50 transition-colors duration-300">
         {project.image && (
@@ -79,11 +77,6 @@ export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) 
         )}
 
         <div className="p-8 md:p-12 space-y-6">
-          {project.role && (
-            <span className="font-mono text-xs text-muted uppercase tracking-wide">
-              {d.home.roleLabel}
-            </span>
-          )}
           <h2 className="font-sans font-bold text-ink text-2xl md:text-3xl leading-tight">
             {project.title}
           </h2>

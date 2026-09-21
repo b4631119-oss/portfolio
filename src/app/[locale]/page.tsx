@@ -29,8 +29,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 pb-24 font-sans">
       <HomeHero dictionary={dictionary} />
-      <HomeFeaturedWork dictionary={dictionary} />
-      <HomeOtherWork dictionary={dictionary} />
+      <HomeFeaturedWork pinnedRepos={pinnedRepos} dictionary={dictionary} />
+      <HomeOtherWork pinnedRepos={pinnedRepos} dictionary={dictionary} />
       <HomeStack dictionary={dictionary} />
       <HomePrinciples dictionary={dictionary} />
       <HomeAbout dictionary={dictionary} />

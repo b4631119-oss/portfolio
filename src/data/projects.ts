@@ -11,7 +11,7 @@ import type { Locale } from "@/i18n/config";
     githubUrl: "https://github.com/...",
     liveUrl: "https://...", // optional
     role: "Solo Developer", // optional
-    tier: "flagship", // flagship | secondary | experiment
+    tier: "secondary", // secondary | experiment
     image: { src: "/projects/project-id/cover.webp", alt: "Русский alt" }, // optional
     localized: { en: { description: "English description", image: { src: "/projects/project-id/cover.webp", alt: "English alt" } } },
     caseStudy: { overview: "...", features: ["..."] }, // optional
@@ -28,7 +28,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/b4631119-oss/academy-exam",
     liveUrl: "https://www.prolab-academy.site/",
     role: "Solo Developer",
-    tier: "flagship",
+    tier: "secondary",
     customCaseStudy: {
       metadataTitle: "PROlab Academy — Кейс",
       back: "Назад к проектам",
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/b4631119-oss/lifeOS",
     liveUrl: "https://os-life-one.vercel.app/",
     role: "Solo Developer",
-    tier: "flagship",
+    tier: "secondary",
     caseStudy: {
       overview:
         "LifeOS — личная система управления делами и планирования дня. Проект объединяет задачи, расписание, привычки, цели, аналитику и заметки за одним Google-входом.",
@@ -152,7 +152,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/b4631119-oss/macOs-portfolio",
     liveUrl: "https://mac-os-portfolio-app.vercel.app/",
     role: "Solo Developer",
-    tier: "flagship",
+    tier: "secondary",
     caseStudy: {
       overview:
         "macOS Portfolio — интерактивное веб-портфолио, оформленное как рабочий стол macOS. Навигация построена вокруг окон и небольших приложений, а данные профиля и репозиториев загружаются из GitHub API.",
@@ -298,6 +298,52 @@ export function localizeProject(project: Project, locale: Locale): Project {
 
 export function localizeProjects(items: Project[], locale: Locale): Project[] {
   return items.map((project) => localizeProject(project, locale));
+}
+
+function repositoryIdentity(githubUrl: string): string {
+  try {
+    return new URL(githubUrl).pathname.split("/").filter(Boolean).slice(-2).join("/").toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+type PinnedRepository = { name: string; full_name?: string; html_url?: string };
+
+function pinnedRepositoryIdentity(repo: PinnedRepository): string {
+  if (repo.full_name) return repo.full_name.toLowerCase();
+  if (repo.html_url) return repositoryIdentity(repo.html_url);
+  return "";
+}
+
+export function missingProjectsForPinnedRepos(
+  pinnedRepos: PinnedRepository[]
+): string[] {
+  const projectIdentities = new Set(projects.map((project) => repositoryIdentity(project.githubUrl)));
+  return pinnedRepos
+    .filter((repo) => !projectIdentities.has(pinnedRepositoryIdentity(repo)))
+    .map((repo) => repo.full_name ?? repo.name);
+}
+
+export function projectsForPinnedRepos(
+  pinnedRepos: PinnedRepository[],
+  locale: Locale
+): Project[] {
+  const byRepository = new Map(projects.map((project) => [repositoryIdentity(project.githubUrl), project]));
+  return pinnedRepos.flatMap((repo) => {
+    const project = byRepository.get(pinnedRepositoryIdentity(repo));
+    return project ? [localizeProject(project, locale)] : [];
+  });
+}
+
+export function projectsNotPinned(
+  pinnedRepos: PinnedRepository[],
+  locale: Locale
+): Project[] {
+  const pinnedIdentities = new Set(pinnedRepos.map(pinnedRepositoryIdentity));
+  return localizeProjects(projects, locale).filter(
+    (project) => !pinnedIdentities.has(repositoryIdentity(project.githubUrl))
+  );
 }
 
 export function getProject(id: string): Project | undefined {

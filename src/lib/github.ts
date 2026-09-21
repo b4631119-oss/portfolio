@@ -105,7 +105,7 @@ async function githubGraphQLFetch<T>(query: string, variables: Record<string, un
       Accept: "application/vnd.github+json",
     },
     body: JSON.stringify({ query, variables }),
-    next: { revalidate: REVALIDATE_SECONDS },
+    cache: "no-store",
   });
 
   if (!response.ok) {
@@ -171,7 +171,7 @@ export async function getPinnedRepos(): Promise<GithubRepo[]> {
               forkCount
               primaryLanguage { name }
               updatedAt
-              fork
+              isFork
             }
           }
         }
@@ -193,16 +193,14 @@ export async function getPinnedRepos(): Promise<GithubRepo[]> {
               forkCount: number;
               primaryLanguage: { name: string } | null;
               updatedAt: string;
-              fork: boolean;
+              isFork: boolean;
             }>;
           };
         };
       }>(query, { login: getUsername() });
 
       const nodes = data.user?.pinnedItems?.nodes ?? [];
-      return nodes
-        .filter((n) => !n.fork)
-        .map((n) => ({
+      return nodes.map((n) => ({
           id: 0, // GraphQL doesn't return numeric ID easily; not used for display
           name: n.name,
           full_name: `${getUsername()}/${n.name}`,
@@ -214,7 +212,7 @@ export async function getPinnedRepos(): Promise<GithubRepo[]> {
           topics: [],
           updated_at: n.updatedAt,
           homepage: null,
-          fork: n.fork,
+          fork: n.isFork,
         }));
     }
   } catch {

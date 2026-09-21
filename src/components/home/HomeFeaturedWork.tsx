@@ -1,16 +1,19 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { localizeProjects, projects } from "@/data/projects";
-import { Button } from "@/components/ui/button";
-import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
+import { missingProjectsForPinnedRepos, projectsForPinnedRepos } from "@/data/projects";
+import type { GithubRepo } from "@/lib/github";
+import { ProjectCard } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
-export function HomeFeaturedWork({ dictionary }: { dictionary?: UiDictionary }) {
+export function HomeFeaturedWork({ pinnedRepos, dictionary }: { pinnedRepos: GithubRepo[]; dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
-  const flagship = localizeProjects(projects, d.locale).filter((project) => projectTier(project) === "flagship");
-  const [lead, ...rest] = flagship;
-  const caseStudyProject = flagship.find((project) => project.customCaseStudy || project.caseStudy);
+  const selectedProjects = projectsForPinnedRepos(pinnedRepos, d.locale);
+  const [lead, ...rest] = selectedProjects;
+  if (process.env.NODE_ENV === "development") {
+    const unmatched = missingProjectsForPinnedRepos(pinnedRepos);
+    if (unmatched.length > 0) {
+      console.warn("GitHub pinned repositories missing from projects.ts:", unmatched);
+    }
+  }
 
   return (
     <section className="mt-24 md:mt-32" id="work" aria-labelledby="work-heading">
@@ -26,7 +29,7 @@ export function HomeFeaturedWork({ dictionary }: { dictionary?: UiDictionary }) 
         {lead && (
           <Reveal delay={80}>
             <div className="mt-12">
-              <ProjectCard project={lead} variant="flagship" dictionary={d} />
+              <ProjectCard project={lead} variant="selected" dictionary={d} />
             </div>
           </Reveal>
         )}
@@ -35,29 +38,17 @@ export function HomeFeaturedWork({ dictionary }: { dictionary?: UiDictionary }) 
           <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-6 md:gap-8">
             {rest.map((project, index) => (
               <Reveal key={project.id} delay={160 + index * 80}>
-                <ProjectCard project={project} variant="flagship" dictionary={d} />
+                <ProjectCard project={project} variant="selected" dictionary={d} />
               </Reveal>
             ))}
           </div>
         )}
 
-        {caseStudyProject && (
-          <Reveal delay={240}>
-            <div className="mt-10 text-center">
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="font-bold font-mono text-sm tracking-wider"
-              >
-                <Link href={`${d.locale === "en" ? "/en" : ""}/projects/${caseStudyProject.id}`}>
-                  {d.home.caseLink}
-                  <ArrowRight size={18} className="ml-2" aria-hidden="true" />
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
+        {!lead && (
+          <p className="mt-12 text-muted text-center">{d.home.selectedWorkEmpty}</p>
         )}
+
+
       </div>
     </section>
   );

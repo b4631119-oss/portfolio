@@ -1,11 +1,12 @@
-import { localizeProjects, projects } from "@/data/projects";
+import { projectsNotPinned } from "@/data/projects";
+import type { GithubRepo } from "@/lib/github";
 import { ProjectCard, projectTier } from "@/components/project/ProjectCard";
 import { Reveal } from "@/components/ui/reveal";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
-export function HomeOtherWork({ dictionary }: { dictionary?: UiDictionary }) {
+export function HomeOtherWork({ pinnedRepos, dictionary }: { pinnedRepos: GithubRepo[]; dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
-  const localized = localizeProjects(projects, d.locale);
+  const localized = projectsNotPinned(pinnedRepos, d.locale);
   const secondary = localized.filter((project) => projectTier(project) === "secondary");
   const simple = localized.filter((project) => projectTier(project) === "experiment");
 

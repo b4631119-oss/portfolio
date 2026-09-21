@@ -40,11 +40,10 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary
   return (
     <section className="mt-24 md:mt-32" id="github" aria-labelledby="github-heading">
       <h2 id="github-heading" className="sr-only">{d.home.githubTitle}</h2>
-      {/* Pinned Repositories */}
       {pinnedRepos.length > 0 && (
         <Reveal delay={160}>
           <div className="mt-12">
-            <h3 id="pinned-repos-heading" className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
+            <h3 className="font-mono text-xs tracking-widest text-muted uppercase mb-6">
               {d.home.pinned}
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
@@ -52,38 +51,15 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary
                 <Reveal key={repo.name} delay={index * 80}>
                   <article className="bg-bg-elevated border border-line rounded-[var(--radius)] p-5 flex flex-col hover:border-accent/50 transition-colors duration-300">
                     <h3 className="font-sans font-semibold text-ink">
-                      <Link
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-accent transition-colors"
-                      >
+                      <Link href={repo.html_url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
                         {repo.name}
                       </Link>
                     </h3>
-                    {repo.description && (
-                      <p className="mt-2 text-sm text-muted line-clamp-2 leading-relaxed flex-1">
-                        {repo.description}
-                      </p>
-                    )}
+                    {repo.description && <p className="mt-2 text-sm text-muted line-clamp-2 leading-relaxed flex-1">{repo.description}</p>}
                     <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
-                      {repo.language && (
-                        <span className="flex items-center gap-1.5">
-                          <span
-                            className="w-2 h-2 rounded-full bg-accent"
-                            aria-hidden="true"
-                          />
-                          {repo.language}
-                        </span>
-                      )}
-                      <span className="flex items-center gap-1">
-                        <Star size={12} className="text-muted" aria-hidden="true" />
-                        {repo.stargazers_count}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <GitFork size={12} className="text-muted" aria-hidden="true" />
-                        {repo.forks_count}
-                      </span>
+                      {repo.language && <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-accent" aria-hidden="true" />{repo.language}</span>}
+                      <span className="flex items-center gap-1"><Star size={12} aria-hidden="true" />{repo.stargazers_count}</span>
+                      <span className="flex items-center gap-1"><GitFork size={12} aria-hidden="true" />{repo.forks_count}</span>
                     </div>
                   </article>
                 </Reveal>
@@ -92,7 +68,6 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary
           </div>
         </Reveal>
       )}
-      
       {languageStats.length > 0 && (
         <Reveal delay={240}>
           <div className="mt-12">
