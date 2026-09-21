@@ -16,9 +16,7 @@ export function HomeAbout({ dictionary }: { dictionary?: UiDictionary }) {
             <p>
               {d.home.aboutIntro}
             </p>
-            <p>
-              {d.home.aboutDetails}
-            </p>
+            {d.home.aboutDetails ? <p>{d.home.aboutDetails}</p> : null}
           </div>
           <div className="mt-8 text-center">
             <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">

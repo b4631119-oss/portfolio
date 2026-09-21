@@ -118,14 +118,14 @@ Russian is the default language and keeps the existing URLs (`/`, `/about`, `/pr
 
 1. Откройте `src/data/projects.ts`.
 2. Добавьте одну запись в массив `projects` и сохраните обязательные поля: `id`, `title`, `description`, `tags`, `githubUrl` и `tier`.
-3. Выберите подходящий tier: `flagship`, `secondary` или `experiment`. Порядок записей внутри tier сохраняется.
+3. Выберите tier для организации проекта: `secondary` или `experiment`. Главные проекты не задаются в коде — Selected Work строится из GitHub pinned repositories в порядке GitHub.
 4. Добавьте английскую версию в `localized.en` для описания и, если нужно, case study. Ссылки GitHub/Live и теги остаются общими.
 5. `caseStudy` необязателен. Для специальной страницы PROlab используется существующее поле `customCaseStudy`; обычным проектам его заполнять не нужно.
 6. `image` необязателен. Если позже появится скриншот, создайте `public/projects/<id>/cover.webp` и добавьте `image` в эту же запись; для английского alt-текста используйте `localized.en.image`.
 7. Не нужно вручную менять homepage, `/projects`, `generateStaticParams`, sitemap, metadata, canonical, hreflang или карточки.
 8. Проверьте изменения командой `npm run build`.
 
-Из одной записи проект автоматически используется в homepage, списке проектов, локализованной detail-странице, metadata, sitemap и tier-фильтрации. Проекты без `image` отображаются без пустого блока превью.
+Из одной записи проект автоматически используется в homepage, списке проектов, локализованной detail-странице, metadata, sitemap и организации остальных проектов по tier. Selected Work обновляется через GitHub pinned repositories. Проекты без `image` отображаются без пустого блока превью.
 
 ---
 
