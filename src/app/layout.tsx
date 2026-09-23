@@ -73,7 +73,7 @@ export default async function RootLayout({
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Bilol",
+    name: "Bilolidin",
     jobTitle: "Full-Stack Developer",
     url: siteUrl,
     inLanguage: locale,
