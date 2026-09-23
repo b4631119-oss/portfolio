@@ -29,7 +29,7 @@ export default function GET() {
         >
           <span
             style={{
-              fontSize: 64,
+              fontSize: 56,
               fontWeight: 700,
               color: "#5b8dff",
               lineHeight: 1,
@@ -37,7 +37,7 @@ export default function GET() {
               letterSpacing: "0.1em",
             }}
           >
-            B I L O L
+            B I L O L I D I N
           </span>
           <span
             style={{
