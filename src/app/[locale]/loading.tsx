@@ -1,8 +1,10 @@
 import { getDictionary } from "@/i18n";
+import { defaultLocale, isLocale } from "@/i18n/config";
 import { headers } from "next/headers";
 
 export default async function Loading() {
-  const locale = (await headers()).get("x-locale") === "en" ? "en" : "ru";
+  const requestedLocale = (await headers()).get("x-locale");
+  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : defaultLocale;
   const d = getDictionary(locale);
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg">

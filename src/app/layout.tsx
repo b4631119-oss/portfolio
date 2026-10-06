@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { CursorGrid } from "@/components/effects/CursorGrid";
 import { siteUrl } from "@/data/site";
 import { contact } from "@/data/contact";
+import { defaultLocale, isLocale } from "@/i18n/config";
 import "./globals.css";
 
 const inter = Inter({
@@ -69,7 +70,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = (await headers()).get("x-locale") === "en" ? "en" : "ru";
+  const requestedLocale = (await headers()).get("x-locale");
+  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : defaultLocale;
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",

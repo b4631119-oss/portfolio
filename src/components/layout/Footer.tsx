@@ -1,8 +1,9 @@
 import { Github, Instagram, Mail, Send } from "lucide-react";
 import { contact, mailtoHref } from "@/data/contact";
 import { getDictionary, type UiDictionary } from "@/i18n";
+import { defaultLocale, type Locale } from "@/i18n/config";
 
-export default function Footer({ locale = "ru" }: { locale?: "ru" | "en" }) {
+export default function Footer({ locale = defaultLocale }: { locale?: Locale }) {
   const d: UiDictionary = getDictionary(locale);
   const socialLinks = [{ href: contact.github, label: "GitHub", icon: Github, external: true }, { href: contact.telegram, label: "Telegram", icon: Send, external: true }, { href: contact.instagram, label: "Instagram", icon: Instagram, external: true }, { href: mailtoHref, label: "Email", icon: Mail, external: false }] as const;
   return (

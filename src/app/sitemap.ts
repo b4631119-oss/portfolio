@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 import { siteUrl } from "@/data/site";
-import { localePath } from "@/i18n/metadata";
-import { locales, type Locale } from "@/i18n/config";
+import { defaultLocale, localePath, locales, type Locale } from "@/i18n/config";
 
 function entry(
   path: string,
@@ -10,14 +9,19 @@ function entry(
   priority: number,
   changeFrequency: "daily" | "weekly" | "monthly"
 ): MetadataRoute.Sitemap[number] {
-  const ru = `${siteUrl}${localePath(path, "ru")}`;
-  const en = `${siteUrl}${localePath(path, "en")}`;
   return {
-    url: locale === "en" ? en : ru,
+    url: `${siteUrl}${localePath(path, locale)}`,
     lastModified: new Date(),
     changeFrequency,
     priority,
-    alternates: { languages: { ru, en, "x-default": ru } },
+    alternates: {
+      languages: {
+        ru: `${siteUrl}${localePath(path, "ru")}`,
+        en: `${siteUrl}${localePath(path, "en")}`,
+        uz: `${siteUrl}${localePath(path, "uz")}`,
+        "x-default": `${siteUrl}${localePath(path, defaultLocale)}`,
+      },
+    },
   };
 }
 

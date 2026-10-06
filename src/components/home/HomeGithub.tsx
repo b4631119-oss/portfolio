@@ -4,6 +4,7 @@ import type { GithubRepo, LanguageStat } from "@/lib/github";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { getDictionary, type UiDictionary } from "@/i18n";
+import { localePath, type Locale } from "@/i18n/config";
 
 interface HomeGithubProps {
   pinnedRepos: GithubRepo[];
@@ -13,7 +14,7 @@ interface HomeGithubProps {
 
 const opacitySteps = [1, 0.8, 0.6, 0.4, 0.25, 0.15];
 
-function formatRelativeDate(iso: string, locale: "ru" | "en", justNow: string): string {
+function formatRelativeDate(iso: string, locale: Locale, justNow: string): string {
   const then = new Date(iso).getTime();
   const seconds = Math.round((then - Date.now()) / 1000);
   const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
@@ -151,7 +152,7 @@ export function HomeGithub({ pinnedRepos, languageStats, recentRepos, dictionary
       {/* View full profile link */}
       <div className="mt-10 text-center">
         <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">
-          <Link href={`${d.locale === "en" ? "/en" : ""}/profile`}>
+          <Link href={localePath("/profile", d.locale)}>
             {d.buttons.profile}
             <ExternalLink size={18} className="ml-2" aria-hidden="true" />
           </Link>

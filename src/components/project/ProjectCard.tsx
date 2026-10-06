@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Project, ProjectTier } from "@/types";
 import { getDictionary, type UiDictionary } from "@/i18n";
+import { localePath } from "@/i18n/config";
 
 /** Способ подачи карточки: selected — крупное превью, standard — среднее, compact — строка. */
 export type ProjectCardVariant = "selected" | "standard" | "compact";
@@ -62,7 +63,7 @@ function Preview({
 export function ProjectCard({ project, variant, dictionary }: ProjectCardProps) {
   const d = dictionary ?? getDictionary();
   const cardVariant = variant ?? tierToVariant(projectTier(project));
-  const detailsHref = `${d.locale === "en" ? "/en" : ""}/projects/${project.id}`;
+  const detailsHref = localePath(`/projects/${project.id}`, d.locale);
   const hasCaseStudy = Boolean(project.customCaseStudy || project.caseStudy);
 
   if (cardVariant === "selected") {

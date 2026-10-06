@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { getDictionary, type UiDictionary } from "@/i18n";
+import { localeFromPathname, localePath } from "@/i18n/config";
 
 export default function Error({
   error,
@@ -15,7 +16,8 @@ export default function Error({
   reset: () => void;
 }) {
   const pathname = usePathname();
-  const d: UiDictionary = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  const locale = localeFromPathname(pathname);
+  const d: UiDictionary = getDictionary(locale);
   useEffect(() => {
     console.error("Application error:", error);
   }, [error]);
@@ -43,7 +45,7 @@ export default function Error({
             {d.buttons.retry}
           </Button>
           <Link
-            href="/"
+            href={localePath("/", locale)}
             className="font-mono text-sm text-muted hover:text-accent transition-colors"
           >
             ← {d.buttons.returnHome}

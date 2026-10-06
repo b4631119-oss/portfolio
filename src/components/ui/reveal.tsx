@@ -32,10 +32,9 @@ export function Reveal({ children, delay = 0, className = "", once = true }: Rev
           : "opacity-0 translate-y-4"
         }
         transition-all duration-700 ease-out
-        ${delay > 0 ? `transition-delay-[${delay}ms]` : ""}
         ${className}
       `}
-      style={{ willChange: prefersReducedMotion || inView ? "auto" : "opacity, transform" }}
+      style={{ transitionDelay: delay > 0 ? `${delay}ms` : undefined }}
     >
       {children}
     </div>

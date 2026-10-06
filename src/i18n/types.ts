@@ -1,5 +1,5 @@
 export interface UiDictionary {
-  locale: "ru" | "en";
+  locale: "ru" | "en" | "uz";
   nav: {
     projects: string;
     about: string;

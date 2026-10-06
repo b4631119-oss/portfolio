@@ -4,6 +4,7 @@ import { Moon, Sun } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/layout/ThemeProvider";
 import { getDictionary } from "@/i18n";
+import { localeFromPathname } from "@/i18n/config";
 
 
 function nextMode(current: "light" | "dark"): "light" | "dark" {
@@ -17,7 +18,7 @@ const icons: Record<"light" | "dark", React.ReactNode> = {
 
 export default function ThemeToggle({ className }: { className?: string }) {
   const pathname = usePathname();
-  const d = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  const d = getDictionary(localeFromPathname(pathname));
   const labels: Record<"light" | "dark", string> = { light: d.aria.themeLight, dark: d.aria.themeDark };
   const { mode, setMode } = useTheme();
 

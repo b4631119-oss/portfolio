@@ -1,8 +1,10 @@
 import { siteUrl } from "@/data/site";
-import type { Locale } from "@/i18n/config";
+import { localePath, locales, type Locale } from "@/i18n/config";
 
-export function localePath(path: string, locale: Locale): string {
-  return locale === "en" ? `/en${path === "/" ? "" : path}` : path;
+export { localePath };
+
+export function openGraphLocale(locale: Locale): string {
+  return { en: "en_US", ru: "ru_RU", uz: "uz_UZ" }[locale];
 }
 
 export function alternatesFor(path: string, locale: Locale) {
@@ -11,6 +13,7 @@ export function alternatesFor(path: string, locale: Locale) {
     languages: {
       ru: `${siteUrl}${localePath(path, "ru")}`,
       en: `${siteUrl}${localePath(path, "en")}`,
+      uz: `${siteUrl}${localePath(path, "uz")}`,
       "x-default": `${siteUrl}${path}`,
     },
   };
@@ -18,7 +21,7 @@ export function alternatesFor(path: string, locale: Locale) {
 
 export function socialMetadata(path: string, locale: Locale, title: string, description: string, image = "/opengraph-image") {
   const url = `${siteUrl}${localePath(path, locale)}`;
-  const ogLocale = locale === "en" ? "en_US" : "ru_RU";
+  const ogLocale = openGraphLocale(locale);
   return {
     openGraph: {
       type: "website" as const,
@@ -26,7 +29,7 @@ export function socialMetadata(path: string, locale: Locale, title: string, desc
       description,
       url,
       locale: ogLocale,
-      alternateLocale: locale === "en" ? ["ru_RU"] : ["en_US"],
+      alternateLocale: locales.filter((item) => item !== locale).map(openGraphLocale),
       images: [{ url: image, alt: title }],
     },
     twitter: { card: "summary_large_image" as const, title, description, images: [image] },

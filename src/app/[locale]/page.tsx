@@ -1,6 +1,6 @@
 import { getGithubData } from "@/lib/github";
 import { getDictionary } from "@/i18n";
-import { isLocale, type Locale } from "@/i18n/config";
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import type { Metadata } from "next";
 import { alternatesFor, socialMetadata } from "@/i18n/metadata";
 import { HomeHero } from "@/components/home/HomeHero";
@@ -13,7 +13,7 @@ import { HomeContact } from "@/components/home/HomeContact";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
-  const locale: Locale = isLocale(raw) ? raw : "ru";
+  const locale: Locale = isLocale(raw) ? raw : defaultLocale;
   const d = getDictionary(locale);
   const title = `Bilolidin — ${d.home.heroTitle}`;
   return { title, description: d.home.heroDescription, alternates: alternatesFor("/", locale), ...socialMetadata("/", locale, title, d.home.heroDescription) };
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "ru";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
   const { pinnedRepos, languageStats, recentRepos } = await getGithubData();
 

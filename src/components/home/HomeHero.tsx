@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
 import { getDictionary, type UiDictionary } from "@/i18n";
+import { localePath } from "@/i18n/config";
 
 export function HomeHero({ dictionary }: { dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
@@ -63,7 +64,7 @@ export function HomeHero({ dictionary }: { dictionary?: UiDictionary }) {
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 pt-2">
               <Button asChild size="lg" className="shadow-none font-bold">
-                <Link href={`${d.locale === "en" ? "/en" : ""}/#work`}>{d.buttons.projects}</Link>
+                 <Link href={`${localePath("/", d.locale)}#work`}>{d.buttons.projects}</Link>
               </Button>
               <Button
                 asChild
@@ -71,7 +72,7 @@ export function HomeHero({ dictionary }: { dictionary?: UiDictionary }) {
                 variant="outline"
                 className="font-bold"
               >
-                <Link href={`${d.locale === "en" ? "/en" : ""}/#contact`}>{d.buttons.contact}</Link>
+                 <Link href={`${localePath("/", d.locale)}#contact`}>{d.buttons.contact}</Link>
               </Button>
             </div>
           </div>

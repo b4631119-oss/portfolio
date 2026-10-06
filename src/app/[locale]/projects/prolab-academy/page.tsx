@@ -6,15 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowLeft, Check, Github, Server, Database, Zap } from "lucide-react";
 import { getProject, localizeProject } from "@/data/projects";
 import { ArchitectureDiagram } from "@/components/ui/architecture-diagram";
-import { locales, isLocale, type Locale } from "@/i18n/config";
-import { alternatesFor } from "@/i18n/metadata";
+import { defaultLocale, locales, isLocale, localePath, type Locale } from "@/i18n/config";
+import { alternatesFor, openGraphLocale } from "@/i18n/metadata";
 
 export function generateStaticParams() { return locales.map((locale) => ({ locale })); }
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
-  const locale: Locale = isLocale(raw) ? raw : "ru";
+  const locale: Locale = isLocale(raw) ? raw : defaultLocale;
   const project = getProject("prolab-academy");
   const localizedProject = project ? localizeProject(project, locale) : undefined;
   const content = localizedProject?.customCaseStudy;
@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: content.metadataTitle,
       description: content.intro,
-      url: locale === "en" ? "/en/projects/prolab-academy" : "/projects/prolab-academy",
-      locale: locale === "en" ? "en_US" : "ru_RU",
+      url: localePath("/projects/prolab-academy", locale),
+      locale: openGraphLocale(locale),
       images: [{ url: "/opengraph-image", alt: content.metadataTitle }],
     },
     twitter: {
@@ -48,12 +48,12 @@ const archNodes = [
 
 export default async function ProLabAcademyCaseStudy({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
-  const locale: Locale = isLocale(raw) ? raw : "ru";
+  const locale: Locale = isLocale(raw) ? raw : defaultLocale;
   const project = getProject("prolab-academy");
   const localizedProject = project ? localizeProject(project, locale) : undefined;
   const content = localizedProject?.customCaseStudy;
   if (!content || !localizedProject || !localizedProject.liveUrl) notFound();
-  const prefix = locale === "en" ? "/en" : "";
+  const prefix = localePath("", locale);
   const { liveUrl, githubUrl, title } = localizedProject;
 
   return (

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { getDictionary, type UiDictionary } from "@/i18n";
+import { localePath } from "@/i18n/config";
 
 export function HomeAbout({ dictionary }: { dictionary?: UiDictionary }) {
   const d = dictionary ?? getDictionary();
@@ -20,7 +21,7 @@ export function HomeAbout({ dictionary }: { dictionary?: UiDictionary }) {
           </div>
           <div className="mt-8 text-center">
             <Button asChild variant="outline" size="lg" className="font-bold font-mono text-sm tracking-wider">
-              <Link href={`${d.locale === "en" ? "/en" : ""}/about`}>{d.buttons.details}</Link>
+                <Link href={localePath("/about", d.locale)}>{d.buttons.details}</Link>
             </Button>
           </div>
         </Reveal>

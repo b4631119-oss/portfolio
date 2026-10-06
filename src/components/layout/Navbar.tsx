@@ -10,26 +10,30 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/s
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import { Globe } from "lucide-react";
 import { getDictionary } from "@/i18n";
+import { isLocale, localeFromPathname, localePath, type Locale } from "@/i18n/config";
 
 export default function Navbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const locale = pathname.startsWith("/en") ? "en" : "ru";
+  const locale = localeFromPathname(pathname);
   const d = getDictionary(locale);
-  const prefix = locale === "en" ? "/en" : "";
+  const homePath = localePath("/", locale);
   const navLinks = [
-    { href: `${prefix}/#work`, label: d.nav.projects },
-    { href: `${prefix}/#about`, label: d.nav.about },
-    { href: `${prefix}/#stack`, label: d.nav.stack },
-    { href: `${prefix}/#github`, label: d.nav.github },
-    { href: `${prefix}/#contact`, label: d.nav.contact },
+    { href: `${homePath}#work`, label: d.nav.projects },
+    { href: `${homePath}#about`, label: d.nav.about },
+    { href: `${homePath}#stack`, label: d.nav.stack },
+    { href: `${homePath}#github`, label: d.nav.github },
+    { href: `${homePath}#contact`, label: d.nav.contact },
   ] as const;
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const hash = typeof window === "undefined" ? "" : window.location.hash;
+  const nextLocale: Record<Locale, Locale> = { en: "ru", ru: "uz", uz: "en" };
   const targetLocalePath = () => {
-    const isEnglish = locale === "en";
-    const base = isEnglish ? pathname.replace(/^\/en(?=\/|$)/, "") || "/" : `/en${pathname === "/" ? "" : pathname}`;
+    const segments = pathname.split("/").filter(Boolean);
+    const routeSegments = segments[0] && isLocale(segments[0]) ? segments.slice(1) : segments;
+    const currentRoute = routeSegments.length ? `/${routeSegments.join("/")}` : "/";
+    const base = localePath(currentRoute, nextLocale[locale]);
     const query = searchParams.toString();
     return `${base}${query ? `?${query}` : ""}${hash}`;
   };
@@ -60,7 +64,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Wordmark */}
           <Link
-            href={prefix || "/"}
+            href={homePath}
             className="font-mono text-sm tracking-widest text-ink hover:opacity-80 transition-opacity"
             aria-label={d.nav.home}
           >
@@ -96,7 +100,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
             <Button asChild size="sm" className="hidden md:inline-flex font-mono text-xs tracking-wider">
-              <Link href={`${prefix}/#contact`}>{d.buttons.contact}</Link>
+              <Link href={`${homePath}#contact`}>{d.buttons.contact}</Link>
             </Button>
 
             <Link href={targetLocalePath()} aria-label={d.nav.languageSwitch} className="inline-flex h-8 w-8 items-center justify-center text-muted hover:text-accent transition-colors"><Globe size={17} aria-hidden="true" /><span className="sr-only">{d.nav.languageSwitch}</span></Link>
@@ -136,7 +140,7 @@ export default function Navbar() {
                     <Link href={targetLocalePath()} aria-label={d.nav.languageSwitch} className="inline-flex h-10 w-10 items-center justify-center text-muted hover:text-accent transition-colors"><Globe size={17} aria-hidden="true" /><span className="sr-only">{d.nav.languageSwitch}</span></Link>
                     <ThemeToggle className="h-10 w-10 text-muted" />
                     <Button asChild className="w-full sm:w-auto font-mono text-sm tracking-wider">
-                      <Link href={`${prefix}/#contact`}>{d.buttons.contact}</Link>
+                      <Link href={`${homePath}#contact`}>{d.buttons.contact}</Link>
                     </Button>
                   </div>
                 </div>

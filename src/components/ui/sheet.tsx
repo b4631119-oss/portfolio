@@ -7,6 +7,7 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { getDictionary } from "@/i18n"
+import { localeFromPathname } from "@/i18n/config"
 import { usePathname } from "next/navigation"
 
 const Sheet = SheetPrimitive.Root
@@ -58,7 +59,7 @@ interface SheetContentProps
 
 function SheetCloseButton({ className }: { className?: string }) {
   const pathname = usePathname();
-  const d = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  const d = getDictionary(localeFromPathname(pathname));
   return <SheetPrimitive.Close className={className}><X className="h-4 w-4" /><span className="sr-only">{d.buttons.close}</span></SheetPrimitive.Close>;
 }
 

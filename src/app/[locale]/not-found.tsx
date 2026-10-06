@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { getDictionary } from "@/i18n";
+import { defaultLocale, isLocale, localePath } from "@/i18n/config";
 import { headers } from "next/headers";
 
 export default async function NotFound() {
-  const locale = (await headers()).get("x-locale") === "en" ? "en" : "ru";
+  const requestedLocale = (await headers()).get("x-locale");
+  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : defaultLocale;
   const d = getDictionary(locale);
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg px-4">
@@ -23,7 +25,7 @@ export default async function NotFound() {
           </p>
         </div>
         <Link
-          href={locale === "en" ? "/en" : "/"}
+          href={localePath("/", locale)}
           className="inline-flex items-center gap-2 font-mono text-sm text-muted hover:text-accent transition-colors"
         >
           ← {d.buttons.returnHome}

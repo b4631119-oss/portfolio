@@ -18,6 +18,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getDictionary } from "@/i18n";
+import { localeFromPathname } from "@/i18n/config";
 import {
   Dialog,
   DialogContent,
@@ -35,7 +36,7 @@ type SortKey = "stars" | "updated" | "name";
 
 export default function RepoExplorer({ repos }: { repos: GithubRepo[] }) {
   const pathname = usePathname();
-  const d = getDictionary(pathname.startsWith("/en") ? "en" : "ru");
+  const d = getDictionary(localeFromPathname(pathname));
   const sortLabels: Record<SortKey, string> = { stars: d.states.sortStars, updated: d.states.sortUpdated, name: d.states.sortName };
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("stars");

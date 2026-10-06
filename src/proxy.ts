@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { ENABLE_EN } from "@/i18n/config";
+import { defaultLocale, isLocale } from "@/i18n/config";
 import { projects } from "@/data/projects";
 
 const projectIds = new Set(projects.map((project) => project.id));
@@ -10,7 +10,7 @@ function withLocale(request: NextRequest, locale: string, rewrite = false) {
   if (rewrite) {
     const url = request.nextUrl.clone();
     const pathname = url.pathname;
-    url.pathname = `/ru${pathname === "/" ? "/" : pathname}`;
+    url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
     return NextResponse.rewrite(url, { request: { headers } });
   }
   return NextResponse.next({ request: { headers } });
@@ -20,24 +20,23 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const parts = pathname.split("/").filter(Boolean);
   const first = parts[0];
-  const routeParts = first === "en" ? parts.slice(1) : parts;
+  const routeParts = first && isLocale(first) ? parts.slice(1) : parts;
 
   if (routeParts[0] === "projects" && routeParts[1] && !projectIds.has(routeParts[1])) {
     return new NextResponse("Not Found", { status: 404 });
   }
 
-  if (first === "ru") {
+  if (first === "en") {
     const url = request.nextUrl.clone();
     url.pathname = `/${parts.slice(1).join("/")}` || "/";
     return NextResponse.redirect(url, 301);
   }
 
-  if (first === "en") {
-    if (!ENABLE_EN) return new NextResponse("Not Found", { status: 404 });
-    return withLocale(request, "en");
+  if (first && isLocale(first)) {
+    return withLocale(request, first);
   }
 
-  return withLocale(request, "ru", true);
+  return withLocale(request, defaultLocale, true);
 }
 
 export const config = {

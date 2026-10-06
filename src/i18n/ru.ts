@@ -5,7 +5,7 @@ export const ru = {
   nav: {
     projects: "Проекты", about: "Обо мне", stack: "Стек", github: "GitHub", contact: "Контакты",
     home: "На главную", primary: "Основная навигация", mobile: "Мобильная навигация",
-    openMenu: "Открыть меню", closeMenu: "Закрыть меню", languageSwitch: "Переключить на английский",
+    openMenu: "Открыть меню", closeMenu: "Закрыть меню", languageSwitch: "Переключить на узбекский",
   },
   buttons: {
     contact: "Связаться", projects: "Смотреть проекты", details: "Подробнее", caseStudy: "Кейс",

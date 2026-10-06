@@ -90,12 +90,16 @@ export function CursorGrid() {
       {/* Spotlight overlay - accent colored dots following cursor */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 -z-10 pointer-events-none"
+        className="fixed left-0 top-0 -z-10 pointer-events-none"
         style={{
+          width: 480,
+          height: 480,
+          transform: "translate3d(calc(var(--x, 0px) - 240px), calc(var(--y, 0px) - 240px), 0)",
+          willChange: "transform",
           backgroundImage: "radial-gradient(var(--accent) 1.5px, transparent 1.5px)",
           backgroundSize: "28px 28px",
-          maskImage: "radial-gradient(circle 240px at var(--x, 0px) var(--y, 0px), black, transparent 70%)",
-          WebkitMaskImage: "radial-gradient(circle 240px at var(--x, 0px) var(--y, 0px), black, transparent 70%)",
+          maskImage: "radial-gradient(circle 240px at center, black, transparent 70%)",
+          WebkitMaskImage: "radial-gradient(circle 240px at center, black, transparent 70%)",
           opacity: "0.7",
         }}
         aria-hidden="true"
