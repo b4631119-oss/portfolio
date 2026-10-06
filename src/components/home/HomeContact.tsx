@@ -1,4 +1,4 @@
-import { Github, Mail, Send } from "lucide-react";
+import { Github, Instagram, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { contact, mailtoHref } from "@/data/contact";
 import { getDictionary, type UiDictionary } from "@/i18n";
@@ -12,7 +12,7 @@ export function HomeContact({ dictionary }: { dictionary?: UiDictionary }) {
         <h2 id="contact-heading" className="font-sans font-bold text-ink text-4xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
           {d.home.contactTitle}
         </h2>
-        <p className="mt-6 text-lg text-muted max-w-xl mx-auto leading-relaxed">
+        <p className="mt-6 text-lg text-muted max-w-xl mx-auto leading-relaxed whitespace-pre-line">
           {d.home.contactDescription}
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -36,6 +36,17 @@ export function HomeContact({ dictionary }: { dictionary?: UiDictionary }) {
             >
               <Send size={18} aria-hidden="true" />
               Telegram
+            </a>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="font-bold">
+            <a
+              href={contact.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <Instagram size={18} aria-hidden="true" />
+              Instagram
             </a>
           </Button>
           <Button asChild size="lg" className="shadow-none font-bold">

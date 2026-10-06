@@ -77,7 +77,7 @@ export default async function RootLayout({
     jobTitle: "Full-Stack Developer",
     url: siteUrl,
     inLanguage: locale,
-    sameAs: [contact.github, contact.telegram],
+    sameAs: [contact.github, contact.telegram, contact.instagram],
   };
 
   const webSiteSchema = {

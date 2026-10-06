@@ -1,10 +1,10 @@
-import { Github, Mail, Send } from "lucide-react";
+import { Github, Instagram, Mail, Send } from "lucide-react";
 import { contact, mailtoHref } from "@/data/contact";
 import { getDictionary, type UiDictionary } from "@/i18n";
 
 export default function Footer({ locale = "ru" }: { locale?: "ru" | "en" }) {
   const d: UiDictionary = getDictionary(locale);
-  const socialLinks = [{ href: contact.github, label: "GitHub", icon: Github, external: true }, { href: contact.telegram, label: "Telegram", icon: Send, external: true }, { href: mailtoHref, label: "Email", icon: Mail, external: false }] as const;
+  const socialLinks = [{ href: contact.github, label: "GitHub", icon: Github, external: true }, { href: contact.telegram, label: "Telegram", icon: Send, external: true }, { href: contact.instagram, label: "Instagram", icon: Instagram, external: true }, { href: mailtoHref, label: "Email", icon: Mail, external: false }] as const;
   return (
     <footer className="border-t border-line bg-bg" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-16">
